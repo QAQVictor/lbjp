@@ -1,6 +1,7 @@
 package com;
 
-import com.user.model.POJO.User;
+import com.user.model.DO.UserDO;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,8 @@ import java.util.HashMap;
  * @Description: spring boot demo
  */
 @Controller
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com"})
+@MapperScan("com.user.dao")
 public class HelloSpringBoot {
 
     public static void main(String[] args) {
@@ -25,23 +27,11 @@ public class HelloSpringBoot {
 
     @RequestMapping("/hello")
     public String index(HashMap<String, Object> map) {
-        //map.put("hello", "welcome");
         return "/index";
     }
 
-    @RequestMapping("/loginPage")
+    @RequestMapping("/registerPage")
     public String loginPage() {
-        return "loginpage";
+        return "registerPage";
     }
-
-    @RequestMapping("/login")
-    public String login(String username, String password, HttpSession session, @ModelAttribute User user) {
-        session.setAttribute("username", username);
-        session.setAttribute("password", password);
-        user.setUserName(username);
-        user.setPassword(username);
-        System.out.println(username);
-        return "index";
-    }
-
 }

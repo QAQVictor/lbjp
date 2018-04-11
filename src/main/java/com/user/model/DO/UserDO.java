@@ -1,11 +1,11 @@
-package com.user.model.POJO;
+package com.user.model.DO;
 
 /**
  * @Author: 李亚卿
  * @Date: Created in 20:45 2018/4/10 0010
  * @Description: 用户类
  */
-public class User {
+public class UserDO {
     private String userId;
     private String userName;
     private String password;
