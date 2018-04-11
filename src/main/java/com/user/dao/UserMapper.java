@@ -16,5 +16,5 @@ public interface UserMapper {
      *
      * @param user
      */
-    public void insert(UserDO user);
+    void insert(UserDO user);
 }

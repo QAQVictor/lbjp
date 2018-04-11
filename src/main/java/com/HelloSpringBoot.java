@@ -17,7 +17,7 @@ import java.util.HashMap;
  * @Description: spring boot demo
  */
 @Controller
-@SpringBootApplication(scanBasePackages = {"com"})
+@SpringBootApplication
 @MapperScan("com.user.dao")
 public class HelloSpringBoot {
 
