@@ -1,3 +1,7 @@
 spring:
   thymeleaf:
     prefix: classpath:/templates/
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/lbjpdemo
+    username: root
+    password: 1234
