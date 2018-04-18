@@ -1,0 +1,125 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url("../img/library.gif");
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+    -moz-background-size: 100% 100%;
+    height: 768px;
+    width: 1366px;
+}
+
+li {
+    list-style-type: none;
+}
+
+#registerForm {
+    position: absolute;
+    left: 816px;
+    top: 130px;
+    width: 380px;
+    height: 440px;
+    line-height: 20px;
+    opacity: 0.9;
+    background: white;
+    text-align: left;
+    border: 1px solid rgba(187, 187, 187, 1);
+    display: block;
+}
+
+#head {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1366px;
+    height: 72px;
+    line-height: 20px;
+    opacity: 0.9;
+    background: white;
+    text-align: center;
+    border: 1px solid rgba(187, 187, 187, 1);
+}
+
+#head span {
+    color: rgb(0, 170, 238);
+    text-decoration: underline;
+}
+
+#searchInput{
+    left: 816px;
+    top: 10px;
+    width: 251px;
+    height: 50px;
+    border-radius: 6px;
+    color: rgba(136, 136, 136, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: Microsoft Yahei;
+    border: 1px solid rgba(187, 187, 187, 1);
+
+}
+
+#logo {
+    position: absolute;
+    left: 170px;
+    top: 0px;
+    width: 72px;
+    height: 72px;
+}
+
+.title {
+
+    height: 20px;
+    line-height: 20px;
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    font-family: Roboto;
+    display: block;
+}
+
+.registerInfo {
+    height: 70px;
+    margin: 10px auto;
+}
+
+.registerInfo input {
+    width: 280px;
+    height: 50px;
+    border-radius: 6px;
+    color: rgba(136, 136, 136, 1);
+    font-size: 14px;
+    font-family: Microsoft Yahei;
+    border: 1px solid rgba(187, 187, 187, 1);
+    display: block;
+    float: left;
+    padding: 0 10px;
+}
+
+#registerInfoList {
+    width: 300px;
+    margin: 20px auto;
+}
+
+#getValCode {
+    display: block;
+    float: right;
+    width: 110px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: rgb(0, 170, 238);
+    color: white;
+    font-size: 14px;
+    line-height: 50px;
+    text-align: center;
+    font-family: Microsoft Yahei;
+    border: 1px solid rgb(0, 170, 238);
+}
+
+#registerButton {
+    background-color: rgb(0, 170, 238);
+    color: white;
+    border: 1px solid rgb(0, 170, 238);
+}

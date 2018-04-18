@@ -32,6 +32,8 @@ public class HelloSpringBoot {
 
     @RequestMapping("/registerPage")
     public String loginPage() {
-        return "registerPage";
+        return "/registerPage";
     }
+
+
 }

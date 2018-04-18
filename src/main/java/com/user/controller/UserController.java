@@ -1,7 +1,11 @@
 package com.user.controller;
 
 import com.user.model.DO.UserDO;
+import com.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UserController {
-    //@Autowired
-    //private UserDAO userDAO;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/register")
-    public String register(UserDO userDO) {
-        //userDAO.insert(userDO);
+    public String register(String userName, String password, @ModelAttribute UserDO user) {
         return "index";
     }
 }
