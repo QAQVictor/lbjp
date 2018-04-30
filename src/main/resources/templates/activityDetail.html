@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>拉帮结派</title>
+    <link rel="stylesheet" type="text/css" href="/css/activityDetail.css"/>
+</head>
+<body>
+<div id="head">
+    <img id="logo" th:src="@{~/img/logo.PNG}"/>
+    <!--<div id="link">
+        <span id="index">首页</span>
+        <span id="discovery">发现</span>
+    </div>-->
+    <div id="searchDiv">
+        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+        <img id="search" th:src="@{~/img/icon/search.ico}"/>
+        <!--<span id="goToRegister">注册</span>或
+        <sapn id="goToLogin">登录</sapn>-->
+    </div>
+    <div id="personal">
+        <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
+        <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
+        <img class="personalCenter" th:src="@{~/img/icon/user.ico}"/>
+    </div>
+</div>
+<div id="main">
+    <div id="content">
+        <div id="tags">
+            <div class="tag">图书馆</div>
+            <div class="tag">燕山大学</div>
+        </div>
+        <span id="title">周日组团燕山大学东区图书馆</span>
+        <p>周日组团燕山大学东区图书馆周日组团燕山
+            大学东区图书馆周日组团燕山大学东区图书馆周日组团燕山
+            大学东区图书馆周日组团燕山大学东区图书馆周日组团燕山大
+            学东区图书馆周日组团燕山大学东区图书馆周日组团燕山大学
+            东区图书馆周日组团燕山大学东区图书馆周日组团燕山大学东
+            区图书馆周日组团燕山大学东区图书馆周日组团燕山大学东区图书馆</p>
+        <div class="operations">
+            <div><img th:src="@{~/img/icon/comments.ico}"/><span class="comments">430条评论</span></div>
+            <div><img th:src="@{~/img/icon/thumb.ico}"/><span class="nice">20个赞</span></div>
+            <div><img th:src="@{~/img/icon/star0.ico}"/><span class="star">收藏</span></div>
+            <div><img th:src="@{~/img/icon/pay.ico}"/><span class="admire">赞赏</span></div>
+        </div>
+    </div>
+    <div id="otherInfor">
+        <div id="entryForm">
+            <div id="entry">
+                <span class="bar bar_title">报名/名额</span>
+                <span class="bar bar_num">50/60</span>
+            </div>
+            <div id="hot">
+                <span class="bar bar_title">浏览量</span>
+                <span class="bar bar_num">999</span>
+            </div>
+            <span id="startDate" class="entryDate">发布于 2018-4-20</span>
+            <div id="entryButton">立即报名</div>
+            <span id="endDate" class="entryDate">截止到 2018-4-25</span>
+        </div>
+        <div id="creatorInfor">
+            <span>发布人</span>
+            <img id="creatorHeadImg"/>
+            <span id="creatorName">石乐志</span>
+            <div id="followList">
+                <div id="activityNum">
+                    <span>发帖</span>
+                    <span>3</span>
+                </div>
+                <div id="followNum">
+                    <span>关注者</span>
+                    <span>15</span>
+                </div>
+            </div>
+            <div id="follow">关注</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

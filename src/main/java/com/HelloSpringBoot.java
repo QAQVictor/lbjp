@@ -37,4 +37,8 @@ public class HelloSpringBoot {
         return "/loginPage";
     }
 
+    @RequestMapping("/activityDetail")
+    public String activityDetail() {
+        return "/activityDetail";
+    }
 }
