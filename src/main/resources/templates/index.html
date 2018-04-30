@@ -3,9 +3,76 @@
 <head>
     <meta charset="UTF-8"/>
     <title>拉帮结派</title>
-    <!--<link rel="stylesheet" type="text/css" href="/css/index.css"/>-->
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
 </head>
 <body>
+<div id="head">
+    <img id="logo" th:src="@{~/img/logo.PNG}"/>
+    <!--<div id="link">
+        <span id="index">首页</span>
+        <span id="discovery">发现</span>
+    </div>-->
+    <div id="searchDiv">
+        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+        <img id="search" th:src="@{~/img/icon/search.ico}"/>
+        <!--<span id="goToRegister">注册</span>或
+        <sapn id="goToLogin">登录</sapn>-->
+    </div>
+    <div id="personal">
+        <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
+        <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
+        <img class="personalCenter" th:src="@{~/img/icon/user.ico}"/>
+    </div>
+</div>
+
+<div id="main">
+    <div id="content">
+        <div class="activity">
+            <div class="infoDiv">
+                <img th:src="@{~/img/logo.PNG}" class="userHeadImg" style="width: 30px;height: 30px;"/>
+                <span class="userName">石乐志</span>
+                <span class="userRemark">我就是石乐志的杠精</span>
+                <span class="tag">抬杠</span>
+            </div>
+            <span class="title">快来和我抬杠吧</span>
+            <p class="content">我们相约每天都在qq和微信里抬杠</p>
+            <div class="operations">
+                <div><img th:src="@{~/img/icon/comments.ico}"/><span class="comments">430条评论</span></div>
+                <div><img th:src="@{~/img/icon/thumb.ico}"/><span class="nice">20个赞</span></div>
+                <div><img th:src="@{~/img/icon/star0.ico}"/><span class="star">收藏</span></div>
+                <div><img th:src="@{~/img/icon/pay.ico}"/><span class="admire">赞赏</span></div>
+            </div>
+        </div>
+    </div>
+    <ul id="tags">
+        <li>
+            <div id="tags_1" class="iconDiv"></div><span>泡图书馆</span>
+        </li>
+        <li>
+            <div id="tags_2" class="iconDiv"></div><span>踏遍河山</span>
+        </li>
+        <li>
+            <div id="tags_3" class="iconDiv"></div><span>运动达人</span>
+        </li>
+        <li>
+            <div id="tags_4" class="iconDiv"></div><span>联谊活动</span>
+        </li>
+    </ul>
+    <ul id="mine">
+        <li>
+            <div id="mine_1" class="iconDiv"></div><span>我要发帖</span>
+        </li>
+        <li>
+            <div id="mine_2" class="iconDiv"></div><span>我的收藏</span>
+        </li>
+        <li>
+            <div id="mine_3" class="iconDiv"></div><span>我的赞赏</span>
+        </li>
+        <li>
+            <div id="mine_4" class="iconDiv"></div><span>最近查看</span>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>

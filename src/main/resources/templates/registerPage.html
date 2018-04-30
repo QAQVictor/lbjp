@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8"/>
     <title>加入拉帮结派</title>
-    <link rel="stylesheet" type="text/css" th:href="@{~/css/register.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/registerPage.css}"/>
 </head>
 <body>
 <div>
     <div id="head">
-        <img id="logo" th:src="@{~/img/logo.PNG}"/>
-        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/><img id="search" th:src="@{~/img/search.jpg}"/>
-        <span>注册</span>或<sapn>登录</sapn>
+        <img id="logo" th:src="@{~/img/logo.PNG}"/><p>帮结派</p>
+        <div id="searchDiv">
+            <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+            <img id="search" th:src="@{~/img/icon/search.ico}"/>
+            <span id="goToRegister">注册</span>或
+            <sapn id="goToLogin">登录</sapn>
+        </div>
     </div>
-    <form id="registerForm" action="/register">
+    <form id="registerForm" action="" method="post">
         <ul id="registerInfoList">
             <li class="registerInfo">
                 <span class="title">用户名</span>
@@ -20,7 +24,7 @@
             </li>
             <li class="registerInfo">
                 <span class="title">密码</span>
-                <input type="password" id="password" name="password" placeholder="输入您的密码（6到16位字符" autocomplete="off" />
+                <input type="password" id="password" name="password" placeholder="输入您的密码（6到16位字符）" autocomplete="off" />
             </li>
             <li class="registerInfo">
                 <span class="title">手机号</span>
@@ -39,3 +43,8 @@
 </div>
 </body>
 </html>
+<script language="JavaScript">
+    document.getElementById('goToLogin').onclick=function() {
+        self.location="loginPage.html";
+    };
+</script>

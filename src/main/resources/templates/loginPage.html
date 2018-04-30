@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>登录到拉帮结派</title>
-
-    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/loginPage.css}"/>
 </head>
 <body>
+<div id="logoDiv"><img id="logo" th:src="@{~/img/logo.PNG}"/></div>
+<span id="headTitle">登录到拉帮结派</span>
+<form id="loginForm" th:action="@{~/login}" method="post">
+    <ul id="loginInfoList">
+        <li class="loginInfo">
+            <span class="title">用户名</span>
+            <input type="text" placeholder="输入用户名" name="userName"/>
+        </li>
+        <li class="loginInfo">
+            <span class="title">密码</span>
+            <span class="title" id="getPassword">忘记密码？</span>
+            <input type="password" placeholder="输入密码" name="password"/>
+        </li>
+        <li class="loginInfo">
+            <input type="submit" th:value="登录" id="loginButton"/>
+        </li>
+    </ul>
+</form>
+<div id="goToRegister">
+    <span>还没有账号？点击这里快去注册一个吧！</span>
+</div>
 
 </body>
 </html>
+
+<javaScript>
+
+</javaScript>
