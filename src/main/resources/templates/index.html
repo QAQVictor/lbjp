@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <title>拉帮结派</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <script src="/js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <div id="head">
@@ -26,7 +27,7 @@
 </div>
 
 <div id="main">
-    <div id="content">
+    <div id="detail">
         <div class="activity">
             <div class="infoDiv">
                 <img th:src="@{~/img/logo.PNG}" class="userHeadImg" style="width: 30px;height: 30px;"/>
@@ -59,20 +60,71 @@
         </li>
     </ul>
     <ul id="mine">
-        <li>
+        <li id="mine1">
             <div id="mine_1" class="iconDiv"></div><span>我要发帖</span>
         </li>
-        <li>
+        <li id="mine2">
             <div id="mine_2" class="iconDiv"></div><span>我的收藏</span>
         </li>
-        <li>
+        <li id="mine3">
             <div id="mine_3" class="iconDiv"></div><span>我的赞赏</span>
         </li>
-        <li>
+        <li id="mine4">
             <div id="mine_4" class="iconDiv"></div><span>最近查看</span>
         </li>
     </ul>
 </div>
 
+<div id="hideDiv" hidden="hidden"></div>
+
+<div id="newActivity" hidden="hidden">
+    <img id="close" th:src="@{~/img/icon/close.ico}"/>
+    <h3 style="text-align: center">发帖</h3>
+    <span style="text-align: center;display: block;font-size: 12px;color: rgb(178,178,178);">发起一次活动，和未来的朋友一起结伴出行吧！</span>
+    <form action="" method="post">
+        <ul id="activityInfo">
+            <li id="newTitle">
+                <input type="text" id="activityTitle" placeholder="活动标题" name="title"/>
+            </li>
+            <li id="newTag">
+                <input type="text" id="tag" placeholder="活动所属标签" name="tag"/>
+            </li>
+            <li id="newTime">
+                <span>活动起止时间</span>
+                <input type="date" placeholder="开始时间" name="startTime"/>
+                <input type="date" placeholder="结束时间" name="endTime"/>
+            </li>
+            <li id="newEntryTime">
+                <span>报名起止时间</span>
+                <input type="date" placeholder="开始时间" name="entryStartTime"/>
+                <input type="date" placeholder="结束时间" name="entryEndTime"/>
+            </li>
+            <li id="newNum">
+                <span>人数</span>
+                <input type="number" placeholder="人数限制" name="totalNum"/>
+            </li>
+            <li id="newContent">
+                <span>具体活动内容</span>
+                <textarea id="content" cols="100" rows="6" hard="hard" placeholder="输入具体的活动内容"></textarea>
+            </li>
+            <li>
+                <input type="submit" value="发起" id="addActivity"/>
+            </li>
+        </ul>
+    </form>
+</div>
+
 </body>
 </html>
+<script language="JavaScript">
+   $(function () {
+   });
+   $("#mine1").click(function () {
+       $("#hideDiv").show();
+       $("#newActivity").show();
+   });
+   $("#close").click(function () {
+       $("#hideDiv").hide();
+       $("#newActivity").hide();
+   });
+</script>

@@ -96,7 +96,7 @@ li {
     padding:10px;
 }
 
-#content {
+#detail {
     width: 700px;
     float: left;
     margin-left:190px;
@@ -131,7 +131,7 @@ li {
     padding:10px;
 }
 
-#content p{
+#detail p{
     font-size:16px;
     line-height:30px;
     padding:10px;
@@ -155,7 +155,7 @@ li {
     cursor:pointer;
 }
 
-#otherInfor{
+#otherInfo{
     width:250px;
     float: right;
     margin-right:190px;
@@ -186,7 +186,6 @@ li {
 
 .bar_num{
     font-size:14px;
-    font-family:"微软雅黑";
     font-weight:bold;
     color:rgb(0, 170, 238);
 }
@@ -212,14 +211,20 @@ li {
     margin:10px auto;
 }
 
-#creatorInfor{
+#creatorInfo{
     padding:10px;
     text-align:center;
 }
 
-#creatorInfor span{
+#creatorInfo span{
     display:block;
+    margin:5px auto;
 }
+
+#creatorName{
+    font-size:18px;
+}
+
 #creatorHeadImg{
     width:70px;
     height:70px;
@@ -228,16 +233,17 @@ li {
 #followList{
     width:150px;
     height:50px;
-    padding:0 50px;
+    margin:0 auto;
 }
 
 #followList span{
-    width:80px;
+    display:block;
+    font-size:14px;
 }
 
 #followList div{
-    height:50px;
-    width:80px;
+    width:75px;
+    margin:0px auto;
 }
 
 #activityNum{
@@ -258,5 +264,9 @@ li {
     font-family: Microsoft Yahei;
     background-color:rgb(0, 170, 238);
     line-height:30px;
-    margin:5px auto;
+    margin:0px auto;
+    clear:both;
 }
+
+
+
