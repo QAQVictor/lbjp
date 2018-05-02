@@ -41,4 +41,19 @@ public class HelloSpringBoot {
     public String activityDetail() {
         return "/activityDetail";
     }
+
+    @RequestMapping("/home")
+    public String home() {
+        return "/home";
+    }
+
+    @RequestMapping("/schedule")
+    public String schedule() {
+        return "/schedule";
+    }
+
+    @RequestMapping("/recently")
+    public String recently() {
+        return "/recently";
+    }
 }

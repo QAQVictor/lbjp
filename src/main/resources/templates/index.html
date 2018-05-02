@@ -30,13 +30,38 @@
     <div id="detail">
         <div class="activity">
             <div class="infoDiv">
-                <img th:src="@{~/img/logo.PNG}" class="userHeadImg" style="width: 30px;height: 30px;"/>
+                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg" style="width: 30px;height: 30px;"/>
                 <span class="userName">石乐志</span>
                 <span class="userRemark">我就是石乐志的杠精</span>
                 <span class="tag">抬杠</span>
             </div>
             <span class="title">快来和我抬杠吧</span>
             <p class="content">我们相约每天都在qq和微信里抬杠</p>
+            <div class="operations">
+                <div><img th:src="@{~/img/icon/comments.ico}"/><span class="comments">430条评论</span></div>
+                <div><img th:src="@{~/img/icon/thumb.ico}"/><span class="nice">20个赞</span></div>
+                <div><img th:src="@{~/img/icon/star0.ico}"/><span class="star">收藏</span></div>
+                <div><img th:src="@{~/img/icon/pay.ico}"/><span class="admire">赞赏</span></div>
+            </div>
+        </div>
+
+        <div class="activity">
+            <div class="infoDiv">
+                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg" style="width: 30px;height: 30px;"/>
+                <span class="userName">石乐志</span>
+                <span class="userRemark">我就是石乐志的杠精</span>
+                <span class="tag">图书馆</span>
+            </div>
+            <span class="title">2018年春季读书分享会</span>
+            <p class="content">重要的事情说三遍！！<br/>
+                这周日上午9点在东区燕山大学图书馆门口集合！<br/>
+                这周日上午9点在东区燕山大学图书馆门口集合！<br/>
+                这周日上午9点在东区燕山大学图书馆门口集合！<br/>
+                <br/>
+                活动从今天开始，持续一周，<br/>
+                下周日，会有读书论坛会，大家把自己看的书介绍给大家。<br/>
+                <br/>
+                而且准备了丰厚的奖品，现场还有很多零食，欢迎大家参加！！！</p>
             <div class="operations">
                 <div><img th:src="@{~/img/icon/comments.ico}"/><span class="comments">430条评论</span></div>
                 <div><img th:src="@{~/img/icon/thumb.ico}"/><span class="nice">20个赞</span></div>
@@ -118,6 +143,12 @@
 </html>
 <script language="JavaScript">
    $(function () {
+       $(".content").each(function () {
+           /*alert($(this).css("height"));*/
+           if($(this).css("height")==$(this).css("max-height")){
+
+           }
+       })
    });
    $("#mine1").click(function () {
        $("#hideDiv").show();

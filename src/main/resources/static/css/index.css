@@ -191,7 +191,6 @@ li {
 
 #detail {
     width: 700px;
-
     float: left;
     background-color: rgb(246, 246, 246);
 }
@@ -201,6 +200,7 @@ li {
     background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
     padding:10px;
+    margin-bottom:10px;
 }
 
 .activity .infoDiv{
@@ -246,7 +246,13 @@ li {
 
 .activity p{
     display:block;
-    padding:10px;
+    margin: 10px;
+    width: 660px;
+    max-height: 100px;
+    line-height: 20px;
+    overflow-y:hidden;
+    font-size: 14px;
+    color: rgb(100,100,100);
 }
 
 .operations{
@@ -373,6 +379,6 @@ li {
     width: 24px;
     height: 24px;
 }
-#close:hover{
+.activity:hover,#close:hover{
     cursor: pointer;
 }

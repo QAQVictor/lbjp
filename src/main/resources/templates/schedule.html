@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <link rel='stylesheet' href='/css/calendar.css' />
+</head>
+<body>
+<div class='calendar' id='calendar'></div>
+<script type='text/javascript' src='/js/calendar.js'></script>
+</body>
+</html>
+<script language="JavaScript">
+
+
+    $(".currentDay").click(function () {
+        //获取数据
+
+        //弹出对话框
+        $("#hideDiv").show();
+        $("#todaySchedule").show();
+    });
+    $(".currentMonth").click(function(){
+        //获取数据
+
+        //弹出对话框
+        $("#hideDiv").css("height","")
+        $("#hideDiv").show();
+        $("#todaySchedule").show();
+    });
+    $("#close").click(function () {
+        $("#hideDiv").hide();
+        $("#todaySchedule").hide();
+    });
+</script>

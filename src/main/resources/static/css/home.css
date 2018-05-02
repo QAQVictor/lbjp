@@ -1,0 +1,425 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(246, 246, 246);
+}
+
+li {
+    list-style-type: none;
+}
+
+#head {
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 72px;
+    line-height: 20px;
+    opacity: 0.9;
+    background: white;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+}
+
+#searchDiv {
+    height: 100%;
+    float: left;
+    margin-left: 360px;
+}
+
+#search:hover, #logo:hover {
+    cursor: pointer;
+}
+
+#goToRegister, #goToLogin {
+    color: rgb(0, 118, 227);
+    text-decoration: underline;
+}
+
+#goToRegister:hover, #goToLogin:hover {
+    color: rgb(20, 142, 255);
+    cursor: pointer;
+}
+
+#searchInput {
+    width: 251px;
+    height: 14px;
+    border-radius: 6px;
+    color: rgba(136, 136, 136, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: Microsoft Yahei;
+    border: 1px solid rgba(187, 187, 187, 1);
+    margin-top: 11px;
+    padding: 18px 10px;
+}
+
+#search {
+    position: relative;
+    top: 3px;
+    left: -30px;
+}
+
+#logo {
+    margin-left: 190px;
+    float: left;
+    width: 72px;
+    height: 72px;
+}
+
+#personal {
+    float: right;
+    height: 72px;
+    width: 200px;
+    line-height: 80px;
+    margin-right: 190px;
+}
+
+#personal img {
+    margin: 0 5px;
+}
+
+#personal img:hover{
+    cursor: pointer;
+}
+
+#main {
+    width: 960px;
+    margin: 10px auto;
+}
+
+#personalInfo{
+    width: 940px;
+    height: 159px;
+    background-color: rgb(255,255,255);
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    padding:10px;
+    position:relative;
+}
+
+#headImg{
+    width: 155px;
+    height: 155px;
+    border: 2px solid rgba(246, 246, 246, 1);
+    border-radius: 5px;
+    display:inline-block;
+    background-image: url("../img/userheadimg/userheadimg1.jpg");
+    background-size: 155px;
+}
+
+#userInfo{
+    display:inline-block;
+    position:absolute;
+    top:57px;
+    padding:0 20px;
+}
+
+#userName,#school,#remark{
+    display: block;
+    padding:5px;
+}
+
+#userName{
+    font-size:35px;
+    background-repeat:no-repeat;
+}
+
+#school{
+    font-size:14px;
+    color:rgb(160,160,160);
+}
+
+#edit{
+    width: 107px;
+    height: 40px;
+    line-height:40px;
+    border-radius: 5px;
+    background-color: rgba(0, 170, 238, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(0, 170, 238, 1);
+    float: right;
+}
+
+#history{
+    width:700px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    margin:10px auto;
+    float:left;
+}
+
+#label{
+    width:690px;
+    height:40px;
+    padding:5px 10px;
+    border-bottom:1px solid rgba(246,246,246);
+}
+
+#label li{
+    display:inline-block;
+    text-align:center;
+    padding:10px 15px;
+    /*border-bottom:3px solid rgb(0, 170, 238);*/
+}
+
+#detail {
+    width: 700px;
+    float: left;
+}
+
+.activity{
+    width:670px;
+    margin:10px;
+    padding:5px;
+    border-bottom:1px solid rgb(246,246,246);
+}
+
+.activity .infoDiv{
+    width: 100%;
+    height: 35px;
+}
+.activity .infoDiv span{
+    display: inline-block;
+}
+.userHeadImg{
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(200, 200, 200, 1);
+    float:left;
+}
+.userName{
+    color: rgba(16, 16, 16, 1);
+    font-size: 16px;
+    font-family: Roboto;
+    font-weight: bold;
+    float:left;
+    padding:5px 5px;
+}
+.userRemark{
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    float:left;
+    margin:8px;
+}
+
+.tag{
+    float:right;
+    font-size:14px;
+    color:rgb(187, 187, 187);
+}
+
+.activity .title{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    padding:10px;
+}
+
+.activity p{
+    display:block;
+    padding:10px;
+}
+
+.operations{
+    height:30px;
+    padding:5px;
+}
+
+.operations img{
+    margin-right:5px;
+}
+.operations div{
+    float:left;
+    color:rgb(178,178,178);
+    font-size:14px;
+    margin-right:20px;
+}
+.operations div:hover{
+    cursor:pointer;
+}
+
+#otherInfo{
+    margin-top:10px;
+    width:250px;
+    float:right;
+}
+
+.infoTitle{
+    font-size:14px;
+    color:rgb(176,176,176);
+}
+.info{
+    font-size:16px;
+    font-weight:bold;
+}
+
+#followList{
+    width:250px;
+    height:90px;
+    margin:0 auto;
+    background-color:rgb(255,255,255);
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+}
+
+#followList div span{
+    display:block;
+    height:30px;
+}
+
+#followList div{
+    display:inline-block;
+    width:82px;
+    height:50px;
+    text-align:center;
+    padding:20px;
+}
+
+#achievement{
+    width:230px;
+    height:100px;
+    margin:10px auto;
+    background-color:rgb(255,255,255);
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    padding:10px;
+}
+#achievement span{
+    display:block;
+    text-align:center;
+    padding:3px;
+    font-weight:normal;
+    font-size:14px;
+}
+
+#credit{
+    width:250px;
+    height:90px;
+    margin:10px auto;
+    background-color:rgb(255,255,255);
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+}
+#credit div .infoTitle,#credit div .info{
+    display:block;
+    height:30px;
+}
+
+#credit div{
+    display:inline-block;
+    width:82px;
+    height:50px;
+    text-align:center;
+    padding:20px;
+}
+#edit:hover,#label ul li:hover,.activity:hover{
+    cursor: pointer;
+}
+
+#hideDiv{
+    position:absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-color: black;
+}
+#todaySchedule{
+    position:absolute;
+    width:600px;
+    height:530px;
+    top:50px;
+    left:383px;
+    border-radius: 5px;
+    background-color:white;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    padding:20px 10px;
+}
+#todaySchedule h3{
+    text-align:center;
+}
+#close{
+    position: absolute;
+    right: 10px;
+    top:10px;
+    width: 24px;
+    height: 24px;
+}
+
+#close:hover{
+    cursor: pointer;
+}
+#mineActivity{
+    width:570px;
+    height:220px;
+    padding:5px;
+    margin:0px auto;
+    border-bottom:1px solid rgb(176,176,176);
+    overflow-y:auto
+}
+#othersActivity{
+    width:570px;
+    height:220px;
+    padding:5px;
+    margin:0px auto;
+    overflow-y:auto;
+}
+#mineActivity span,#othersActivity span{
+    display:inline-block;
+    width:180px;
+    margin:3px 5px;
+}
+
+#todaySchedule .activityDetail .activityInfo{
+    float:left;
+    width:420px;
+}
+
+#todaySchedule .activityDetail{
+    width:538px;
+    height:90px;
+    border-radius: 5px;
+    border:1px solid rgb(176,176,176);
+    padding:5px;
+    margin:5px auto;
+}
+
+.activityDetail .operations{
+    display:inline-block;
+    width:100px;
+    height:70px;
+    line-height:35px;
+    text-align:center;
+}
+
+#todaySchedule .notice,#todaySchedule .cancel{
+    width:80px;
+    height:35px;
+    border-radius:5px;
+    margin:2px auto;
+    float:right;
+}
+#todaySchedule .notice{
+    color:rgb(0, 170, 238);
+    border:1px solid rgb(0, 170, 238);
+}
+#todaySchedule .cancel{
+    color:rgb(255, 0, 0);
+    border:1px solid rgb(255, 0, 0);
+}
+
+#todaySchedule .notice:hover{
+    color:rgb(255, 255, 255);
+    border:1px solid rgb(0, 170, 238);
+    background-color:rgb(0, 170, 238);
+}
+#todaySchedule .cancel:hover{
+    color:rgb(255, 255, 255);
+    border:1px solid rgb(255, 0, 0);
+    background-color:rgb(255,0,0);
+
+}
