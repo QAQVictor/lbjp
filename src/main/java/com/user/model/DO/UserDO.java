@@ -9,14 +9,23 @@ public class UserDO {
     private String userId;
     private String userName;
     private String password;
-    private String createDate;
-    private String wechat;
+    private String realName;
+    private int gender;
     private String email;
     private String phone;
-    private String school;
+    private String remark;//签名
+    private String headImgPath;//头像路径
+    private String school;//学校名
+    private int cancelNum;//取消次数
+    private int breakNum;//失约次数
+    private String createDate;//注册时间
+
+    //待添加
+    /*private String wechat;
     private String certification;
-    private String realName;
     private String idCard;
+    private String leader;//是否是领头人
+    */
 
     public String getUserId() {
         return userId;
@@ -42,20 +51,20 @@ public class UserDO {
         this.password = password;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
-    public String getWechat() {
-        return wechat;
+    public int isGender() {
+        return gender;
     }
 
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public String getEmail() {
@@ -74,6 +83,22 @@ public class UserDO {
         this.phone = phone;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getHeadImgPath() {
+        return headImgPath;
+    }
+
+    public void setHeadImgPath(String headImgPath) {
+        this.headImgPath = headImgPath;
+    }
+
     public String getSchool() {
         return school;
     }
@@ -82,27 +107,27 @@ public class UserDO {
         this.school = school;
     }
 
-    public String getCertification() {
-        return certification;
+    public int getCancelNum() {
+        return cancelNum;
     }
 
-    public void setCertification(String certification) {
-        this.certification = certification;
+    public void setCancelNum(int cancelNum) {
+        this.cancelNum = cancelNum;
     }
 
-    public String getRealName() {
-        return realName;
+    public int getBreakNum() {
+        return breakNum;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setBreakNum(int breakNum) {
+        this.breakNum = breakNum;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 }

@@ -31,6 +31,13 @@ public class UserServiceImplTest {
         userDO.setUserName("job");
         userDO.setUserId(DateUtils.getID());
         userService.saveUser(userDO);
+    }
 
+    @Test
+    public void getUser() {
+        UserDO user=new UserDO();
+        user.setUserName("liyaqing");
+        user.setPassword("123456");
+        userService.getUser(user);
     }
 }

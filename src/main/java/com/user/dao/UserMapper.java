@@ -1,8 +1,9 @@
 package com.user.dao;
 
 import com.user.model.DO.UserDO;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: 李亚卿
@@ -17,4 +18,11 @@ public interface UserMapper {
      * @param user
      */
     void insert(UserDO user);
+
+    /**
+     * 查询user(根据用户名和密码)
+     *
+     * @param user
+     */
+    UserDO get(UserDO user);
 }

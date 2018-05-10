@@ -27,4 +27,11 @@ public class UserDAOTest {
         userDO.setUserName("job");
         userDAO.insert(userDO);
     }
+    @Test
+    public void get(){
+        UserDO user=new UserDO();
+        user.setUserName("liyaqing");
+        user.setPassword("123456");
+        userDAO.get(user);
+    }
 }

@@ -16,7 +16,7 @@
             <sapn id="goToLogin">登录</sapn>
         </div>
     </div>
-    <form id="registerForm" action="" method="post">
+    <form id="registerForm" action="/register" method="post">
         <ul id="registerInfoList">
             <li class="registerInfo">
                 <span class="title">用户名</span>
@@ -30,12 +30,12 @@
                 <span class="title">手机号</span>
                 <input type="tel" id="phone" name="phone" placeholder="输入您的手机号" autocomplete="off" />
             </li>
-            <li class="registerInfo" style="margin-top: 30px;">
-                <input type="text" id="valCode" name="valCode" placeholder="输入手机验证码" style="width:165px;" autocomplete="off" />
-                <span id="getValCode">获取短信验证码</span>
+            <li class="registerInfo">
+                <span class="title">邮箱</span>
+                <input type="email" id="email" name="email" placeholder="输入邮箱地址" autocomplete="off" />
             </li>
             <li class="registerInfo" >
-                <input type="button" id="registerButton" value="注册" style="width: 300px;"/>
+                <input type="submit" id="registerButton" value="注册" style="width: 300px;"/>
             </li>
         </ul>
     </form>

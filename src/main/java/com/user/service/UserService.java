@@ -8,5 +8,18 @@ import com.user.model.DO.UserDO;
  * @Description:
  */
 public interface UserService {
-    void saveUser(UserDO userDO);
+    /**
+     * 添加用户
+     *
+     * @param user
+     */
+    void saveUser(UserDO user);
+
+    /**
+     * 根据用户信息查找用户
+     *
+     * @param user
+     * @return
+     */
+    UserDO getUser(UserDO user);
 }

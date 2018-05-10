@@ -18,8 +18,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public void saveUser(UserDO userDO) {
-        userDO.setUserId(DateUtils.getID());
-        userMapper.insert(userDO);
+    public void saveUser(UserDO user) {
+        userMapper.insert(user);
+    }
+
+    @Override
+    public UserDO getUser(UserDO user){
+        return userMapper.get(user);
     }
 }
