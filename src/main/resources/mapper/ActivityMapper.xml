@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.society.dao.ActivityMapper">
-    <resultMap id="ActivityInfoMap" type="com.society.model.DO.ActivityDO">
+    <resultMap id="ActivityDOMap" type="com.society.model.DO.ActivityDO">
         <id column="activity_id" property="activityId" jdbcType="VARCHAR"/>
-        <result column="tag_id" property="tagId" jdbcType="VARCHAR"/>
+        <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
         <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
         <result column="creator" property="creator" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
@@ -16,11 +16,130 @@
         <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
         <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <sql id="Activity_Info_List">
+
+    <resultMap id="ActivityBaseVOMap" type="com.society.model.VO.ActivityBaseVO">
+        <id column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
+        <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="theme" property="theme" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_img_path" property="headImgPath" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="comment_num" property="tagId" jdbcType="INTEGER"/>
+        <result column="agree_num" property="tagId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Activity_List">
       activity_id, tag_id, create_date, creator, content, theme, planned_num, actual_num,
       hot, entry_start_date, entry_end_date, start_date, end_date
     </sql>
+
     <sql id="Activity_Base_Info_List">
-        activity_id, tag_id, create_date, creator, content, theme
+        activity.activity_id,activity.tag_id,activity.content,theme,activity.creator,
+        user_name,tag_name,head_img_path,remark,
+        count(comment.commentator) comment_num,
+        count(agree.user_id) agree_num
     </sql>
+
+    <sql id="Activity_detail_List">
+
+    </sql>
+
+    <select id="getAllActivity" resultMap="ActivityBaseVOMap">
+        SELECT
+          <include refid="Activity_Base_Info_List"/>
+        FROM
+          activity LEFT JOIN comment on activity.activity_id= comment.activity_id
+                   LEFT JOIN agree on activity.activity_id= agree.activity_id,
+          user,tags
+        WHERE activity.creator=user.user_id AND activity.tag_id= tags.tag_id
+    </select>
+
+    <insert id="insert" parameterType="com.society.model.DO.ActivityDO">
+        INSERT INTO activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                activity_id,
+            </if>
+            <if test="tagId != null">
+                tag_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="theme != null">
+                theme,
+            </if>
+            <if test="plannedNum != null">
+                planned_num,
+            </if>
+            <if test="actualNum != null">
+                actual_num,
+            </if>
+            <if test="hot != null">
+                hot,
+            </if>
+            <if test="entryStartDate != null">
+                entry_start_date,
+            </if>
+            <if test="entryEndDate != null">
+                entry_end_date,
+            </if>
+            <if test="startDate != null">
+                start_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                #{activityId,jdbcType=VARCHAR},
+            </if>
+            <if test="tagId != null">
+                #{tagId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="theme != null">
+                #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="plannedNum != null">
+                #{plannedNum,jdbcType=INTEGER},
+            </if>
+            <if test="actualNum != null">
+                #{actualNum,jdbcType=INTEGER},
+            </if>
+            <if test="hot != null">
+                #{hot,jdbcType=INTEGER},
+            </if>
+            <if test="entryStartDate != null">
+                #{entryStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entryEndDate != null">
+                #{entryEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startDate != null">
+                #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

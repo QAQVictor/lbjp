@@ -4,7 +4,8 @@
     <meta charset="UTF-8"/>
     <title>拉帮结派</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
-    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script th:src="@{~/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{~/js/index.js}"></script>
 </head>
 <body>
 <div id="head">
@@ -17,20 +18,21 @@
         <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
         <img id="search" th:src="@{~/img/icon/search.ico}"/>
         <!--<span id="goToRegister">注册</span>或
-    <sapn id="goToLogin">登录</sapn>-->
-</div>
-<div id="personal">
-    <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
-    <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
-    <img class="personalCenter" th:src="@{~/img/icon/user.ico}"/>
-</div>
+        <sapn id="goToLogin">登录</sapn>-->
+    </div>
+    <div id="personal">
+        <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
+        <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
+        <img class="personalCenter" id="goToHome" th:src="@{~/img/icon/user.ico}"/>
+    </div>
 </div>
 
 <div id="main">
     <div id="detail">
-        <div class="activity">
+        <!--<div class="activity">
             <div class="infoDiv">
-                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg" style="width: 30px;height: 30px;"/>
+                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg"
+                     style="width: 30px;height: 30px;"/>
                 <span class="userName">石乐志</span>
                 <span class="userRemark">我就是石乐志的杠精</span>
                 <span class="tag">抬杠</span>
@@ -47,7 +49,8 @@
 
         <div class="activity">
             <div class="infoDiv">
-                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg" style="width: 30px;height: 30px;"/>
+                <img th:src="@{~/img/userheadimg/userheadimg1.jpg}" class="userHeadImg"
+                     style="width: 30px;height: 30px;"/>
                 <span class="userName">石乐志</span>
                 <span class="userRemark">我就是石乐志的杠精</span>
                 <span class="tag">图书馆</span>
@@ -68,34 +71,42 @@
                 <div><img th:src="@{~/img/icon/star0.ico}"/><span class="star">收藏</span></div>
                 <div><img th:src="@{~/img/icon/pay.ico}"/><span class="admire">赞赏</span></div>
             </div>
-        </div>
+        </div>-->
     </div>
     <ul id="tags">
         <li>
-            <div id="tags_1" class="iconDiv"></div><span>泡图书馆</span>
+            <div id="tags_1" class="iconDiv"></div>
+            <span>泡图书馆</span>
         </li>
         <li>
-            <div id="tags_2" class="iconDiv"></div><span>踏遍河山</span>
+            <div id="tags_2" class="iconDiv"></div>
+            <span>踏遍河山</span>
         </li>
         <li>
-            <div id="tags_3" class="iconDiv"></div><span>运动达人</span>
+            <div id="tags_3" class="iconDiv"></div>
+            <span>运动达人</span>
         </li>
         <li>
-            <div id="tags_4" class="iconDiv"></div><span>联谊活动</span>
+            <div id="tags_4" class="iconDiv"></div>
+            <span>联谊活动</span>
         </li>
     </ul>
     <ul id="mine">
         <li id="mine1">
-            <div id="mine_1" class="iconDiv"></div><span>我要发帖</span>
+            <div id="mine_1" class="iconDiv"></div>
+            <span>我要发帖</span>
         </li>
         <li id="mine2">
-            <div id="mine_2" class="iconDiv"></div><span>我的收藏</span>
+            <div id="mine_2" class="iconDiv"></div>
+            <span>我的收藏</span>
         </li>
         <li id="mine3">
-            <div id="mine_3" class="iconDiv"></div><span>我的赞赏</span>
+            <div id="mine_3" class="iconDiv"></div>
+            <span>我的赞赏</span>
         </li>
         <li id="mine4">
-            <div id="mine_4" class="iconDiv"></div><span>最近查看</span>
+            <div id="mine_4" class="iconDiv"></div>
+            <span>最近查看</span>
         </li>
     </ul>
 </div>
@@ -106,7 +117,7 @@
     <img id="close" th:src="@{~/img/icon/close.ico}"/>
     <h3 style="text-align: center">发帖</h3>
     <span style="text-align: center;display: block;font-size: 12px;color: rgb(178,178,178);">发起一次活动，和未来的朋友一起结伴出行吧！</span>
-    <form action="" method="post">
+    <form id="addActivityForm">
         <ul id="activityInfo">
             <li id="newTitle">
                 <input type="text" id="activityTitle" placeholder="活动标题" name="title"/>
@@ -142,22 +153,5 @@
 </body>
 </html>
 <script language="JavaScript">
-   $(function () {
-       $(".content").each(function () {
-           /*alert($(this).css("height"));*/
-           if($(this).css("height")==$(this).css("max-height")){
 
-           }
-       })
-   });
-   $("#mine1").click(function () {
-       $("#hideDiv").show();
-       $("#newActivity").show();
-   });
-   $("#close").click(function () {
-       $("#hideDiv").hide();
-       $("#newActivity").hide();
-   });
-
-   $("#")
 </script>

@@ -5,17 +5,17 @@ package com.personal.model.DO;
  * @Date: Created in 10:51 2018/5/2 0002
  * @Description: 自定义标签
  */
-public class tagDO {
-    private String tagId;//标签id
+public class TagDO {
+    private int tagId;//标签id
     private String tagName;//标签名
     private String creator;//创建人Id;
     private String createDate;//创建时间
 
-    public String getTagId() {
+    public int getTagId() {
         return tagId;
     }
 
-    public void setTagId(String tagId) {
+    public void setTagId(int tagId) {
         this.tagId = tagId;
     }
 

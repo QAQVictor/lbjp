@@ -21,48 +21,36 @@
     </sql>
 
     <select id="get" resultMap="UserBaseInfoMap" parameterType="com.user.model.DO.UserDO">
-        select
+        SELECT
         <include refid="User_Base_Info_List"/>
         FROM user
         <where>
             <if test="userId != null">
-                #{userId,jdbcType=VARCHAR}
+                user_id=#{userId,jdbcType=VARCHAR}
             </if>
             <if test="userName != null">
-                AND #{userName,jdbcType=VARCHAR}
+                AND user_name=#{userName,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                AND #{password,jdbcType=VARCHAR}
+                AND password=#{password,jdbcType=VARCHAR}
             </if>
             <if test="createDate != null">
-                AND #{createDate,jdbcType=TIMESTAMP}
+                AND create_date#{createDate,jdbcType=TIMESTAMP}
             </if>
             <if test="email != null">
-                AND #{email,jdbcType=VARCHAR}
+                AND email=#{email,jdbcType=VARCHAR}
             </if>
             <if test="phone != null">
-                AND #{phone,jdbcType=VARCHAR}
+                AND phone=#{phone,jdbcType=VARCHAR}
             </if>
             <if test="school != null">
-                AND #{school,jdbcType=VARCHAR}
+                AND school=#{school,jdbcType=VARCHAR}
             </if>
             <if test="realName != null">
-                AND #{realName,jdbcType=VARCHAR}
-            </if>
-            <if test="headImgPath != null">
-                AND #{headImgPath,jdbcType=VARCHAR}
-            </if>
-            <if test="remark != null">
-                AND #{remark,jdbcType=VARCHAR}
-            </if>
-            <if test="cancelNum != null">
-                AND #{cancelNum,jdbcType=INTEGER}
-            </if>
-            <if test="breakNum != null">
-                AND #{breakNum,jdbcType=INTEGER}
+                AND real_name=#{realName,jdbcType=VARCHAR}
             </if>
             <if test="gender != null">
-                AND #{gender,jdbcType=VARCHAR}
+                AND gender=#{gender,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

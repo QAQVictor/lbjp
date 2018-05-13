@@ -7,6 +7,8 @@ import com.util.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: 李亚卿
@@ -28,47 +33,69 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/registerPage")
-    public String registerPage(HttpServletResponse response, HttpSession session) {
-        /*//生成图片验证码，获取答案放入session
-        VerificationCode verificationCode = new VerificationCode();
-        BufferedImage verificationCodeImg = verificationCode.getBufferImage();
-        session.setAttribute("answer", verificationCode.getAnswer());
-        //图片输出
-        response.setContentType("image/jpeg");
-        try {
-            OutputStream outputStream = response.getOutputStream();
-            ImageIO.write(verificationCodeImg, "jpeg", outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        return "/registerPage";
-    }
-
+    /**
+     * 注册
+     *
+     * @param user
+     * @param request
+     * @return
+     */
     @RequestMapping("/register")
-    public String register(UserDO user, HttpServletRequest request) {
-        user.setUserId(DateUtils.getID());
-        user.setCreateDate(DateUtils.getNowDate());
-        userService.saveUser(user);
-        request.getSession().setAttribute("user", user);
-        return "/index";
-    }
-
-    @RequestMapping("/login")
-    public String login(UserDO user, HttpServletRequest request) {
-        UserDO userDO = userService.getUser(user);
-        if (userDO != null) {
-            request.getSession().setAttribute("user", userDO);
-            return "redirect:index";
+    public String register(UserDO user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if ((!"".equals(user.getUserName())) && (!"".equals(user.getPassword())) &&
+                (!"".equals(user.getPhone())) && (!"".equals(user.getEmail()))) {
+            if (userService.getUser(user) == null) {
+                user.setCreateDate(DateUtils.getNowDate());
+                user.setUserId(DateUtils.getIDByDate(user.getCreateDate()));
+                userService.saveUser(user);
+                request.getSession().setAttribute("user", user);
+                return "redirect:index";
+            } else {
+                response.getWriter().print("false");
+                return "/registerPage";
+            }
         } else {
-            return "loginError";
+            response.getWriter().print("false");
+            return "/registerPage";
         }
     }
 
-    @RequestMapping("judge")
-    public String judge(UserDO user, HttpServletRequest request) {
 
-        return "/index";
+    @RequestMapping("/login")
+    @ResponseBody
+    public Map<String, Object> login(UserDO user, HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        if (user.getEmail() != null && user.getPassword() != null &&
+                !"".equals(user.getEmail()) && !"".equals(user.getPassword())) {
+            UserDO userDO = userService.getUser(user);
+            if (userDO != null) {
+                request.getSession().setAttribute("user", userDO);
+                map.put("state", "true");
+                map.put("userId", user.getUserId());
+            } else {
+                map.put("state", "false");
+            }
+        } else {
+            map.put("state", "false");
+        }
+        return map;
+    }
+
+    /**
+     * @param user
+     * @return 返回true表示验证通过，false为不通过
+     */
+    @RequestMapping("/judge")
+    public void judge(UserDO user, HttpServletResponse response) throws IOException {
+        if ("".equals(user.getUserName()) || "".equals(user.getPassword()) ||
+                "".equals(user.getPhone()) || "".equals(user.getEmail())) {
+            response.getWriter().print("false");
+            return;
+        }
+        if (userService.getUser(user) == null) {
+            response.getWriter().print("true");
+        } else {
+            response.getWriter().print("false");
+        }
     }
 }

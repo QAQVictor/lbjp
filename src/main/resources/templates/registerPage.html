@@ -4,11 +4,14 @@
     <meta charset="UTF-8"/>
     <title>加入拉帮结派</title>
     <link rel="stylesheet" type="text/css" th:href="@{~/css/registerPage.css}"/>
+    <script th:src="@{~/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{~/js/registerPage.js}"></script>
 </head>
 <body>
 <div>
     <div id="head">
-        <img id="logo" th:src="@{~/img/logo.PNG}"/><p>帮结派</p>
+        <img id="logo" th:src="@{~/img/logo.PNG}"/>
+        <p>帮结派</p>
         <div id="searchDiv">
             <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
             <img id="search" th:src="@{~/img/icon/search.ico}"/>
@@ -19,22 +22,28 @@
     <form id="registerForm" action="/register" method="post">
         <ul id="registerInfoList">
             <li class="registerInfo">
-                <span class="title">用户名</span>
-                <input type="text" id="userName" name="userName" placeholder="输入您的用户名" autocomplete="off" />
+                <span class="title">邮箱</span>
+                <input type="email" id="email" name="email" placeholder="输入邮箱（使用邮箱登录，请您牢记邮箱）"
+                       onkeyup="this.value=this.value.replace(/\s+/g,'')" style="ime-mode:disabled"/>
             </li>
             <li class="registerInfo">
                 <span class="title">密码</span>
-                <input type="password" id="password" name="password" placeholder="输入您的密码（6到16位字符）" autocomplete="off" />
+                <input type="password" id="password" name="password" placeholder="输入您的密码（6到12位字母或数字字符）"
+                       maxlength="12" minlength="6" onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                       style="ime-mode:disabled"/>
             </li>
             <li class="registerInfo">
                 <span class="title">手机号</span>
-                <input type="tel" id="phone" name="phone" placeholder="输入您的手机号" autocomplete="off" />
+                <input type="tel" id="phone" name="phone" placeholder="输入您的手机号" maxlength="11"
+                       minlength="11" onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                       style="ime-mode:disabled"/>
             </li>
             <li class="registerInfo">
-                <span class="title">邮箱</span>
-                <input type="email" id="email" name="email" placeholder="输入邮箱地址" autocomplete="off" />
+                <span class="title">用户名及昵称</span>
+                <input type="text" id="userName" name="userName" placeholder="输入您的用户名及昵称(6到16位字符)"
+                       maxlength="16" minlength="6" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
             </li>
-            <li class="registerInfo" >
+            <li class="registerInfo">
                 <input type="submit" id="registerButton" value="注册" style="width: 300px;"/>
             </li>
         </ul>
@@ -43,8 +52,3 @@
 </div>
 </body>
 </html>
-<script language="JavaScript">
-    document.getElementById('goToLogin').onclick=function() {
-        self.location="loginPage.html";
-    };
-</script>

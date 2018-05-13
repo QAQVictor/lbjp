@@ -83,7 +83,7 @@ li {
     margin: 0 5px;
 }
 
-#personal img:hover{
+#personal img:hover {
     cursor: pointer;
 }
 
@@ -195,170 +195,183 @@ li {
     background-color: rgb(246, 246, 246);
 }
 
-.activity{
-    width:680px;
+.activity {
+    width: 680px;
     background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
-    padding:10px;
-    margin-bottom:10px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-.activity .infoDiv{
+.activity .infoDiv {
     width: 100%;
     height: 35px;
 }
-.activity .infoDiv span{
+
+.activity .infoDiv span {
     display: inline-block;
 }
-.userHeadImg{
+
+.userHeadImg {
     width: 30px;
     height: 30px;
     border: 1px solid rgba(187, 187, 187, 1);
-    float:left;
+    float: left;
 }
-.userName{
+
+.userName {
     color: rgba(16, 16, 16, 1);
     font-size: 16px;
     font-family: Roboto;
     font-weight: bold;
-    float:left;
-    padding:5px 5px;
+    float: left;
+    padding: 5px 5px;
 }
-.userRemark{
+
+.userRemark {
     color: rgba(16, 16, 16, 1);
     font-size: 14px;
-    float:left;
-    margin:8px;
+    float: left;
+    margin: 8px;
 }
 
-.tag{
-    float:right;
-    font-size:14px;
-    color:rgb(187, 187, 187);
+.tag {
+    float: right;
+    font-size: 14px;
+    color: rgb(187, 187, 187);
 }
 
-.activity .title{
-    display:block;
-    font-size:18px;
-    font-weight:bold;
-    padding:10px;
+.activity .title {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
 }
 
-.activity p{
-    display:block;
+.activity p {
+    display: block;
     margin: 10px;
     width: 660px;
     max-height: 100px;
     line-height: 20px;
-    overflow-y:hidden;
+    overflow-y: hidden;
     font-size: 14px;
-    color: rgb(100,100,100);
+    color: rgb(100, 100, 100);
 }
 
-.operations{
-    height:30px;
-    padding:5px;
+.operations {
+    height: 30px;
+    padding: 7px;
 }
 
-.operations img{
-    margin-right:5px;
-}
-.operations div{
-    float:left;
-    color:rgb(178,178,178);
-    font-size:14px;
-    margin-right:20px;
-}
-.operations div:hover{
-    cursor:pointer;
+.operations img {
+    margin-right: 5px;
 }
 
-#hideDiv{
-    position:absolute;
-    left:0;
-    top:0;
+.operations div {
+    float: left;
+    color: rgb(178, 178, 178);
+    font-size: 14px;
+    margin-right: 25px;
+}
+
+.operations div:hover {
+    cursor: pointer;
+}
+
+#hideDiv {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     opacity: 0.5;
     background-color: black;
 }
-#newActivity{
-    position:absolute;
+
+#newActivity {
+    position: absolute;
     left: 377px;
     top: 100px;
     width: 565px;
     border-radius: 5px;
-    background-color:white;
+    background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
-    padding:20px 10px;
-}
-#activityInfo{
-    width:520px;
-    margin:0 auto;
-    font-size:14px;
+    padding: 20px 10px;
 }
 
-#newTitle,#newTag{
-    margin:10px auto;
+#activityInfo {
+    width: 520px;
+    margin: 0 auto;
+    font-size: 14px;
 }
 
-#activityInfo input{
-    border-radius:5px;
-    border: 1px solid rgb(178,178,178);
+#newTitle, #newTag {
+    margin: 10px auto;
+}
+
+#activityInfo input {
+    border-radius: 5px;
+    border: 1px solid rgb(178, 178, 178);
 
 }
 
-#newTitle input,#newTag input{
-    width:508px;
-    height:40px;
-    display:inline-block;
-    text-align:left;
-    padding-left:10px;
+#newTitle input, #newTag input {
+    width: 508px;
+    height: 40px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 10px;
 }
 
-#newTime,#newEntryTime{
-    display:inline-block;
-    width:257px;
+#newTime, #newEntryTime {
+    display: inline-block;
+    width: 257px;
 }
 
-#newTime span,#newEntryTime span{
-    display:block;
+#newTime span, #newEntryTime span {
+    display: block;
 }
 
-#newTime input,#newEntryTime input{
-    padding:0;
-    width:123px;
-    height:30px;
+#newTime input, #newEntryTime input {
+    padding: 0;
+    width: 123px;
+    height: 30px;
 
 }
-#newNum{
-    width:520px;
-    height:50px;
-}
-#newNum span{
-    display:block;
-}
-#newNum input{
-    padding-left:10px;
-    height:30px;
+
+#newNum {
+    width: 520px;
+    height: 50px;
 }
 
-#newTime,#newNum{
-    margin:5px auto;
+#newNum span {
+    display: block;
 }
 
-#newContent{
-    display:block;
-    margin-top:10px;
+#newNum input {
+    padding-left: 10px;
+    height: 30px;
 }
-#content{
-    width:498px;
-    height:100px;
-    border-radius:5px;
-    padding:10px;
-    resize:none;
+
+#newTime, #newNum {
+    margin: 5px auto;
 }
-#addActivity{
+
+#newContent {
+    display: block;
+    margin-top: 10px;
+}
+
+#content {
+    width: 498px;
+    height: 100px;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+}
+
+#addActivity {
     width: 145px;
     height: 43px;
     border-radius: 5px;
@@ -366,19 +379,23 @@ li {
     color: rgba(246, 246, 246, 1);
     font-size: 20px;
     text-align: center;
-    display:block;
-    margin:5px auto;
+    display: block;
+    margin: 5px auto;
 }
-#addActivity:hover{
-    cursor:pointer;
+
+#addActivity:hover {
+    cursor: pointer;
 }
-#close{
+
+#close {
     position: absolute;
     right: 10px;
-    top:10px;
+    top: 10px;
     width: 24px;
     height: 24px;
 }
-.activity:hover,#close:hover{
+
+#close:hover {
     cursor: pointer;
 }
+

@@ -2,6 +2,7 @@ package com.util;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -38,4 +39,8 @@ public class DateUtils {
         return DATE_FORMAT.format(new Date()) + NUMBER_FORMAT.format(RANDOM.nextInt(10000));
     }
 
+    public static String getIDByDate(String date) {
+        return date.replace(":", "").replace("-", "").replace(" ", "") +
+                NUMBER_FORMAT.format(RANDOM.nextInt(10000));
+    }
 }

@@ -7,7 +7,7 @@ package com.society.model.DO;
  */
 public class ActivityDO {
     private String activityId;//
-    private String tagId;//
+    private int tagId;//
     private String creator;//
     private String content;//内容
     private String theme;//主题
@@ -28,11 +28,11 @@ public class ActivityDO {
         this.activityId = activityId;
     }
 
-    public String getTagId() {
+    public int getTagId() {
         return tagId;
     }
 
-    public void setTagId(String tag_id) {
+    public void setTagId(int tagId) {
         this.tagId = tagId;
     }
 

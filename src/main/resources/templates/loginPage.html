@@ -4,23 +4,25 @@
     <meta charset="UTF-8"/>
     <title>登录到拉帮结派</title>
     <link rel="stylesheet" type="text/css" th:href="@{~/css/loginPage.css}"/>
+    <script th:src="@{~/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{~/js/loginPage.js}"></script>
 </head>
 <body>
 <div id="logoDiv"><img id="logo" th:src="@{~/img/logo.PNG}"/></div>
 <span id="headTitle">登录到拉帮结派</span>
-<form id="loginForm" th:action="@{~/login}" method="post">
+<form id="loginForm" method="post" action="">
     <ul id="loginInfoList">
         <li class="loginInfo">
-            <span class="title">用户名</span>
-            <input type="text" placeholder="输入用户名" name="userName"/>
+            <span class="title">邮箱</span>
+            <input type="text" placeholder="输入您的邮箱" name="email" id="email"/>
         </li>
         <li class="loginInfo">
             <span class="title">密码</span>
             <span class="title" id="getPassword">忘记密码？</span>
-            <input type="password" placeholder="输入密码" name="password"/>
+            <input type="password" placeholder="输入密码" name="password" id="password"/>
         </li>
         <li class="loginInfo">
-            <input type="submit" th:value="登录" id="loginButton"/>
+            <input type="submit" value="登录" id="loginButton"/>
         </li>
     </ul>
 </form>
@@ -30,7 +32,3 @@
 
 </body>
 </html>
-
-<javaScript>
-
-</javaScript>

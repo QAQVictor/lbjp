@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 @Controller
 @SpringBootApplication
-@MapperScan("com.user.dao")
+
 public class HelloSpringBoot {
 
     @Autowired
@@ -28,13 +28,15 @@ public class HelloSpringBoot {
         SpringApplication.run(HelloSpringBoot.class, args);
     }
 
-    @RequestMapping("/index")
-    public String index(HttpServletRequest request) {
-        request.getCookies();
-        return "/index";
+    /**
+     * 注册页面
+     *
+     * @return
+     */
+    @RequestMapping("/registerPage")
+    public String registerPage() {
+        return "/registerPage";
     }
-
-
 
     @RequestMapping("/loginPage")
     public String loginPage() {

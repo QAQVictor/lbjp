@@ -10,7 +10,7 @@ public class UserDO {
     private String userName;
     private String password;
     private String realName;
-    private int gender;
+    private String gender;
     private String email;
     private String phone;
     private String remark;//签名
@@ -26,6 +26,15 @@ public class UserDO {
     private String idCard;
     private String leader;//是否是领头人
     */
+
+    public UserDO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserDO(){
+
+    }
 
     public String getUserId() {
         return userId;
@@ -59,11 +68,11 @@ public class UserDO {
         this.realName = realName;
     }
 
-    public int isGender() {
+    public String isGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
