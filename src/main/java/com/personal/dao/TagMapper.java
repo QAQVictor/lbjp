@@ -1,7 +1,10 @@
 package com.personal.dao;
 
 import com.personal.model.DO.TagDO;
+import com.personal.model.VO.TagVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: 李亚卿
@@ -10,5 +13,27 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TagMapper {
-    void saveTag(TagDO tag);
+    /**
+     * 新建标签
+     *
+     * @param tag
+     * @return tagId
+     */
+    int insert(TagDO tag);
+
+    /**
+     * 根据标签名进行模糊查询
+     *
+     * @param tagName
+     * @return
+     */
+    List<TagVO> getLikeName(String tagName);
+
+    /**
+     * 根据名字查询标签（主要用于重复检验）
+     *
+     * @param tagName
+     * @return tagId
+     */
+    TagVO getIsName(String tagName);
 }
