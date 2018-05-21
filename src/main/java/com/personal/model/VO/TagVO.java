@@ -9,6 +9,15 @@ public class TagVO {
     private int tagId;//标签id
     private String tagName;//标签名
 
+    public TagVO(int tagId, String tagName) {
+        this.tagId = tagId;
+        this.tagName = tagName;
+    }
+
+    public TagVO() {
+
+    }
+
     public int getTagId() {
         return tagId;
     }

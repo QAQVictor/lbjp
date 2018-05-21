@@ -17,7 +17,8 @@ public class DateUtils {
     public static DateFormat DATE_FORMAT;
     public static DecimalFormat NUMBER_FORMAT = new DecimalFormat("0000");
     public static Random RANDOM = new Random();
-    public static final String CREATE_DATE_FORMAT = "yyyy-MM-dd HH:mm::ss";
+    public static final String DETAILED_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String BASE_DATE_FORMAT = "yyyy-MM-dd";
 
     /**
      * 获取当前时间，并返回字符串
@@ -25,8 +26,21 @@ public class DateUtils {
      * @return yyyy-MM-dd HH:mm::ss;
      */
     public static String getNowDate() {
-        DATE_FORMAT = new SimpleDateFormat(CREATE_DATE_FORMAT);
+        DATE_FORMAT = new SimpleDateFormat(DETAILED_DATE_FORMAT);
         return DATE_FORMAT.format(new Date());
+    }
+
+    /**
+     * 将字符串按照某种格式转化为Date类
+     *
+     * @param dateFormat
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public static Date formatToDate(String dateFormat, String date) throws ParseException {
+        DATE_FORMAT = new SimpleDateFormat(dateFormat);
+        return DATE_FORMAT.parse(date);
     }
 
     /**
@@ -39,8 +53,31 @@ public class DateUtils {
         return DATE_FORMAT.format(new Date()) + NUMBER_FORMAT.format(RANDOM.nextInt(10000));
     }
 
+    /**
+     * 根据创建时间创建id
+     *
+     * @param date
+     * @return
+     */
     public static String getIDByDate(String date) {
         return date.replace(":", "").replace("-", "").replace(" ", "") +
                 NUMBER_FORMAT.format(RANDOM.nextInt(10000));
+    }
+
+    /**
+     * 把时间设置为今天的23:59:59
+     *
+     * @param date
+     * @return
+     */
+    public static String setEndDate(String date) {
+        try {
+            Date date1 = formatToDate(BASE_DATE_FORMAT, date);
+            date1.setTime(date1.getTime() + 86399999);
+            return DATE_FORMAT.format(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return date;
+        }
     }
 }

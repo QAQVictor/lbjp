@@ -15,9 +15,11 @@ $(function () {
                 console.log("email" + email + " " + data);
                 if (data.state == "false") {
                     alert("用户名和密码不匹配");
+                    localStorage.userId = "";
                 }
                 else {
                     self.location = "/index";
+                    localStorage.userId = data.userId;
                 }
             }
         });

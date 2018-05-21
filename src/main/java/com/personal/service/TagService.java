@@ -26,4 +26,13 @@ public interface TagService {
      * @return
      */
     List<TagVO> getLikeName(String tagName);
+
+    /**
+     * 查找标签。未找到则添加，否则返回找到的标签
+     *
+     * @param tagName
+     * @param userId
+     * @return
+     */
+    TagVO getTag(String tagName, String userId);
 }

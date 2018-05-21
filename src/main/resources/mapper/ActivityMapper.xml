@@ -49,15 +49,19 @@
 
     <select id="getAllActivity" resultMap="ActivityBaseVOMap">
         SELECT
-          <include refid="Activity_Base_Info_List"/>
+        <include refid="Activity_Base_Info_List"/>
         FROM
-          activity LEFT JOIN comment on activity.activity_id= comment.activity_id
-                   LEFT JOIN agree on activity.activity_id= agree.activity_id,
-          user,tags
-        WHERE activity.creator=user.user_id AND activity.tag_id= tags.tag_id
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        GROUP BY activity.activity_id
+        ORDER BY activity.create_date DESC
     </select>
 
-    <insert id="insert" parameterType="com.society.model.DO.ActivityDO">
+    <insert id="insert" parameterType="com.society.model.DO.ActivityDO" useGeneratedKeys="true"
+            keyProperty="activityId">
         INSERT INTO activity
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="activityId != null">

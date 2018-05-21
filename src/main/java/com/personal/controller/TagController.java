@@ -1,6 +1,5 @@
 package com.personal.controller;
 
-import com.google.gson.Gson;
 import com.personal.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,16 @@ public class TagController {
     @Autowired
     TagService tagService;
 
+    /**
+     * 按照标签名查找类似标签
+     *
+     * @param tagName
+     * @return [{'tagId':'...','tagName':'...'},...]
+     */
     @RequestMapping("/getTagLikeName")
     @ResponseBody
     public String getTagLikeName(String tagName) {
         return tagService.getLikeName(tagName).toString();
     }
+
 }

@@ -1,4 +1,68 @@
 $(function () {
+
+    initActivity();
+
+    $(".title,.content").click(function () {
+        var activityId = $(this).parent(".activity").attr("id");
+        $.ajax({
+            url: "activityDetail?activityId=" + activityId,
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    });
+
+    $(".content").each(function () {
+        if ($(this).css("height") == $(this).css("max-height")) {
+
+        }
+    });
+    $("#mine1").click(function () {
+        $("#hideDiv").show();
+        $("#newActivity").show();
+    });
+    $("#close").click(function () {
+        $("#hideDiv").hide();
+        $("#newActivity").hide();
+    });
+
+    $("#goToHome").click(function () {
+        self.location = "/home";
+    });
+
+    $("#addActivity").click(function (event) {
+        event.preventDefault();
+        var userId = localStorage.userId;
+        if (userId != "") {
+            $.ajax({
+                type: "POST",
+                url: "/addActivity?creator=" + userId,
+                data: $("#addActivityForm").serializeArray(),
+                dataType: "json",
+                success: function (data) {
+                    alert(data);
+                    if (data.state == "true") {
+                        alert("发布成功！");
+                        $("#hideDiv").hide();
+                        $("#newActivity").hide();
+                        initActivity();
+                    } else {
+                        alert("请您重新输入!");
+                    }
+                }
+            })
+        }
+    })
+});
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+function initActivity() {
     $.ajax({
         url: "/getIndexActivity",
         success: function (data) {
@@ -23,39 +87,5 @@ $(function () {
                 $("#detail").append($(activity));
             });
         }
-    })
-
-    $(".title,.content").click(function () {
-        var activityId = $(this).parent(".activity").attr("id");
-        $.ajax({
-            url:"activityDetail?activityId="+activityId,
-            success:function (data) {
-                console.log(data);
-            }
-        })
     });
-
-    $(".content").each(function () {
-        if ($(this).css("height") == $(this).css("max-height")) {
-
-        }
-    });
-    $("#mine1").click(function () {
-        $("#hideDiv").show();
-        $("#newActivity").show();
-    });
-    $("#close").click(function () {
-        $("#hideDiv").hide();
-        $("#newActivity").hide();
-    });
-
-    $("#goToHome").click(function () {
-        self.location = "/home";
-    })
-    /*  $("#addActivity").click(function () {
-          $.ajax({
-              url:
-          })
-      })*/
-})
-;
+}

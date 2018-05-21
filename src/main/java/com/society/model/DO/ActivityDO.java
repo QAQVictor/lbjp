@@ -92,12 +92,12 @@ public class ActivityDO {
         this.entryStartDate = entryStartDate;
     }
 
-    public String getEntryendDate() {
+    public String getEntryEndDate() {
         return entryEndDate;
     }
 
-    public void setEntryendDate(String entryendDate) {
-        this.entryEndDate = entryendDate;
+    public void setEntryEndDate(String entryEndDate) {
+        this.entryEndDate = entryEndDate;
     }
 
     public String getStartDate() {

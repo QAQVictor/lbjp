@@ -310,13 +310,13 @@ li {
     margin: 10px auto;
 }
 
-#activityInfo input {
+#activityInfo input, #tag {
     border-radius: 5px;
     border: 1px solid rgb(178, 178, 178);
 
 }
 
-#newTitle input, #newTag input {
+#newTitle input, #tag {
     width: 508px;
     height: 40px;
     display: inline-block;
@@ -371,12 +371,13 @@ li {
     resize: none;
 }
 
-#addActivity {
+#activityInfo #addActivity {
     width: 145px;
     height: 43px;
     border-radius: 5px;
     background-color: rgba(0, 170, 238, 1);
-    color: rgba(246, 246, 246, 1);
+    border-color: rgba(0, 170, 238, 1);
+    color: rgba(255, 255, 255, 1);
     font-size: 20px;
     text-align: center;
     display: block;

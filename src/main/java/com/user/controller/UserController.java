@@ -71,7 +71,7 @@ public class UserController {
             if (userDO != null) {
                 request.getSession().setAttribute("user", userDO);
                 map.put("state", "true");
-                map.put("userId", user.getUserId());
+                map.put("userId", userDO.getUserId());
             } else {
                 map.put("state", "false");
             }
@@ -79,6 +79,12 @@ public class UserController {
             map.put("state", "false");
         }
         return map;
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().setAttribute("user", null);
+        return "/index";
     }
 
     /**
