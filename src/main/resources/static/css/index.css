@@ -255,7 +255,16 @@ li {
     max-height: 100px;
     line-height: 20px;
     overflow-y: hidden;
-    font-size: 14px;
+    font-size: 15px;
+}
+
+.activity .title:hover {
+    cursor: pointer;
+    color: rgb(13, 59, 255);
+}
+
+.activity p:hover {
+    cursor: pointer;
     color: rgb(100, 100, 100);
 }
 
@@ -280,7 +289,7 @@ li {
 }
 
 #hideDiv {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
@@ -290,7 +299,7 @@ li {
 }
 
 #newActivity {
-    position: absolute;
+    position: fixed;
     left: 377px;
     top: 100px;
     width: 565px;
@@ -326,7 +335,7 @@ li {
 
 #newTime, #newEntryTime {
     display: inline-block;
-    width: 257px;
+    width: 260px;
 }
 
 #newTime span, #newEntryTime span {
@@ -336,8 +345,7 @@ li {
 #newTime input, #newEntryTime input {
     padding: 0;
     width: 123px;
-    height: 30px;
-
+    height: 32px;
 }
 
 #newNum {

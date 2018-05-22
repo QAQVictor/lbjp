@@ -4,6 +4,7 @@ import com.society.model.DO.ActivityDO;
 import com.society.model.VO.ActivityBaseVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 李亚卿
@@ -20,5 +21,12 @@ public interface ActivityService {
      */
     List<ActivityBaseVO> getAllActivity();
 
+    /**
+     * 保存活动
+     *
+     * @param activity
+     */
     void saveActivity(ActivityDO activity);
+
+    Map getActivity(String activityId);
 }

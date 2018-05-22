@@ -3,11 +3,13 @@ package com.society.service.impl;
 import com.society.dao.ActivityMapper;
 import com.society.model.DO.ActivityDO;
 import com.society.model.VO.ActivityBaseVO;
+import com.society.model.VO.ActivityDetailVO;
 import com.society.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 李亚卿
@@ -29,5 +31,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void saveActivity(ActivityDO activity) {
         activityMapper.insert(activity);
+    }
+
+    @Override
+    public Map getActivity(String activityId) {
+        return activityMapper.get(activityId);
     }
 }

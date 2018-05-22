@@ -2,9 +2,11 @@ package com.society.dao;
 
 import com.society.model.DO.ActivityDO;
 import com.society.model.VO.ActivityBaseVO;
+import com.society.model.VO.ActivityDetailVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 李亚卿
@@ -41,8 +43,9 @@ public interface ActivityMapper {
 
     /**
      * 获取一个活动的详情
+     *
      * @param activityId
      * @return
      */
-    ActivityDO get(String activityId);
+    Map get(String activityId);
 }

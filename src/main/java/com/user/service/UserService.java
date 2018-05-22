@@ -2,6 +2,8 @@ package com.user.service;
 
 import com.user.model.DO.UserDO;
 
+import java.util.Map;
+
 /**
  * @Author: 李亚卿
  * @Date: Created in 11:21 2018/4/11 0011
@@ -22,4 +24,12 @@ public interface UserService {
      * @return
      */
     UserDO getUser(UserDO user);
+
+    /**
+     * 获取活动详情页面的创建人信息
+     *
+     * @param activityId
+     * @return
+     */
+    Map getByActivityId(String activityId);
 }

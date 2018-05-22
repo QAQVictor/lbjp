@@ -104,4 +104,17 @@ public class UserController {
             response.getWriter().print("false");
         }
     }
+
+    /**
+     * 获取活动详情页面创建人信息
+     *
+     * @param activityId
+     * @return
+     */
+    @RequestMapping("/getActivityCreator")
+    @ResponseBody
+    public Map<String, Object> getActivityCreator(String activityId) {
+        return userService.getByActivityId(activityId);
+    }
+
 }

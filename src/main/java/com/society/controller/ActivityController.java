@@ -50,6 +50,14 @@ public class ActivityController {
         return map;
     }
 
+    /**
+     * 添加一个活动
+     *
+     * @param activity
+     * @param tagName
+     * @param request
+     * @return
+     */
     @RequestMapping("addActivity")
     @ResponseBody
     public Map<String, Object> addActivity(ActivityDO activity, String tagName, HttpServletRequest request) {
@@ -65,6 +73,18 @@ public class ActivityController {
         map.put("state", "true");
         map.put("activity", activity);
         return map;
+    }
+
+    /**
+     * 获取活动详情
+     *
+     * @param activityId
+     * @return
+     */
+    @RequestMapping("/activityDetailInfo")
+    @ResponseBody
+    public Map<String, Object> activityDetailInfo(String activityId) {
+        return activityService.getActivity(activityId);
     }
 
     @RequestMapping("/index")

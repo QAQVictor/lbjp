@@ -83,30 +83,30 @@ li {
     margin: 0 5px;
 }
 
-#personal img:hover{
+#personal img:hover {
     cursor: pointer;
 }
 
-#main{
+#main {
     width: 100%;
-    height:450px;
+    height: 450px;
     margin: 0px auto;
-    background-color:white;
+    background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
-    padding:10px;
+    padding: 10px;
 }
 
 #detail {
     width: 700px;
     float: left;
-    margin-left:190px;
+    margin-left: 190px;
 }
 
-#tags{
+#tags {
     height: 50px;
 }
 
-.tag{
+.tag {
     width: 80px;
     height: 40px;
     line-height: 40px;
@@ -116,11 +116,15 @@ li {
     font-size: 14px;
     text-align: center;
     font-family: Roboto;
-    float:left;
-    margin:5px;
+    float: left;
+    margin: 5px;
 }
 
-#title{
+.tag:hover {
+    cursor: pointer;
+}
+
+#title {
     width: 393px;
     height: 41px;
     line-height: 41px;
@@ -128,77 +132,82 @@ li {
     font-size: 28px;
     text-align: center;
     font-family: Roboto;
-    padding:10px;
+    padding: 10px;
 }
 
-#detail p{
-    font-size:16px;
-    line-height:30px;
-    padding:10px;
+#detail p {
+    font-size: 16px;
+    line-height: 30px;
+    padding: 10px;
 }
 
-.operations{
-    height:30px;
-    padding:5px;
+.operations {
+    height: 30px;
+    padding: 5px;
 }
 
-.operations img{
-    margin-right:5px;
-}
-.operations div{
-    float:left;
-    color:rgb(178,178,178);
-    font-size:14px;
-    margin-right:20px;
-}
-.operations div:hover{
-    cursor:pointer;
+.operations img {
+    margin-right: 5px;
 }
 
-#otherInfo{
-    width:250px;
+.operations div {
+    float: left;
+    color: rgb(178, 178, 178);
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.operations div:hover {
+    cursor: pointer;
+}
+
+#otherInfo {
+    width: 250px;
     float: right;
-    margin-right:190px;
+    margin-right: 190px;
 }
 
-#entryForm{
-    padding:10px;
+#entryForm {
+    padding: 10px;
 }
 
-#entry{
-    height:50px;
-    width:80px;
-    float:left;
-    margin:5px 10px;
-}
-.bar{
-    text-align:center;
-    line-height:25px;
-    display:block;
-    height:25px;
-}
-#hot{
-    float:right;
-    height:50px;
-    width:80px;
-    margin:5px 10px;
+#entry {
+    height: 50px;
+    width: 80px;
+    float: left;
+    margin: 5px 10px;
 }
 
-.bar_num{
-    font-size:14px;
-    font-weight:bold;
-    color:rgb(0, 170, 238);
+.bar {
+    text-align: center;
+    line-height: 25px;
+    display: block;
+    height: 25px;
 }
 
-.entryDate{
-    clear:both;
-    display:block;
-    text-align:center;
-    color:rgb(178,178,178);
-    font-size:14px;
-    margin:5px auto;
+#hot {
+    float: right;
+    height: 50px;
+    width: 80px;
+    margin: 5px 10px;
 }
-#entryButton{
+
+.bar_num {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(0, 170, 238);
+}
+
+.entryDate {
+    clear: both;
+    display: block;
+    text-align: center;
+    color: rgb(178, 178, 178);
+    font-size: 14px;
+    margin: 5px auto;
+}
+
+#entryButton {
     width: 145px;
     height: 50px;
     border-radius: 5px;
@@ -207,54 +216,58 @@ li {
     font-size: 20px;
     text-align: center;
     font-family: Microsoft Yahei;
-    line-height:50px;
-    margin:10px auto;
+    line-height: 50px;
+    margin: 10px auto;
 }
 
-#creatorInfo{
-    padding:10px;
-    text-align:center;
+#entryButton:hover {
+    cursor: pointer;
 }
 
-#creatorInfo span{
-    display:block;
-    margin:5px auto;
+#creatorInfo {
+    padding: 10px;
+    text-align: center;
 }
 
-#creatorName{
-    font-size:18px;
+#creatorInfo span {
+    display: block;
+    margin: 5px auto;
 }
 
-#creatorHeadImg{
-    width:70px;
-    height:70px;
+#creatorName {
+    font-size: 18px;
 }
 
-#followList{
-    width:150px;
-    height:50px;
-    margin:0 auto;
+#creatorHeadImg {
+    width: 70px;
+    height: 70px;
 }
 
-#followList span{
-    display:block;
-    font-size:14px;
+#followList {
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
 }
 
-#followList div{
-    width:75px;
-    margin:0px auto;
+#followList span {
+    display: block;
+    font-size: 14px;
 }
 
-#activityNum{
-    float:left;
+#followList div {
+    width: 75px;
+    margin: 0px auto;
 }
 
-#followNum{
-    float:right;
+#activityNum {
+    float: left;
 }
 
-#follow{
+#followNum {
+    float: right;
+}
+
+#follow {
     width: 80px;
     height: 30px;
     border-radius: 5px;
@@ -262,11 +275,14 @@ li {
     font-size: 14px;
     text-align: center;
     font-family: Microsoft Yahei;
-    background-color:rgb(0, 170, 238);
-    line-height:30px;
-    margin:0px auto;
-    clear:both;
+    background-color: rgb(0, 170, 238);
+    line-height: 30px;
+    margin: 0px auto;
+    clear: both;
 }
 
+#follow:hover, #creatorName:hover, #creatorHeadImg:hover {
+    cursor: pointer;
+}
 
 

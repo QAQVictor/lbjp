@@ -43,10 +43,6 @@
         count(agree.user_id) agree_num
     </sql>
 
-    <sql id="Activity_detail_List">
-
-    </sql>
-
     <select id="getAllActivity" resultMap="ActivityBaseVOMap">
         SELECT
         <include refid="Activity_Base_Info_List"/>
@@ -58,6 +54,29 @@
         LEFT JOIN tags on activity.tag_id= tags.tag_id
         GROUP BY activity.activity_id
         ORDER BY activity.create_date DESC
+    </select>
+
+    <select id="get" resultType="java.util.Map" parameterType="java.lang.String">
+        SELECT
+        activity.activity_id activityId,
+        activity.tag_id tagId,
+        activity.content,theme,tag_name tagName,
+        planned_num plannedNum,hot,
+        entry_start_date entryStartDate,
+        entry_end_date entryEndDate,
+        start_date startDate,
+        end_date endDate,
+        COUNT(comment.commentator) commentNum,
+        COUNT(agree.user_id) agreeNum,
+        COUNT(entry_list.user_id) actualNum
+        FROM
+        activity
+        LEFT JOIN comment ON activity.activity_id= comment.activity_id
+        LEFT JOIN agree ON activity.activity_id= agree.activity_id
+        LEFT JOIN tags ON activity.tag_id= tags.tag_id
+        LEFT JOIN entry_list ON activity.activity_id=entry_list.activity_id
+        WHERE activity.activity_id=#{activityId,jdbcType=VARCHAR}
+        GROUP BY activity.activity_id
     </select>
 
     <insert id="insert" parameterType="com.society.model.DO.ActivityDO" useGeneratedKeys="true"

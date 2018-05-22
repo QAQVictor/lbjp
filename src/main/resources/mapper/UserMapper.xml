@@ -55,6 +55,22 @@
         </where>
     </select>
 
+    <select id="getByActivityId" resultType="java.util.Map">
+        SELECT
+         user.user_id userId,
+         user_name userName,
+         head_img_path headImgPath,
+         COUNT(activity.activity_id) activityNum,
+         COUNT(follow.follower_id) followNum
+        FROM
+          user
+          LEFT JOIN activity ON activity.creator=user.user_id
+          LEFT JOIN follow ON follow.star_id=user.user_id
+        WHERE
+          user.user_id=(SELECT creator FROM activity WHERE activity_id=#{activityId,jdbcType=VARCHAR})
+        GROUP BY user.user_id
+    </select>
+
     <delete id="delete" parameterType="java.lang.String">
         DELETE FROM
         user

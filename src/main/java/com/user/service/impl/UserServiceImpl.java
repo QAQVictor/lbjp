@@ -7,6 +7,8 @@ import com.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * @Author: 李亚卿
  * @Date: Created in 11:21 2018/4/11 0011
@@ -23,7 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDO getUser(UserDO user){
+    public UserDO getUser(UserDO user) {
         return userMapper.get(user);
+    }
+
+    @Override
+    public Map getByActivityId(String activityId) {
+        return userMapper.getByActivityId(activityId);
     }
 }
