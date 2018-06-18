@@ -19,10 +19,11 @@ li {
     width: 100%;
     height: 72px;
     line-height: 20px;
-    opacity: 0.9;
     background: white;
     text-align: center;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    position: fixed;
+    z-index: 999;
 }
 
 #searchDiv {
@@ -99,6 +100,9 @@ li {
     background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
     text-align: center;
+    position: fixed;
+    right: 194px;
+    top: 80px;
 }
 
 #tags_1 {
@@ -125,6 +129,9 @@ li {
     background-color: white;
     margin: 10px 0;
     text-align: center;
+    position: fixed;
+    right: 194px;
+    top: 200px;
 }
 
 #mine_1 {
@@ -193,6 +200,8 @@ li {
     width: 700px;
     float: left;
     background-color: rgb(246, 246, 246);
+    position: relative;
+    top: 70px;
 }
 
 .activity {
@@ -301,7 +310,7 @@ li {
 #newActivity {
     position: fixed;
     left: 377px;
-    top: 100px;
+    top: 50px;
     width: 565px;
     border-radius: 5px;
     background-color: white;
@@ -335,7 +344,7 @@ li {
 
 #newTime, #newEntryTime {
     display: inline-block;
-    width: 260px;
+    width: 520px;
 }
 
 #newTime span, #newEntryTime span {
@@ -344,8 +353,9 @@ li {
 
 #newTime input, #newEntryTime input {
     padding: 0;
-    width: 123px;
+    width: 246px;
     height: 32px;
+    margin-right: 10px;
 }
 
 #newNum {
@@ -379,7 +389,7 @@ li {
     resize: none;
 }
 
-#activityInfo #addActivity {
+.submitBtn {
     width: 145px;
     height: 43px;
     border-radius: 5px;
@@ -392,11 +402,11 @@ li {
     margin: 5px auto;
 }
 
-#addActivity:hover {
+.submitBtn:hover {
     cursor: pointer;
 }
 
-#close {
+.close {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -404,7 +414,44 @@ li {
     height: 24px;
 }
 
-#close:hover {
+.close:hover {
     cursor: pointer;
 }
 
+#infoDiv {
+    position: fixed;
+    left: 377px;
+    top: 100px;
+    height: 320px;
+    width: 465px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    padding: 20px 20px;
+}
+
+#infoDiv .submitBtn {
+    line-height: 43px;
+    margin-top: 20px;
+}
+
+#infoDiv ul {
+    margin: 0;
+    padding: 0;
+}
+
+.userInfo {
+    border-radius: 5px;
+    border: 1px solid rgb(178, 178, 178);
+    width: 250px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px auto;
+}
+
+#gender {
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    margin-left: 60px;
+}

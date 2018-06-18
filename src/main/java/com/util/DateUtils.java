@@ -80,4 +80,31 @@ public class DateUtils {
             return date;
         }
     }
+
+    /**
+     * 判断两个时间大小
+     *
+     * @param dateStr1
+     * @param dateStr2
+     * @return 1=date1大于date2；0=时间相同；-1=date1小于date2
+     * @throws ParseException
+     */
+    public static int compareDate(String dateStr1, String dateStr2) {
+        DATE_FORMAT = new SimpleDateFormat(DETAILED_DATE_FORMAT);
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = DATE_FORMAT.parse(dateStr1);
+            date2 = DATE_FORMAT.parse(dateStr2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (date1.getTime() > date2.getTime()) {
+            return 1;
+        } else if (date1.getTime() < date2.getTime()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

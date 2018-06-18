@@ -2,6 +2,7 @@ package com.society.service;
 
 import com.society.model.DO.ActivityDO;
 import com.society.model.VO.ActivityBaseVO;
+import com.society.model.VO.ScheduleActivityVO;
 
 import java.util.List;
 import java.util.Map;
@@ -28,5 +29,80 @@ public interface ActivityService {
      */
     void saveActivity(ActivityDO activity);
 
+    /**
+     * 获取活动详情
+     *
+     * @param activityId
+     * @return
+     */
     Map getActivity(String activityId);
+
+    /**
+     * 报名,成功向前端传0，过期向前端传1，未开始传2，人数已满传3,已经报名传4
+     *
+     * @param userId
+     * @param activityId
+     * @return
+     */
+    int join(String userId, String activityId);
+
+    /**
+     * 判断是否已经报名
+     *
+     * @param userId
+     * @param activityId
+     * @return true未报名 false报名
+     */
+    boolean judgeJoin(String userId, String activityId);
+
+    /**
+     * 判断该时间段是否有其他活动
+     *
+     * @param userId
+     * @param activityId
+     * @return 有true 无 false
+     */
+    boolean judgeByDate(String userId, String activityId);
+
+    /**
+     * @param userId
+     * @param date
+     * @return
+     */
+    List<ScheduleActivityVO> getJoinActivityByDay(String userId, String date);
+
+    /**
+     * 获取某一天该用户的发起的活动
+     *
+     * @param userId
+     * @param date
+     * @return
+     */
+    List<ScheduleActivityVO> getCreateActivityByDay(String userId, String date);
+
+    /**
+     * 取消活动（向参加人发送邮件活动取消）
+     *
+     * @param activityId
+     * @return
+     */
+    int cancelActivity(String activityId);
+
+    /**
+     * 无法参加（通知其他人自己无法参加）
+     *
+     * @param userId
+     * @param activityId
+     * @return
+     */
+    int breakUpActivity(String userId, String activityId);
+
+    /**
+     * 通知用户（界面中“一键通知功能”）
+     *
+     * @param activityId
+     * @return
+     */
+    int noticeAll(String activityId);
+
 }

@@ -36,6 +36,25 @@ public class UserDO {
 
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"userId\":\"" + userId +
+                "\", \"userName\":\"" + userName +
+                "\", \"password\":\"" + password +
+                "\", \"realName\":\"" + realName +
+                "\", \"gender\":\"" + gender +
+                "\", \"email\":\"" + email +
+                "\", \"phone\":\"" + phone +
+                "\", \"remark\":\"" + remark +
+                "\", \"headImgPath\":\"" + headImgPath +
+                "\", \"school\":\"" + school +
+                "\", \"cancelNum\":\"" + cancelNum +
+                "\", \"breakNum\":\"" + breakNum +
+                "\", \"createDate\":\"" + createDate +
+                "\"}";
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -68,7 +87,7 @@ public class UserDO {
         this.realName = realName;
     }
 
-    public String isGender() {
+    public String getGender() {
         return gender;
     }
 
@@ -139,4 +158,5 @@ public class UserDO {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
 }

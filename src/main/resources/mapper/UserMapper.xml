@@ -20,6 +20,13 @@
       user_id, user_name, email, phone,school, head_img_path,remark,gender
     </sql>
 
+    <select id="getById" resultMap="UserBaseInfoMap">
+        SELECT
+        <include refid="User_Base_Info_List"/>
+        FROM user
+        WHERE user_id=#{userID,jdbcType=VARCHAR}
+    </select>
+
     <select id="get" resultMap="UserBaseInfoMap" parameterType="com.user.model.DO.UserDO">
         SELECT
         <include refid="User_Base_Info_List"/>
@@ -169,46 +176,71 @@
         UPDATE
         user
         <set>
-            <if test="userId != null">
-                #{userId,jdbcType=VARCHAR},
-            </if>
             <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
+                user_name = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
-                #{password,jdbcType=VARCHAR},
+                password = #{password,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null">
-                #{createDate,jdbcType=TIMESTAMP},
+                create_date = #{createDate,jdbcType=TIMESTAMP},
             </if>
             <if test="email != null">
-                #{email,jdbcType=VARCHAR},
+                email = #{email,jdbcType=VARCHAR},
             </if>
             <if test="phone != null">
-                #{phone,jdbcType=VARCHAR},
+                phone = #{phone,jdbcType=VARCHAR},
             </if>
             <if test="school != null">
-                #{school,jdbcType=VARCHAR},
+                school = #{school,jdbcType=VARCHAR},
             </if>
             <if test="realName != null">
-                #{realName,jdbcType=VARCHAR},
+                real_name = #{realName,jdbcType=VARCHAR},
             </if>
             <if test="headImgPath != null">
-                #{headImgPath,jdbcType=VARCHAR},
+                head_img_path = #{headImgPath,jdbcType=VARCHAR},
             </if>
             <if test="remark != null">
-                #{remark,jdbcType=VARCHAR},
+                remark = #{remark,jdbcType=VARCHAR},
             </if>
             <if test="cancelNum != null">
-                #{cancelNum,jdbcType=INTEGER},
+                cancel_num = #{cancelNum,jdbcType=INTEGER},
             </if>
             <if test="breakNum != null">
-                #{breakNum,jdbcType=INTEGER},
+                break_num = #{breakNum,jdbcType=INTEGER},
             </if>
             <if test="gender != null">
-                #{gender,jdbcType=VARCHAR},
+                gender = #{gender,jdbcType=VARCHAR},
             </if>
         </set>
         WHERE user_id = #{userId,jdbcType=VARCHAR}
     </update>
+
+    <select id="updateCancelNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        UPDATE user SET cancel_num=(
+            (
+              SELECT temp.cancel_num
+              FROM (
+                SELECT cancel_num
+                FROM user
+                WHERE user_id=#{userId,jdbcType=VARCHAR}
+              )temp
+            )
+        )+1
+        WHERE user_id=#{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="updateBreakNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        UPDATE user SET break_num=(
+            (
+              SELECT temp.break_num
+              FROM (
+                SELECT break_num
+                FROM user
+                WHERE user_id=#{userId,jdbcType=VARCHAR}
+              )temp
+            )
+        )+1
+        WHERE user_id=#{userId,jdbcType=VARCHAR}
+    </select>
 </mapper>

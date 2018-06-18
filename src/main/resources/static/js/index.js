@@ -1,6 +1,15 @@
 $(function () {
 
     initActivity();
+    var userId = localStorage.userId;
+    $.ajax({
+        url: "/getUser?userId=" + userId,
+        success: function (data) {
+            if (data == "0") {
+                createInfoDiv();
+            }
+        }
+    })
 
     $(".title,.content").click(function () {
         var activityId = $(this).parent(".activity").attr("id");
@@ -18,8 +27,6 @@ $(function () {
         }
     });
     $("#mine1").click(function () {
-        $("#hideDiv").show();
-        $("#newActivity").show();
         createAddActivityDiv();
     });
 
@@ -49,8 +56,8 @@ $(function () {
                 success: function (data) {
                     if (data.state == "true") {
                         alert("发布成功！");
-                        $("#hideDiv").hide();
-                        $("#newActivity").hide();
+                        $("#hideDiv").remove();
+                        $("#newActivity").remove();
                     } else {
                         alert("请您重新输入!");
                     }
@@ -97,13 +104,13 @@ function createAddActivityDiv() {
     var hideDiv = $("<div id='hideDiv'></div>");
     var newActivity = $("<div id='newActivity'></div>>");
     newActivity.html(
-        "<img id='close' src='/img/icon/close.ico' onclick='removeAddActivityDiv()'/>" +
+        "<img class='close' src='/img/icon/close.ico' onclick='removeAddActivityDiv()'/>" +
         "<h3 style='text-align: center'>发帖</h3>" +
         "<span style='text-align: center;display: block;font-size: 12px;color: rgb(178,178,178);'>发起一次活动，和未来的朋友一起结伴出行吧！</span>" +
         "<form id='addActivityForm'>" +
         "<ul id='activityInfo'>" +
         "<li id='newTitle'>" +
-        "<input type='text' id='activityTitle' placeholder='活动标题' name='theme'/>" +
+        "<input type='text' id='activityTitle' placeholder='活动标题' name='theme' maxlength='25'/>" +
         "</li>" +
         "<li id='newTag'>" +
         "<input type='text' id='tag' placeholder='活动所属标签' name='tagName'/>" +
@@ -111,13 +118,13 @@ function createAddActivityDiv() {
         "</li>" +
         "<li id='newTime'>" +
         "<span>活动起止时间</span>" +
-        "<input type='date' placeholder='开始时间' name='startDate' id='startDate'/>" +
-        "<input type='date' placeholder='结束时间' name='endDate' id='endDate'/>" +
+        "<input type='datetime-local' name='startDate' id='startDate'/>" +
+        "<input type='datetime-local' name='endDate' id='endDate'/>" +
         "</li>" +
         "<li id='newEntryTime'>" +
         "<span>报名起止时间</span>" +
-        "<input type='date' placeholder='开始时间' name='entryStartDate' id='entryStartDate'/>" +
-        "<input type='date' placeholder='结束时间' name='entryEndDate' id='entryEndDate'/>" +
+        "<input type='date' name='entryStartDate' id='entryStartDate'/>" +
+        "<input type='date' name='entryEndDate' id='entryEndDate'/>" +
         "</li>" +
         "<li id='newNum'>" +
         "<span>人数</span>" +
@@ -128,7 +135,7 @@ function createAddActivityDiv() {
         "<textarea id='content' cols='100' rows='6' hard='hard' name='content' placeholder='输入具体的活动内容'></textarea>" +
         "</li>" +
         "<li>" +
-        "<input type='submit' value='发起' id='addActivity' />" +
+        "<input type='submit' value='发起' id='addActivity' class='submitBtn' />" +
         "</li>" +
         "</ul>" +
         "</form>"
@@ -137,7 +144,56 @@ function createAddActivityDiv() {
     $("#hideDiv").after($(newActivity));
 }
 
+function createInfoDiv() {
+    var hideDiv = $("<div id='hideDiv'></div>");
+    var infoDiv = $("<div id='infoDiv' style='text-align: center;'></div>");
+    infoDiv.html(
+        "<img class='close' src='/img/icon/close.ico' onclick='removeInfoDiv()'/>" +
+        " <h3>个人资料</h3>" +
+        "<span style='text-align: center;display: block;font-size: 12px;color: rgb(178,178,178); margin: 10px auto;'>补全个人资料，让其他人更了解你</span>" +
+        "<ul>" +
+        "<li>真实姓名：<input class='userInfo' type='text' name='realName' id='realName' placeholder='请输入您的真实姓名' maxlength='10'/></li>" +
+        "<li id='gender'>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：" +
+        "<input type='radio' name='gender' value='1'/>男&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "<input type='radio' name='gender' value='0'/>女" +
+        "</li>" +
+        "<li>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校：" +
+        "<input type='text' class='userInfo' name='school' id='school' placeholder='请输入您的学校' maxlength='17'/></li>" +
+        "<li>个性签名：" +
+        "<input type='text' class='userInfo' name='remark' id='remark' placeholder='请输入个性签名' maxlength='100'/>" +
+        "</li>" +
+        "</ul>" +
+        "<div class='submitBtn' onclick='updateUserInfo()'>提交</div>"
+    )
+    ;
+    $("#main").after($(hideDiv));
+    $("#hideDiv").after($(infoDiv));
+}
+
+function updateUserInfo(){
+    $.ajax({
+        url: "updateUser",
+        data: "userId=" + localStorage.userId +
+        "&realName=" + $("#realName").val() +
+        "&gender=" + $("input[name='gender']:checked").val() +
+        "&school=" + $("#school").val() +
+        "&remark=" + $("#remark").val(),
+        success: function (data) {
+            if (data == "1") {
+                alert("开始快乐之旅吧！");
+                $("#hideDiv").remove();
+                $("#infoDiv").remove();
+            }
+        }
+    });
+}
+
 function removeAddActivityDiv() {
     $("#hideDiv").remove();
     $("#newActivity").remove();
+}
+
+function removeInfoDiv() {
+    $("#hideDiv").remove();
+    $("#infoDiv").remove();
 }

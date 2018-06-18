@@ -3,22 +3,19 @@ package com.user.controller;
 import com.user.model.DO.UserDO;
 import com.user.service.UserService;
 import com.util.DateUtils;
-import com.util.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,6 +112,63 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> getActivityCreator(String activityId) {
         return userService.getByActivityId(activityId);
+    }
+
+    @RequestMapping("/getUser")
+    @ResponseBody
+    public String getUser(String userId) {
+        UserDO user = userService.getUser(userId);
+        if ("".equals(user.getSchool()) || "".equals(user.getRealName()) ||
+                "".equals(user.getHeadImgPath()) || "".equals(user.getGender())) {
+            return "0";
+        } else {
+            return "1";
+        }
+    }
+
+    @RequestMapping("updateUser")
+    @ResponseBody
+    public int updateUser(UserDO user) {
+        return userService.updateUser(user);
+    }
+
+    @RequestMapping("/updateUserHeadImg")
+    public String updateUserHeadImg(MultipartFile imgInput, String userId, HttpServletRequest request) {
+        if (!imgInput.isEmpty()) {
+            String tempFileName = imgInput.getOriginalFilename();
+            String fileSuffix = tempFileName.substring(tempFileName.lastIndexOf(".") + 1);
+            String rootPath = null;
+            try {
+                rootPath = ResourceUtils.getURL("classpath:").getPath();
+                File directory = new File(rootPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String fileName = "headImg" + userId + "." + fileSuffix;
+                File path = new File(directory.getAbsolutePath(), "static/img/userheadimg/");
+                if (!path.exists()) {
+                    path.mkdirs();
+                }
+
+                imgInput.transferTo(new File(path.getAbsolutePath() + "/" + fileName));
+
+                //更新用户信息
+                UserDO user = new UserDO();
+                user.setUserId(userId);
+                user.setHeadImgPath("img/userheadimg/" + fileName);
+                userService.updateUser(user);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:home";
+    }
+
+    @RequestMapping("/initUserInfo")
+    @ResponseBody
+    public String initUserInfo(String userId) {
+        return userService.getUser(userId).toString();
     }
 
 }

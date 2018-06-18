@@ -35,4 +35,35 @@ public interface UserMapper {
      * @return
      */
     Map getByActivityId(String activityId);
+
+    /**
+     * 根据userId获取用户信息
+     *
+     * @param userId
+     * @return
+     */
+    UserDO getById(String userId);
+
+    /**
+     * 更新用户信息
+     *
+     * @param user
+     */
+    int update(UserDO user);
+
+    /**
+     * 更新呢失约次数（+1）
+     *
+     * @param userId
+     * @return
+     */
+    int updateBreakNum(String userId);
+
+    /**
+     * 更新呢取消次数（+1）
+     *
+     * @param userId
+     * @return
+     */
+    int updateCancelNum(String userId);
 }

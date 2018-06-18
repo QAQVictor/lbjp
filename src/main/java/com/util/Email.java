@@ -18,9 +18,8 @@ public class Email {
     @Autowired
     public JavaMailSender mailSender;
 
-
     @RequestMapping("/sendEmail")
-    public String sendEmail() {
+    public void sendEmail() {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         //设置寄件人邮箱
         simpleMailMessage.setFrom("17600305595@163.com");
@@ -32,6 +31,9 @@ public class Email {
         simpleMailMessage.setTo("835114021@qq.com");
         //发送邮件
         mailSender.send(simpleMailMessage);
-        return "index";
     }
+
+    // public static sendEmail(String email,String content){}
+
+
 }

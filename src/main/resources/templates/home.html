@@ -5,6 +5,8 @@
     <title>我的</title>
     <link rel="stylesheet" type="text/css" href="/css/home.css"/>
     <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/home.js"></script>
+    <script th:src="@{~/js/global.js}"></script>
 </head>
 <body>
 <div id="head">
@@ -27,12 +29,15 @@
 </div>
 <div id="main">
     <div id="personalInfo">
-        <div id="headImg" >
-        </div>
+        <div id="headImg"></div>
+        <form action="/updateUserHeadImg" method="post" enctype="multipart/form-data" name="imgForm" id="imgForm" hidden="hidden">
+            <input type="file" accept="image/*" id="imgInput" class="form-control" name="imgInput" />
+            <input type="text" name="userId" id="imgUserId"/>
+        </form>
         <div id="userInfo">
-            <span id="userName">石乐志</span>
-            <span id="school">燕山大学</span>
-            <span id="remark">我是一个石乐志的男人</span>
+            <span id="userName"></span>
+            <span id="school"></span>
+            <span id="remark"></span>
         </div>
         <div id="edit">编辑</div>
     </div>
@@ -40,12 +45,11 @@
         <div id="label">
             <ul>
                 <li id="recently">最近</li>
-                <li>帖子</li>
-                <li>参与</li>
+                <li id="myActivity">发起</li>
+                <li is="joinedActivity">参与</li>
                 <li>关注</li>
                 <li>收藏</li>
                 <li id="schedule">日程</li>
-                <li>消息</li>
             </ul>
         </div>
         <div id="detail"></div>
@@ -86,64 +90,14 @@
     <img th:src="@{~/img/icon/close.ico}" id="close"/>
     <div id="scheduleDetail">
         <span style="text-align: center;width: 600px;font-size: 14px; display: inline-block;">我发起的</span>
-        <div id="mineActivity">
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>09:00-11:30</span>
-                    <span>燕山大学第一教学楼</span>
-                    <span>报名/最大：3/5</span>
-                    <span>男：女=1：2</span>
-                    <span>第一教学楼做毕业设计</span>
-                    <span class=".followerInfo">具体参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="notice">一键通知</div>
-                    <div class="cancel">取消活动</div>
-                </div>
-            </div>
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>13:00-17:00</span>
-                    <span>燕山大学第一体育场</span>
-                    <span>报名/最大：10/15</span>
-                    <span>男：女=5：5</span>
-                    <span>趣味运动会</span>
-                    <span class=".followerInfo">具体参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="notice">一键通知</div>
-                    <div class="cancel">取消活动</div>
-                </div>
-            </div>
-        </div>
+        <div id="mineActivity"></div>
         <span style="text-align: center;width: 600px; font-size: 14px;display: inline-block;">我参与的</span>
-        <div id="othersActivity">
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>06:00-07:00</span>
-                    <span>燕山大学第一体育场</span>
-                    <span>报名/最大：10/10</span>
-                    <span>男：女=6：4</span>
-                    <span>早起一小时</span>
-                    <span class=".followerInfo">其他参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="cancel">无法参加</div>
-                </div>
-            </div>
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>18:00-21:00</span>
-                    <span>燕山大学东区图书馆</span>
-                    <span>报名/最大：5/5</span>
-                    <span>男：女=1：4</span>
-                    <span>阅读分享会</span>
-                    <span class=".followerInfo">其他参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="cancel">无法参加</div>
-                </div>
-            </div>
+        <div id="othersActivity"></div>
+    </div>
+</div>
+</body>
+</html>
+<!--
             <div class="activityDetail">
                 <div class="activityInfo">
                     <span>21:30-22:00</span>
@@ -157,25 +111,17 @@
                     <div class="cancel">无法参加</div>
                 </div>
             </div>
-        </div>
-    </div>
-
-</div>
-</body>
-</html>
-<script language="JavaScript">
-    $(function () {
-        $("#label ul li").first().css("border-bottom","3px solid rgb(0, 170, 238)");
-        $("#detail").load("/recently");
-    });
-    $("#label ul li").click(function () {
-        $(this).css("border-bottom","3px solid rgb(0, 170, 238)");
-        $(this).siblings("li").css("border-bottom","0px solid");
-    });
-    $("#schedule").click(function () {
-        $("#detail").load("schedule.html");
-    });
-    $("#recently").click(function () {
-        $("#detail").load("/recently");
-    })
-</script>
+            <div class="activityDetail">
+                <div class="activityInfo">
+                    <span>13:00-17:00</span>
+                    <span>燕山大学第一体育场</span>
+                    <span>报名/最大：10/15</span>
+                    <span>男：女=5：5</span>
+                    <span>趣味运动会</span>
+                    <span class="followerInfo">具体参与者信息</span>
+                </div>
+                <div class="operations">
+                    <div class="notice">一键通知</div>
+                    <div class="cancel">取消活动</div>
+                </div>
+            </div>-->

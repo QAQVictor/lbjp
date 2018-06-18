@@ -32,4 +32,18 @@ public interface UserService {
      * @return
      */
     Map getByActivityId(String activityId);
+
+    /**
+     * 根据用户id获取用户信息
+     * @param userId
+     * @return
+     */
+    UserDO getUser(String userId);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return 0 失败 1成功
+     */
+    int updateUser(UserDO user);
 }

@@ -62,4 +62,9 @@ public class HelloSpringBoot {
     public String recently() {
         return "/recently";
     }
+
+    @RequestMapping("/test")
+    public String test() {
+        return "/test";
+    }
 }

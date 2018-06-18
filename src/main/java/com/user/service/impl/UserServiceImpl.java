@@ -33,4 +33,14 @@ public class UserServiceImpl implements UserService {
     public Map getByActivityId(String activityId) {
         return userMapper.getByActivityId(activityId);
     }
+
+    @Override
+    public UserDO getUser(String userId) {
+        return userMapper.getById(userId);
+    }
+
+    @Override
+    public int updateUser(UserDO user) {
+        return userMapper.update(user);
+    }
 }

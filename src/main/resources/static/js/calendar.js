@@ -1,14 +1,14 @@
-(function(){
+(function () {
     /*
      * 用于记录日期，显示的时候，根据dateObj中的日期的年月显示
      */
-    var dateObj = (function(){
+    var dateObj = (function () {
         var _date = new Date();    // 默认为当前系统时间
         return {
-            getDate : function(){
+            getDate: function () {
                 return _date;
             },
-            setDate : function(date) {
+            setDate: function (date) {
                 _date = date;
             }
         };
@@ -50,7 +50,7 @@
         var _bodyHtml = "";
 
         // 一个月最多31天，所以一个月最多占6行表格
-        for(var i = 0; i < 6; i++) {
+        for (var i = 0; i < 6; i++) {
             _bodyHtml += "<tr>" +
                 "<td></td>" +
                 "<td></td>" +
@@ -78,24 +78,24 @@
 
         // 设置顶部标题栏中的 年、月信息
         var calendarTitle = document.getElementById("calendarTitle");
-        var titleStr = _dateStr.substr(0, 4) + "年" + _dateStr.substr(4,2) + "月";
+        var titleStr = _dateStr.substr(0, 4) + "年" + _dateStr.substr(4, 2) + "月";
         calendarTitle.innerText = titleStr;
 
         // 设置表格中的日期数据
         var _table = document.getElementById("calendarTable");
         var _tds = _table.getElementsByTagName("td");
         var _firstDay = new Date(_year, _month - 1, 1);  // 当前月第一天
-        for(var i = 0; i < _tds.length; i++) {
+        for (var i = 0; i < _tds.length; i++) {
             var _thisDay = new Date(_year, _month - 1, i + 1 - _firstDay.getDay());
             var _thisDayStr = getDateStr(_thisDay);
             _tds[i].innerText = _thisDay.getDate();
-            //_tds[i].data = _thisDayStr;
+            _tds[i].data = _thisDayStr;
             _tds[i].setAttribute('data', _thisDayStr);
-            if(_thisDayStr == getDateStr(new Date())) {    // 当前天
+            if (_thisDayStr == getDateStr(new Date())) {    // 当前天
                 _tds[i].className = 'currentDay';
-            }else if(_thisDayStr.substr(0, 6) == getDateStr(_firstDay).substr(0, 6)) {
+            } else if (_thisDayStr.substr(0, 6) == getDateStr(_firstDay).substr(0, 6)) {
                 _tds[i].className = 'currentMonth';  // 当前月
-            }else {    // 其他月
+            } else {    // 其他月
                 _tds[i].className = 'otherMonth';
             }
         }
@@ -122,16 +122,16 @@
      * 绑定事件
      */
     function addEvent(dom, eType, func) {
-        if(dom.addEventListener) {  // DOM 2.0
-            dom.addEventListener(eType, function(e){
+        if (dom.addEventListener) {  // DOM 2.0
+            dom.addEventListener(eType, function (e) {
                 func(e);
             });
-        } else if(dom.attachEvent){  // IE5+
-            dom.attachEvent('on' + eType, function(e){
+        } else if (dom.attachEvent) {  // IE5+
+            dom.attachEvent('on' + eType, function (e) {
                 func(e);
             });
         } else {  // DOM 0
-            dom['on' + eType] = function(e) {
+            dom['on' + eType] = function (e) {
                 func(e);
             }
         }
@@ -168,3 +168,146 @@
         return _year + _month + _d;
     }
 })();
+
+$(function () {
+    $(".currentDay,.currentMonth").click(function () {
+        //获取d
+        var date = formateDate($(this).attr("data"));
+        console.log(date);
+        getTodayActivity(date);
+        $("#hideDiv").show();
+        $("#todaySchedule").show();
+    });
+
+    $("#close").click(function () {
+        $("#hideDiv").hide();
+        $("#todaySchedule").hide();
+        $(".activityDetail").remove();
+        $(".hint").remove();
+    });
+});
+
+function formateDate(date) {
+    return date.substr(0, 4) + "-" + date.substr(4, 2) + "-" + date.substr(6, 2);
+}
+
+function getTime(date) {
+    return date.substr(11, 5);
+}
+
+function getAllActivityInfo(date) {
+    $.ajax({
+        url: "getAllActivityInfo",
+        data: "userId" + localStorage.userId + "&date=" + date,
+        success: function (data) {
+
+        }
+    })
+}
+
+function getTodayActivity(date) {
+    $.ajax({
+        url: "getTodayActivity",
+        data: "userId=" + localStorage.userId + "&date=" + date,
+        success: function (data) {
+            if (data.createActivityNum == 0) {
+                $("#mineActivity").append("<span class='hint' style='font-size: 16px;color: #999999;text-align: center;display: inline-block;width: 560px;height: 200px;line-height: 200px;'>这天您未发起过活动</span>");
+            } else {
+                $.each(data.createActivity, function (idx, item) {
+                    var activityDetail = $("<div class='activityDetail'></div>");
+                    activityDetail.html(
+                        "<div class='activityInfo'>" +
+                        "<span>" + getTime(item.startDate) + "-" + getTime(item.endDate) + "</span>" +
+                        "<span id='" + item.tagId + "'>标签：" + item.tagName + "</span>" +
+                        "<span>报名/最大：" + item.actualNum + "/" + item.plannedNum + "</span>" +
+                        "<span>发起人：" + item.userName + "</span>" +
+                        "<span>主题：" + item.theme + "</span>" +
+                        "<span class='followerInfo'>具体参与者信息</span>" +
+                        "</div>" +
+                        "<div class='operations'  id='" + item.activityId + "'>" +
+                        "<div class='notice' onclick='noticeAll()'>一键通知</div>" +
+                        "<div class='cancel' onclick='cancel()'>取消活动</div>" +
+                        "</div>"
+                    );
+                    $("#mineActivity").append($(activityDetail));
+                });
+            }
+            if (data.joinActivityNum == 0) {
+                $("#othersActivity").append("<span class='hint' style='font-size: 16px;color: #999999;text-align: center;display: inline-block;width: 560px;height: 200px;line-height: 200px;'>这天您未报名过活动</span>");
+            } else {
+                $.each(data.joinActivity, function (idx, item) {
+                    var activityDetail = $("<div class='activityDetail'></div>");
+                    activityDetail.html(
+                        "<div class='activityInfo'>" +
+                        "<span>" + getTime(item.startDate) + "-" + getTime(item.endDate) + "</span>" +
+                        "<span id='" + item.tagId + "'>标签：" + item.tagName + "</span>" +
+                        "<span>报名/最大：" + item.actualNum + "/" + item.plannedNum + "</span>" +
+                        "<span>发起人：" + item.userName + "</span>" +
+                        "<span>主题：" + item.theme + "</span>" +
+                        "<span class='followerInfo'>具体参与者信息</span>" +
+                        "</div>" +
+                        "<div class='operations' id='" + item.activityId + "'>" +
+                        "<div class='cancel' onclick='breakUp()'>无法参加</div>" +
+                        "</div>"
+                    );
+                    $("#othersActivity").append($(activityDetail));
+                });
+            }
+
+        }
+    })
+}
+
+function noticeAll() {
+    var activityId = $(this).parent().attr("id");
+    alert(activityId);
+    $.ajax({
+        url: "noticeAll",
+        data: "activity=" + activityId,
+        success: function (data) {
+            if (data == "1") {
+
+            } else {
+
+            }
+        }
+    })
+}
+
+function cancel() {
+    var activityId = $(this).parent().attr("id");
+    alert(activityId);
+    var confirm = confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）");
+    if (confirm == true) {
+        $.ajax({
+            url: "cancelActivity",
+            data: "",
+            success: function (data) {
+                if (data == "1") {
+
+                } else {
+
+                }
+            }
+        })
+    }
+}
+
+function breakUp() {
+    var activityId = $(this).parent().attr("id");
+    alert(activityId);
+    var confirm = confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）");
+    if (confirm == true) {
+        $.ajax({
+            url: "breakUpActivity",
+            data: "activityId=" + activityId + "&userId=" + localStorage.userId,
+            success: function (data) {
+                if (data == "1") {
+
+                } else {
+
+                }
+            }
+        })
+    }
+}
