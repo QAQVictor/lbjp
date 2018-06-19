@@ -33,4 +33,15 @@
         FROM tags
         WHERE tag_name =#{tagName,jdbcType=VARCHAR}
     </select>
+
+    <insert id="starTag" parameterType="com.personal.model.VO.StarTag">
+        INSERT INTO hobby (user_id, tag_id)
+        VALUES (#{userId,jdbcType=VARCHAR},#{tagId,jdbcType=INTEGER})
+    </insert>
+
+    <select id="judgeStar" parameterType="com.personal.model.VO.StarTag" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM hobby
+        WHERE user_id=#{userId,jdbcType=VARCHAR} AND tag_id=#{tagId,jdbcType=INTEGER}
+        limit 1
+    </select>
 </mapper>

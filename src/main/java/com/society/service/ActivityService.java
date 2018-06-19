@@ -27,7 +27,7 @@ public interface ActivityService {
      *
      * @param activity
      */
-    void saveActivity(ActivityDO activity);
+    int saveActivity(ActivityDO activity);
 
     /**
      * 获取活动详情
@@ -38,7 +38,7 @@ public interface ActivityService {
     Map getActivity(String activityId);
 
     /**
-     * 报名,成功向前端传0，过期向前端传1，未开始传2，人数已满传3,已经报名传4
+     * 报名,成功向前端传0，过期向前端传1，未开始传2，人数已满传3,已经报名传4,该时间段已有其他安排传5
      *
      * @param userId
      * @param activityId
@@ -47,13 +47,13 @@ public interface ActivityService {
     int join(String userId, String activityId);
 
     /**
-     * 判断是否已经报名
+     * 判断是否可以报名
      *
      * @param userId
      * @param activityId
-     * @return true未报名 false报名
+     * @return 0可报名，1报名结束，2报名未开始，3人数满，4已报名，5时间冲突，6活动被取消
      */
-    boolean judgeJoin(String userId, String activityId);
+    int judgeJoin(String userId, String activityId);
 
     /**
      * 判断该时间段是否有其他活动
@@ -62,7 +62,7 @@ public interface ActivityService {
      * @param activityId
      * @return 有true 无 false
      */
-    boolean judgeByDate(String userId, String activityId);
+    //boolean judgeByDate(String userId, String activityId);
 
     /**
      * @param userId

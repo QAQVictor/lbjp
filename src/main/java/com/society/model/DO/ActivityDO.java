@@ -12,7 +12,7 @@ public class ActivityDO {
     private String content;//内容
     private String theme;//主题
     private int plannedNum;//计划参与人数
-    private int actualNum;//实际人数
+    private String invalided;//是否有效 0有效 1过期 2取消
     private int hot;//热度，浏览量
     private String entryStartDate;
     private String entryEndDate;
@@ -68,12 +68,12 @@ public class ActivityDO {
         this.plannedNum = plannedNum;
     }
 
-    public int getActualNum() {
-        return actualNum;
+    public String getInvalided() {
+        return invalided;
     }
 
-    public void setActualNum(int actualNum) {
-        this.actualNum = actualNum;
+    public void setInvalided(String invalided) {
+        this.invalided = invalided;
     }
 
     public int getHot() {

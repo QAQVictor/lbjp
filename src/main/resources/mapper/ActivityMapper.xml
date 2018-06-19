@@ -9,7 +9,7 @@
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="theme" property="theme" jdbcType="VARCHAR"/>
         <result column="planned_num" property="plannedNum" jdbcType="INTEGER"/>
-        <result column="actual_num" property="actualNum" jdbcType="INTEGER"/>
+        <result column="invalided" property="invalided" jdbcType="VARCHAR"/>
         <result column="hot" property="hot" jdbcType="INTEGER"/>
         <result column="entry_start_date" property="entryStartDate" jdbcType="TIMESTAMP"/>
         <result column="entry_end_date" property="entryEndDate" jdbcType="TIMESTAMP"/>
@@ -42,10 +42,11 @@
         <result column="actual_num" property="actualNum" jdbcType="INTEGER"/>
         <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
         <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+        <result column="invalided" property="invalided" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Activity_List">
-      activity_id, tag_id, create_date, creator, content, theme, planned_num,
+      activity_id, tag_id, creat  e_date, creator, content, theme, planned_num,
       hot, entry_start_date, entry_end_date, start_date, end_date
     </sql>
 
@@ -117,8 +118,8 @@
             <if test="plannedNum != null">
                 planned_num,
             </if>
-            <if test="actualNum != null">
-                actual_num,
+            <if test="invalided != null">
+                invalided,
             </if>
             <if test="hot != null">
                 hot,
@@ -158,8 +159,8 @@
             <if test="plannedNum != null">
                 #{plannedNum,jdbcType=INTEGER},
             </if>
-            <if test="actualNum != null">
-                #{actualNum,jdbcType=INTEGER},
+            <if test="invalided != null">
+                #{invalided,jdbcType=VARCHAR},
             </if>
             <if test="hot != null">
                 #{hot,jdbcType=INTEGER},
@@ -192,6 +193,7 @@
     <select id="judgeJoin" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM entry_list
         WHERE user_id=#{userId,jdbcType=VARCHAR} AND activity_id=#{activityId,jdbcType=VARCHAR}
+        limit 1
     </select>
 
     <select id="getById" resultMap="ActivityDOMap" parameterType="java.lang.String">
@@ -214,6 +216,7 @@
                activity.planned_num,
                activity.tag_id,tag_name,
                activity.creator,user_name,
+               activity.invalided,
                COUNT(entry_list.user_id) actual_num
         FROM activity
         LEFT JOIN tags ON (activity.tag_id=tags.tag_id)
@@ -236,6 +239,7 @@
                activity.planned_num,
                activity.tag_id,tag_name,
                activity.creator,user_name,
+               activity.invalided,
                COUNT(entry_list.user_id) actual_num
         FROM activity
         LEFT JOIN tags ON (activity.tag_id=tags.tag_id)
@@ -254,6 +258,7 @@
         activity_id IN (SELECT activity_id FROM entry_list WHERE user_id=#{userId,jdbcType=VARCHAR})
         AND((start_date &gt;= #{startDate,jdbcType=VARCHAR} AND start_date &lt;= #{endDate,jdbcType=VARCHAR})
         OR(end_date &gt;= #{startDate,jdbcType=VARCHAR} AND end_date &lt;= #{endDate,jdbcType=VARCHAR}))
+        limit 1
     </select>
 
     <select id="getUserEmails" parameterType="java.lang.String" resultType="java.lang.String">
@@ -266,4 +271,9 @@
     <select id="getCreator" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT creator FROM activiy WHERE activity_id=#{activityId,jdbcType=VARCHAR}
     </select>
+
+    <update id="updateActivityInvalided" parameterType="java.lang.String">
+        UPDATE activity SET invalided=#{state,jdbcType=VARCHAR}
+        WHERE activity_id=#{activityId,jdbcType=VARCHAR}
+    </update>
 </mapper>

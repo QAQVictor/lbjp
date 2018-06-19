@@ -47,6 +47,7 @@ public class ActivityController {
     public Map<String, Object> getIndexActivity(HttpServletRequest request) {
         UserDO user = (UserDO) request.getSession().getAttribute("user");
         Map<String, Object> map = new HashMap<>();
+        //map.put("tagList", );
         map.put("activityList", activityService.getAllActivity());
         return map;
     }
@@ -57,27 +58,14 @@ public class ActivityController {
      * @param activity
      * @param tagName
      * @param request
-     * @return
+     * @return 0添加成功 5该时间段已经有其他安排
      */
     @RequestMapping("/addActivity")
     @ResponseBody
     public Map<String, Object> addActivity(ActivityDO activity, String tagName, HttpServletRequest request) {
-
-       /* UserDO user = (UserDO) request.getSession().getAttribute("user");
-        if (!user.getUserId().equals(userId)) {
-            return null;
-        }*/
-
         Map<String, Object> map = new HashMap<>();
-        activity.setCreateDate(DateUtils.getNowDate());
-        activity.setActivityId(DateUtils.getIDByDate(activity.getCreateDate()));
-        //activity.setEndDate(activity.getEndDate() + " 23:59:59");
-        activity.setEntryEndDate(activity.getEntryEndDate() + " 23:59:59");
-        activity.setHot(0);
-        activity.setActualNum(0);
         activity.setTagId(tagService.getTag(tagName, activity.getCreator()).getTagId());
-        activityService.saveActivity(activity);
-        map.put("state", "true");
+        map.put("state", activityService.saveActivity(activity));
         map.put("activity", activity);
         return map;
     }
@@ -117,30 +105,20 @@ public class ActivityController {
     }
 
     /**
-     * 判断是否已经报名，未报名向前端传0，已经报名向前端传1
+     * 可报名向前端传0，报名过期向前端传1，报名未开始传2，人数已满传3,已经报名传4，该时间段已有其他安排传5
      *
      * @param userId
      * @param activityId
-     * @param response
-     * @throws IOException
      */
     @RequestMapping("judgeJoin")
-    public void judgeJoin(String userId, String activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-       /* UserDO user = (UserDO) request.getSession().getAttribute("user");
-        if (!user.getUserId().equals(userId)) {
-            return;
-        }*/
-        if (activityService.judgeJoin(userId, activityId)) {
-            response.getWriter().print("0");
-        } else {
-            response.getWriter().print("1");
-        }
+    @ResponseBody
+    public String judgeJoin(String userId, String activityId) {
+        return String.valueOf(activityService.judgeJoin(userId, activityId));
     }
 
     @RequestMapping("getTodayActivity")
     @ResponseBody
     public Map<String, Object> getTodayActivity(String userId, String date) {
-        System.out.println(date);
         Map<String, Object> map = new HashMap<>();
         List<ScheduleActivityVO> joinActivity = activityService.getJoinActivityByDay(userId, date);
         map.put("joinActivityNum", joinActivity.size());
@@ -166,6 +144,18 @@ public class ActivityController {
     @RequestMapping("breakUpActivity")
     @ResponseBody
     public String breakUpActivity(String activityId, String userId) {
+        return null;
+    }
+
+    @RequestMapping("getComment")
+    @ResponseBody
+    public String getComment(String activityId) {
+        return null;
+    }
+
+    @RequestMapping("addComment")
+    @ResponseBody
+    public String addComment() {
         return null;
     }
 }

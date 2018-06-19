@@ -1,6 +1,7 @@
 package com.personal.service;
 
 import com.personal.model.DO.TagDO;
+import com.personal.model.VO.StarTag;
 import com.personal.model.VO.TagVO;
 
 import java.util.List;
@@ -35,4 +36,20 @@ public interface TagService {
      * @return
      */
     TagVO getTag(String tagName, String userId);
+
+
+    /**
+     * 收藏标签
+     *
+     * @param starTag
+     */
+    void starTag(StarTag starTag);
+
+    /**
+     * 判断是否收藏
+     *
+     * @param starTag
+     * @return
+     */
+    int judgeStar(StarTag starTag);
 }

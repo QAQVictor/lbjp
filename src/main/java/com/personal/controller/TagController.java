@@ -1,5 +1,6 @@
 package com.personal.controller;
 
+import com.personal.model.VO.StarTag;
 import com.personal.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,4 +29,16 @@ public class TagController {
         return tagService.getLikeName(tagName).toString();
     }
 
+    @RequestMapping("starTag")
+    @ResponseBody
+    public String starTag(StarTag starTag) {
+        System.out.println(starTag.getTagId() + "              " + starTag.getUserId());
+        return null;
+    }
+
+    @RequestMapping("judgeStar")
+    @ResponseBody
+    public String judgeStar(StarTag starTag) {
+        return String.valueOf(tagService.judgeStar(starTag));
+    }
 }

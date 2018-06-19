@@ -24,14 +24,15 @@
     <div id="personal">
         <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
         <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
-        <img class="personalCenter" th:src="@{~/img/icon/user.ico}"/>
+        <img class="personalCenter" id="goToHome" th:src="@{~/img/icon/user.ico}"/>
     </div>
 </div>
 <div id="main">
     <div id="personalInfo">
         <div id="headImg"></div>
-        <form action="/updateUserHeadImg" method="post" enctype="multipart/form-data" name="imgForm" id="imgForm" hidden="hidden">
-            <input type="file" accept="image/*" id="imgInput" class="form-control" name="imgInput" />
+        <form action="/updateUserHeadImg" method="post" enctype="multipart/form-data" name="imgForm" id="imgForm"
+              hidden="hidden">
+            <input type="file" accept="image/*" id="imgInput" class="form-control" name="imgInput"/>
             <input type="text" name="userId" id="imgUserId"/>
         </form>
         <div id="userInfo">
@@ -58,11 +59,11 @@
         <div id="followList">
             <div id="following">
                 <span class="infoTitle">关注了</span>
-                <span class="info">2</span>
+                <span class="info followNum">2</span>
             </div>
             <div id="followed">
                 <span class="infoTitle">关注者</span>
-                <span class="info">15</span>
+                <span class="info followNum">15</span>
             </div>
         </div>
         <div id="achievement">

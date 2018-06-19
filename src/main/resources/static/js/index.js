@@ -9,7 +9,7 @@ $(function () {
                 createInfoDiv();
             }
         }
-    })
+    });
 
     $(".title,.content").click(function () {
         var activityId = $(this).parent(".activity").attr("id");
@@ -54,10 +54,12 @@ $(function () {
                 data: $("#addActivityForm").serializeArray(),
                 dataType: "json",
                 success: function (data) {
-                    if (data.state == "true") {
+                    if (data.state == "0") {
                         alert("发布成功！");
                         $("#hideDiv").remove();
                         $("#newActivity").remove();
+                    } else if (data.state == "5") {
+                        alert("您在这段时间已经有其他的日程安排！");
                     } else {
                         alert("请您重新输入!");
                     }
@@ -70,6 +72,10 @@ $(function () {
     $("#detail").on("click", ".title,.content", function () {
         self.location = "/activityDetail?activityId=" + $(this).parent("div").attr("id");
     })
+
+    $("#detail").on("click", ".infoDiv", function () {
+        self.location = "/home?userId=" + $(this).attr("id");
+    })
 });
 
 function initActivity() {
@@ -79,7 +85,7 @@ function initActivity() {
             $.each(data.activityList, function (idx, item) {
                 var activity = $("<div class='activity' id='" + item.activityId + "'></div>");
                 activity.html(
-                    "<div class='infoDiv'>" +
+                    "<div class='infoDiv' id='" + item.creator + "' >" +
                     "<img class='userHeadImg' style='width: 30px;height: 30px;' src='" + item.headImgPath + "'/>" +
                     "<span class='userName'>" + item.userName + "</span>" +
                     "<span class='userRemark'>" + item.remark + "</span>" +
@@ -144,6 +150,11 @@ function createAddActivityDiv() {
     $("#hideDiv").after($(newActivity));
 }
 
+function removeAddActivityDiv() {
+    $("#hideDiv").remove();
+    $("#newActivity").remove();
+}
+
 function createInfoDiv() {
     var hideDiv = $("<div id='hideDiv'></div>");
     var infoDiv = $("<div id='infoDiv' style='text-align: center;'></div>");
@@ -170,7 +181,12 @@ function createInfoDiv() {
     $("#hideDiv").after($(infoDiv));
 }
 
-function updateUserInfo(){
+function removeInfoDiv() {
+    $("#hideDiv").remove();
+    $("#infoDiv").remove();
+}
+
+function updateUserInfo() {
     $.ajax({
         url: "updateUser",
         data: "userId=" + localStorage.userId +
@@ -188,12 +204,8 @@ function updateUserInfo(){
     });
 }
 
-function removeAddActivityDiv() {
-    $("#hideDiv").remove();
-    $("#newActivity").remove();
-}
 
-function removeInfoDiv() {
-    $("#hideDiv").remove();
-    $("#infoDiv").remove();
-}
+
+
+
+

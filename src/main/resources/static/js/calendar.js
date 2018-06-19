@@ -171,7 +171,6 @@
 
 $(function () {
     $(".currentDay,.currentMonth").click(function () {
-        //获取d
         var date = formateDate($(this).attr("data"));
         console.log(date);
         getTodayActivity(date);
@@ -253,7 +252,6 @@ function getTodayActivity(date) {
                     $("#othersActivity").append($(activityDetail));
                 });
             }
-
         }
     })
 }

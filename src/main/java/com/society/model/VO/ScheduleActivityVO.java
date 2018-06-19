@@ -16,6 +16,7 @@ public class ScheduleActivityVO {
     private String endDate;
     private int plannedNum;
     private int actualNum;
+    private String invalided;
 
     public String getActivityId() {
         return activityId;
@@ -95,5 +96,13 @@ public class ScheduleActivityVO {
 
     public void setActualNum(int actualNum) {
         this.actualNum = actualNum;
+    }
+
+    public String getInvalided() {
+        return invalided;
+    }
+
+    public void setInvalided(String invalided) {
+        this.invalided = invalided;
     }
 }

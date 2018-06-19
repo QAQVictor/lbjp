@@ -122,4 +122,6 @@ public interface ActivityMapper {
      * @return
      */
     List getUserEmails(String activityId);
+
+    int updateActivityInvalided(@Param("activityId") String activityId, @Param("state") String state);
 }

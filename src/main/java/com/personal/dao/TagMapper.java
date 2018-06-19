@@ -1,8 +1,10 @@
 package com.personal.dao;
 
 import com.personal.model.DO.TagDO;
+import com.personal.model.VO.StarTag;
 import com.personal.model.VO.TagVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -36,4 +38,19 @@ public interface TagMapper {
      * @return tagId
      */
     TagVO getIsName(String tagName);
+
+    /**
+     * 收藏标签
+     *
+     * @param starTag
+     */
+    void starTag(StarTag starTag);
+
+    /**
+     * 判断是否收藏
+     *
+     * @param starTag
+     * @return
+     */
+    int judgeStar(StarTag starTag);
 }

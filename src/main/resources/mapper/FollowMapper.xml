@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.personal.dao.FollowMapper">
+    <insert id="insert" parameterType="com.personal.model.VO.FollowVO">
+        INSERT INTO follow VALUES (#{followerId,jdbcType=VARCHAR},#{starId,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="judgeFollow" parameterType="com.personal.model.VO.FollowVO" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM follow
+        WHERE follower_id=#{followerId,jdbcType=VARCHAR} AND star_id=#{starId,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+    <delete id="delete" parameterType="com.personal.model.VO.FollowVO">
+        DELETE FROM follow WHERE follower_id=#{followerId,jdbcType=VARCHAR} AND star_id=#{starId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

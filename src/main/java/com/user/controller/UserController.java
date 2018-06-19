@@ -116,8 +116,9 @@ public class UserController {
 
     @RequestMapping("/getUser")
     @ResponseBody
-    public String getUser(String userId) {
+    public String getUser(String userId, HttpServletRequest request) {
         UserDO user = userService.getUser(userId);
+        request.getSession().setAttribute("user", user);
         if ("".equals(user.getSchool()) || "".equals(user.getRealName()) ||
                 "".equals(user.getHeadImgPath()) || "".equals(user.getGender())) {
             return "0";

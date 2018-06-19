@@ -1,10 +1,26 @@
 $(function () {
-    initUserInfo();
+
+    var urlUserId = getQueryString("userId");
+
+    if ("" == urlUserId || undefined == urlUserId || null == urlUserId || localStorage.userId == urlUserId) {
+        initUserInfo(localStorage.userId);
+    } else {
+        initUserInfo(urlUserId);
+        $("#imgForm").remove();
+        $("#schedule").remove();
+        judgeFollow(urlUserId);
+    }
 
     initUserHistoryActivity();
 
     $("#edit").click(function () {
-        createInfoDiv();
+        if ($(this).html() == "编辑") {
+            createInfoDiv();
+        } else if ($(this).html() == "关注") {
+            followSomeone(urlUserId);
+        } else if ($(this).html() == "取消关注") {
+            cancelFollow(urlUserId);
+        }
     });
 
     $("#label ul li").first().css("border-bottom", "3px solid rgb(0, 170, 238)");
@@ -26,6 +42,7 @@ $(function () {
     $("#headImg").click(function () {
         $("#imgInput").click();
     });
+
     $('#imgInput').change(function () {
         var name, fileName, file;
         file = $("#imgInput");
@@ -62,21 +79,25 @@ function getObjectURL(file) {
     return url;
 }
 
-function initUserInfo() {
+function initUserInfo(userId) {
     $.ajax({
-        url: "/initUserInfo?userId=" + localStorage.userId,
+        url: "/initUserInfo?userId=" + userId,
         success: function (data) {
             var userInfo = JSON.parse(data);
             $("#headImg").attr("style", "background-image:url('../" + userInfo.headImgPath + "');");
             $("#userName").html(userInfo.userName);
             $("#school").html(userInfo.school);
             $("#remark").html(userInfo.remark);
-            $("#imgUserId").val(localStorage.userId);
+            $("#imgUserId").val(userId);
         }
     });
 }
 
 function initUserHistoryActivity() {
+
+}
+
+function initHistory() {
 
 }
 
@@ -168,4 +189,73 @@ function updateUserInfo() {
 function removeInfoDiv() {
     $("#hideDiv").remove();
     $("#infoDiv").remove();
+}
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+function followSomeone(urlUserId) {
+    $.ajax({
+        url: "followSomeone",
+        data: "followerId=" + localStorage.userId + "&starId=" + urlUserId,
+        success: function (data) {
+            if (data == "0") {
+                $("#edit").html("已关注");
+                $("#edit").css("background-color", "rgb(179,179,179)");
+                $("#edit").css("border", "rgb(179,179,179)");
+                $("#edit").mouseover(function () {
+                    $("#edit").html("取消关注");
+                });
+                $("#edit").mouseleave(function () {
+                    $("#edit").html("已关注");
+                });
+            } else {
+                alert("关注失败！");
+            }
+        }
+    })
+}
+
+function judgeFollow(urlUserId) {
+    $.ajax({
+        url: "judgeFollow",
+        data: "followerId=" + localStorage.userId + "&starId=" + urlUserId,
+        success: function (data) {
+            if (data == "0") {
+                $("#edit").html("关注");
+            } else {
+                $("#edit").html("已关注");
+                $("#edit").css("background-color", "rgb(179,179,179)");
+                $("#edit").css("border", "rgb(179,179,179)");
+                $("#edit").mouseover(function () {
+                    $("#edit").html("取消关注");
+                });
+                $("#edit").mouseleave(function () {
+                    $("#edit").html("已关注");
+                });
+            }
+        }
+    });
+}
+
+function cancelFollow(urlUserId) {
+    $.ajax({
+        url: "cancelFollow",
+        data: "followerId=" + localStorage.userId + "&starId=" + urlUserId,
+        success: function (data) {
+            if (data == "1") {
+                $("#edit").html("关注");
+                $("#edit").css("background-color", "rgba(0, 170, 238, 1)");
+                $("#edit").css("border", "rgba(0, 170, 238, 1)");
+                $("#edit").unbind("mouseover");
+                $("#edit").unbind("mouseleave");
+            } else {
+                alert("取消关注失败！");
+            }
+        }
+    });
 }

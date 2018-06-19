@@ -23,7 +23,7 @@ li {
     text-align: center;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
     position: fixed;
-    z-index: 999;
+    z-index: 10;
 }
 
 #searchDiv {
@@ -239,9 +239,10 @@ li {
 
 .userRemark {
     color: rgba(16, 16, 16, 1);
-    font-size: 14px;
+    font-size: 12px;
     float: left;
     margin: 8px;
+    color: #999999;
 }
 
 .tag {
@@ -293,7 +294,7 @@ li {
     margin-right: 25px;
 }
 
-.operations div:hover {
+.operations div, .activity .infoDiv:hover {
     cursor: pointer;
 }
 
@@ -305,6 +306,7 @@ li {
     height: 100%;
     opacity: 0.5;
     background-color: black;
+    z-index: 11;
 }
 
 #newActivity {
@@ -316,6 +318,7 @@ li {
     background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
     padding: 20px 10px;
+    z-index: 12;
 }
 
 #activityInfo {
@@ -428,6 +431,7 @@ li {
     background-color: white;
     box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
     padding: 20px 20px;
+    z-index: 12;
 }
 
 #infoDiv .submitBtn {

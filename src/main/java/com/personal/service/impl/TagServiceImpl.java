@@ -2,6 +2,7 @@ package com.personal.service.impl;
 
 import com.personal.dao.TagMapper;
 import com.personal.model.DO.TagDO;
+import com.personal.model.VO.StarTag;
 import com.personal.model.VO.TagVO;
 import com.personal.service.TagService;
 import com.util.DateUtils;
@@ -48,5 +49,16 @@ public class TagServiceImpl implements TagService {
         } else {
             return tagMapper.getIsName(tagName);
         }
+    }
+
+    @Override
+    public void starTag(StarTag starTag) {
+        if (judgeStar(starTag) == 0)
+            tagMapper.starTag(starTag);
+    }
+
+    @Override
+    public int judgeStar(StarTag starTag) {
+        return tagMapper.judgeStar(starTag);
     }
 }

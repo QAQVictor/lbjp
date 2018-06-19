@@ -261,6 +261,11 @@ li {
     color: rgb(176, 176, 176);
 }
 
+.followNum:hover {
+    color: rgb(0, 170, 238);
+    cursor: pointer;
+}
+
 .info {
     font-size: 16px;
     font-weight: bold;
