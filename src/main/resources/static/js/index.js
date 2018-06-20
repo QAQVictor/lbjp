@@ -71,10 +71,14 @@ $(function () {
 
     $("#detail").on("click", ".title,.content", function () {
         self.location = "/activityDetail?activityId=" + $(this).parent("div").attr("id");
-    })
+    });
 
     $("#detail").on("click", ".infoDiv", function () {
-        self.location = "/home?userId=" + $(this).attr("id");
+        if (localStorage.userId == $(this).attr("id")) {
+            self.location = "/home";
+        } else {
+            self.location = "/home?userId=" + $(this).attr("id");
+        }
     })
 });
 

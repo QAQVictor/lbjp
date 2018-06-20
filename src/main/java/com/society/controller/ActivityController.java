@@ -93,15 +93,14 @@ public class ActivityController {
      *
      * @param userId
      * @param activityId
-     * @param response
      */
     @RequestMapping("/join")
-    public void join(String userId, String activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public int join(String userId, String activityId) {
        /* UserDO user = (UserDO) request.getSession().getAttribute("user");
         if (!user.getUserId().equals(userId)) {
             return;
         }*/
-        response.getWriter().print(activityService.join(userId, activityId));
+        return activityService.join(userId, activityId);
     }
 
     /**
@@ -157,5 +156,25 @@ public class ActivityController {
     @ResponseBody
     public String addComment() {
         return null;
+    }
+
+    @RequestMapping("getCreateActivityNum")
+    @ResponseBody
+    public String getCreateActivityNum(String userId) {
+        return null;
+    }
+
+    @RequestMapping("getJoinActivity")
+    @ResponseBody
+    public Map getJoinActivity(String userId) {
+        Map<String, Object> map = new HashMap<>();
+        return map;
+    }
+
+    @RequestMapping("getCreateActivity")
+    @ResponseBody
+    public Map getCreateActivity(String userId) {
+        Map<String, Object> map = new HashMap<>();
+        return map;
     }
 }

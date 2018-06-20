@@ -13,6 +13,11 @@
         <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="HobbyMap" type="com.personal.model.VO.HobbyPageVO">
+        <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
+        <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="insert" parameterType="com.personal.model.DO.TagDO" useGeneratedKeys="true" keyProperty="tagId">
         INSERT INTO tags
         (tag_name,creator,create_date)
@@ -34,14 +39,25 @@
         WHERE tag_name =#{tagName,jdbcType=VARCHAR}
     </select>
 
-    <insert id="starTag" parameterType="com.personal.model.VO.StarTag">
+    <insert id="starTag" parameterType="com.personal.model.VO.StarTagVO">
         INSERT INTO hobby (user_id, tag_id)
         VALUES (#{userId,jdbcType=VARCHAR},#{tagId,jdbcType=INTEGER})
     </insert>
 
-    <select id="judgeStar" parameterType="com.personal.model.VO.StarTag" resultType="java.lang.Integer">
+    <select id="judgeStar" parameterType="com.personal.model.VO.StarTagVO" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM hobby
         WHERE user_id=#{userId,jdbcType=VARCHAR} AND tag_id=#{tagId,jdbcType=INTEGER}
         limit 1
+    </select>
+
+    <delete id="delete" parameterType="com.personal.model.VO.StarTagVO">
+        DELETE FROM hobby WHERE user_id=#{userId,jdbcType=VARCHAR} AND tag_id=#{tagId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="getTagByUserId" parameterType="java.lang.String" resultMap="HobbyMap">
+        SELECT tags.tag_id,tag_name
+        FROM tags
+        RIGHT JOIN hobby ON (tags.tag_id=hobby.tag_id)
+        WHERE user_id=#{userId,jdbcType=VARCHAR}
     </select>
 </mapper>

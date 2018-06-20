@@ -1,7 +1,8 @@
 package com.personal.service;
 
 import com.personal.model.DO.TagDO;
-import com.personal.model.VO.StarTag;
+import com.personal.model.VO.HobbyPageVO;
+import com.personal.model.VO.StarTagVO;
 import com.personal.model.VO.TagVO;
 
 import java.util.List;
@@ -41,15 +42,31 @@ public interface TagService {
     /**
      * 收藏标签
      *
-     * @param starTag
+     * @param starTagVO
      */
-    void starTag(StarTag starTag);
+    int starTag(StarTagVO starTagVO);
+
+    /**
+     * 取消收藏
+     *
+     * @param starTagVO
+     * @return
+     */
+    int cancelStar(StarTagVO starTagVO);
 
     /**
      * 判断是否收藏
      *
-     * @param starTag
+     * @param starTagVO
+     * @return 1已收藏 0未收藏
+     */
+    int judgeStar(StarTagVO starTagVO);
+
+    /**
+     * 获取某用户的关注的标签
+     *
+     * @param userId
      * @return
      */
-    int judgeStar(StarTag starTag);
+    List<HobbyPageVO> getTagByUserId(String userId, String urlUserId);
 }

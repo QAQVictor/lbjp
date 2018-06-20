@@ -1,10 +1,10 @@
 package com.personal.dao;
 
 import com.personal.model.DO.TagDO;
-import com.personal.model.VO.StarTag;
+import com.personal.model.VO.HobbyPageVO;
+import com.personal.model.VO.StarTagVO;
 import com.personal.model.VO.TagVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -42,15 +42,30 @@ public interface TagMapper {
     /**
      * 收藏标签
      *
-     * @param starTag
+     * @param starTagVO
      */
-    void starTag(StarTag starTag);
+    void starTag(StarTagVO starTagVO);
 
     /**
      * 判断是否收藏
      *
-     * @param starTag
+     * @param starTagVO
      * @return
      */
-    int judgeStar(StarTag starTag);
+    int judgeStar(StarTagVO starTagVO);
+
+    /**
+     * 删除收藏记录
+     *
+     * @param starTagVO
+     */
+    void delete(StarTagVO starTagVO);
+
+    /**
+     * 根据用户地获取标签信息
+     *
+     * @param userId
+     * @return
+     */
+    List<HobbyPageVO> getTagByUserId(String userId);
 }

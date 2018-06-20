@@ -1,5 +1,6 @@
 package com.personal.dao;
 
+import com.personal.model.DO.CreditDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,11 +14,9 @@ public interface CreditMapper {
     /**
      * 插入信用记录
      *
-     * @param userId
-     * @param activityId
-     * @param type
+     * @param credit
      */
-    void insert(String userId, String activityId, String type);
+    void insert(CreditDO credit);
 
     /**
      * 获取某条信用记录

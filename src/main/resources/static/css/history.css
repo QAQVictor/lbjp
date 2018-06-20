@@ -1,0 +1,217 @@
+.activity {
+    width: 670px;
+    margin: 10px;
+    padding: 5px;
+    border-bottom: 1px solid rgb(246, 246, 246);
+}
+
+.activity .infoDiv {
+    width: 100%;
+    height: 35px;
+}
+
+.activity .infoDiv span {
+    display: inline-block;
+}
+
+.userHeadImg {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(200, 200, 200, 1);
+    float: left;
+}
+
+.userName {
+    color: rgba(16, 16, 16, 1);
+    font-size: 16px;
+    font-family: Roboto;
+    font-weight: bold;
+    float: left;
+    padding: 5px 5px;
+}
+
+.userRemark {
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    float: left;
+    margin: 8px;
+}
+
+.tag {
+    float: right;
+    font-size: 14px;
+    color: rgb(187, 187, 187);
+}
+
+.activity .title {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.activity p {
+    display: block;
+    padding: 10px;
+}
+
+.operations {
+    height: 30px;
+    padding: 5px;
+}
+
+.operations img {
+    margin-right: 5px;
+}
+
+.operations div {
+    float: left;
+    color: rgb(178, 178, 178);
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.operations div:hover {
+    cursor: pointer;
+}
+
+.tags {
+    width: 670px;
+    margin: 10px;
+    padding: 5px;
+    border-bottom: 1px solid rgb(246, 246, 246);
+}
+
+.tags .tagDiv {
+    height: 30px;
+    width: 180px;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    padding: 15px 10px;
+    display: inline-block;
+    margin: 5px 10px;
+}
+
+.tags .tagDiv .tagName, .tags .tagDiv .star {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.tags .tagDiv .tagName {
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    margin: 0 5px;
+    float: left;
+    font-weight: bold;
+}
+
+.tags .tagDiv .star {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto;
+    float: right;
+}
+
+.tags .tagDiv .star:hover {
+    cursor: pointer;
+}
+
+#selectUl {
+    width: 670px;
+    margin: 5px 15px 5px 15px;
+    border-bottom: 1px solid rgb(246, 246, 246);
+    color: rgb(255, 255, 255);
+    display: block;
+}
+
+#selectUl li {
+    display: inline-block;
+    text-align: center;
+    padding: 5px 15px;
+    color: rgb(178, 178, 178);
+    font-size: 14px;
+    height: 20px;
+}
+
+#selectUl li:hover {
+    color: rgb(0, 170, 238);
+    cursor: pointer;
+}
+
+#detail .users {
+    width: 670px;
+    margin: 10px;
+    padding: 5px;
+    border-bottom: 1px solid rgb(246, 246, 246);
+}
+
+#detail .users .userDiv {
+    box-shadow: 0 1px 3px rgba(26, 26, 26, .1);
+    height: 100px;
+    width: 300px;
+    padding: 10px 0px;
+    display: inline-block;
+    margin: 5px 15px;
+    vertical-align: top;
+}
+
+#detail .users .userDiv .headImg {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    float: left;
+    line-height: 120px;
+}
+
+#detail .users .userDiv .userName,
+#detail .users .userDiv .follow,
+#detail .users .userDiv .remark {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    height: 26px;
+    padding: 2px 0px;
+}
+
+#detail .users .userDiv .userName {
+    overflow-x: hidden;
+    font-size: 16px;
+}
+
+#detail .users .userDiv .remark {
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+#detail .users .userDiv .follow {
+    height: 30px;
+    width: 80px;
+    display: inline-block;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto;
+    line-height: 30px;
+}
+
+#detail .users .userDiv .follow:hover {
+    cursor: pointer;
+}
+
+.hint {
+    font-size: 16px;
+    color: rgb(187, 187, 187);
+    text-align: center;
+    display: inline-block;
+    height: 50px;
+    width: 670px;
+    line-height: 35px;
+    border-bottom: 1px solid rgb(246, 246, 246);
+    margin: 15px 15px;
+}

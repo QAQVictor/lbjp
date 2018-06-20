@@ -1,7 +1,7 @@
 $(function () {
     var userId = localStorage.userId;
     var activityId = getQueryString("activityId");
-    var tagName;
+    var tagStar;
 
     if (userId != "") {
         $.ajax({
@@ -13,11 +13,14 @@ $(function () {
                     $("#entryButton").unbind();
                 }
                 switch (data) {
+                    case "7":
+                        $("#entryButton").html("活动已结束");
+                        break;
+                    case "6":
+                        $("#entryButton").html("活动已取消");
+                        break;
                     case "1":
                         $("#entryButton").html("报名已结束");
-                        break;
-                    case "2":
-                        $("#entryButton").html("报名未开始");
                         break;
                     case "3":
                         $("#entryButton").html("人数已满");
@@ -28,8 +31,8 @@ $(function () {
                     case "5":
                         $("#entryButton").html("日程冲突");
                         break;
-                    case "6":
-                        $("#entryButton").html("活动已取消");
+                    case "2":
+                        $("#entryButton").html("报名未开始");
                         break;
                 }
             }
@@ -49,17 +52,21 @@ $(function () {
             $("#activityNum span").eq(1).html(data.activityNum);
             $("#followNum span").eq(1).html(data.followNum);
             $("#creatorInfo").attr("data-id", data.userId);
+            if (localStorage.userId == data.userId) {
+                $("#follow").remove();
+            }
             judgeFollow(data.userId);
         }
     });
 
+    //获取活动详情
     $.ajax({
         url: "activityDetailInfo?activityId=" + getQueryString("activityId"),
         dataType: "json",
         success: function (data) {
-            tagName = data.tagName;
-            $("#tags div").html(data.tagName);
-            $("#tags div").attr("data-id", data.tagId);
+            $("#tags .tag").html(data.tagName);
+            $("#tags .tag").attr("data-id", data.tagId);
+            $("#tags .tag").attr("data-name", data.tagName);
             $("#title").html(data.theme);
             $("#activityDate").html("活动时间（" + new Date(data.startDate).toLocaleString() +
                 " — " + new Date(data.endDate).toLocaleString() + "）");
@@ -71,21 +78,22 @@ $(function () {
             $("#hot span").eq(1).html(data.hot);
             $("#startDate").html("报名开始于</br> " + new Date(data.entryStartDate).toLocaleString());
             $("#endDate").html("截止到</br> " + new Date(data.entryEndDate).toLocaleString());
-
-
-            /* var nowTimeStamp = Date.parse(new Date());
-             if (nowTimeStamp < data.entryStartDate) {
-                 $("#entryButton").css("background-color", "rgb(179,179,179)");
-                 $("#entryButton").html("报名未开始");
-                 $("#entryButton").unbind();
-             }else if (nowTimeStamp > data.entryEndDate) {
-                 $("#entryButton").css("background-color", "rgb(179,179,179)");
-                 $("#entryButton").html("报名已结束");
-                 $("#entryButton").unbind();
-             }*/
+            //判断标签是否收藏
+            $.ajax({
+                url: "judgeStar",
+                data: "tagId=" + data.tagId + "&userId=" + userId,
+                success: function (data) {
+                    if (data == "0") {
+                        tagStar = false;
+                    } else {
+                        tagStar = true;
+                    }
+                }
+            });
         }
     });
 
+    //点击报名按钮
     $("#entryButton").click(function () {
         if (userId != "") {
             $.ajax({
@@ -106,6 +114,8 @@ $(function () {
                         alert("请不要重复报名");
                     } else if (data == "5") {
                         alert("请合理安排您的行程，该时间段已经有其他安排！");
+                    } else if (data == "6") {
+                        alert("活动已取消");
                     }
                 }
             })
@@ -116,46 +126,63 @@ $(function () {
         }
     });
 
-    $(".tag").mouseover(function () {
-        $.ajax({
-            url: "judgeStar",
-            data: "tagId=" + $(this).attr("data-id") + "&userId=" + userId,
-            success:
 
-                function (data) {
-                    if (data == "0") {
-                        $(this).html("收藏");
-                    } else {
-                        $(this).html("已收藏");
-                    }
-                }
-        })
-        ;
+    //标签的鼠标移动和点击事件
+    $(".tag").mouseover(function () {
+        if (tagStar) {
+            $(this).html("取消收藏");
+        } else {
+            $(this).html("收藏");
+        }
     });
     $(".tag").mouseout(function () {
-        $(this).html(tagName);
+        $(this).html($(this).attr("data-name"));
     });
     $(".tag").click(function () {
-        $.ajax({
-            url: "/starTag",
-            data: "tagId=" + $(this).attr("data-id") + "&userId=" + userId,
-            success: function (data) {
-                if (data == "0") {
-                    alert("收藏成功！");
+        var tagId = $(this).attr("data-id");
+        //取消收藏
+        if (tagStar) {
+            $.ajax({
+                url: "/cancelStar",
+                data: "tagId=" + tagId + "&userId=" + userId,
+                success: function (data) {
+                    if (data == "1") {
+                        tagStar = false;
+                    } else {
+                        tagStar = true;
+                        alert("取消收藏失败");
+                    }
                 }
-            }
-        })
+            })
+        } else {//收藏
+            $.ajax({
+                url: "/starTag",
+                data: "tagId=" + tagId + "&userId=" + userId,
+                success: function (data) {
+                    if (data == "0") {
+                        tagStar = true;
+                    } else {
+                        tagStar = false;
+                    }
+                }
+            })
+        }
+
     });
 
     $("#creatorHeadImg,#creatorName").click(function () {
-        self.location = "/home?userId=" + $("#creatorInfo").attr("data-id");
-    })
+        if (localStorage.userId == $("#creatorInfo").attr("data-id")) {
+            self.location = "/home";
+        } else {
+            self.location = "/home?userId=" + $("#creatorInfo").attr("data-id");
+        }
+    });
 
-
+    //发起人的关注按钮点击事件
     $("#follow").click(function () {
         if ($(this).html() == "关注") {
             followSomeone($("#creatorInfo").attr("data-id"));
-        } else if ($(this).html("取消关注")) {
+        } else if ($(this).html() == "取消关注") {
             cancelFollow($("#creatorInfo").attr("data-id"));
         }
     });

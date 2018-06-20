@@ -1,7 +1,10 @@
 package com.personal.dao;
 
+import com.personal.model.VO.FollowUserInfoVO;
 import com.personal.model.VO.FollowVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: 李亚卿
@@ -32,4 +35,36 @@ public interface FollowMapper {
      * @param followVO
      */
     void delete(FollowVO followVO);
+
+    /**
+     * 根据一个用户获取关注他的人的数目
+     *
+     * @param userId
+     * @return
+     */
+    int getFollowNum(String userId);
+
+    /**
+     * 根据一个用户获取关注他的人的id
+     *
+     * @param userId
+     * @return
+     */
+    List<FollowUserInfoVO> getFollower(String userId);
+
+    /**
+     * 根据用户id获取他关注的人的数目
+     *
+     * @param userId
+     * @return
+     */
+    int getStarNum(String userId);
+
+    /**
+     * 根据用户id获取他关注的人的id
+     *
+     * @param userId
+     * @return
+     */
+    List<FollowUserInfoVO> getStar(String userId);
 }

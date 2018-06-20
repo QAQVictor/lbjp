@@ -89,16 +89,16 @@ public class UserController {
      * @return 返回true表示验证通过，false为不通过
      */
     @RequestMapping("/judge")
-    public void judge(UserDO user, HttpServletResponse response) throws IOException {
+    @ResponseBody
+    public String judge(UserDO user) {
         if ("".equals(user.getUserName()) || "".equals(user.getPassword()) ||
                 "".equals(user.getPhone()) || "".equals(user.getEmail())) {
-            response.getWriter().print("false");
-            return;
+            return "false";
         }
         if (userService.getUser(user) == null) {
-            response.getWriter().print("true");
+            return "true";
         } else {
-            response.getWriter().print("false");
+            return "false";
         }
     }
 
@@ -129,8 +129,8 @@ public class UserController {
 
     @RequestMapping("updateUser")
     @ResponseBody
-    public int updateUser(UserDO user) {
-        return userService.updateUser(user);
+    public String updateUser(UserDO user) {
+        return String.valueOf(userService.updateUser(user));
     }
 
     @RequestMapping("/updateUserHeadImg")

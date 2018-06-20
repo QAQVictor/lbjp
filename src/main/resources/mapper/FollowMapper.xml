@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.personal.dao.FollowMapper">
+    <resultMap id="followUserMap" type="com.personal.model.VO.FollowUserInfoVO">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_img_path" property="headImgPath" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="insert" parameterType="com.personal.model.VO.FollowVO">
         INSERT INTO follow VALUES (#{followerId,jdbcType=VARCHAR},#{starId,jdbcType=VARCHAR})
     </insert>
@@ -9,6 +16,28 @@
         SELECT COUNT(*) FROM follow
         WHERE follower_id=#{followerId,jdbcType=VARCHAR} AND star_id=#{starId,jdbcType=VARCHAR}
         limit 1
+    </select>
+
+    <select id="getFollowNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM follow
+        WHERE star_id=#{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="getFollower" parameterType="java.lang.String" resultMap="followUserMap">
+        SELECT user.user_id,user.user_name,user.head_img_path,user.remark
+        FROM user
+        RIGHT JOIN follow ON(user.user_id=follow.follower_id)
+        WHERE star_id=#{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getStarNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM follow
+        WHERE follower_id=#{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="getStar" parameterType="java.lang.String" resultMap="followUserMap">
+        SELECT user.user_id,user.user_name,user.head_img_path,user.remark
+        FROM user
+        RIGHT JOIN follow ON(user.user_id=follow.star_id)
+        WHERE follower_id=#{userId,jdbcType=VARCHAR}
     </select>
 
     <delete id="delete" parameterType="com.personal.model.VO.FollowVO">

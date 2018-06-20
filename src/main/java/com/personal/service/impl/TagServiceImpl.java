@@ -2,7 +2,8 @@ package com.personal.service.impl;
 
 import com.personal.dao.TagMapper;
 import com.personal.model.DO.TagDO;
-import com.personal.model.VO.StarTag;
+import com.personal.model.VO.HobbyPageVO;
+import com.personal.model.VO.StarTagVO;
 import com.personal.model.VO.TagVO;
 import com.personal.service.TagService;
 import com.util.DateUtils;
@@ -52,13 +53,42 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void starTag(StarTag starTag) {
-        if (judgeStar(starTag) == 0)
-            tagMapper.starTag(starTag);
+    public int starTag(StarTagVO starTagVO) {
+        if (judgeStar(starTagVO) == 0) {
+            tagMapper.starTag(starTagVO);
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     @Override
-    public int judgeStar(StarTag starTag) {
-        return tagMapper.judgeStar(starTag);
+    public int judgeStar(StarTagVO starTagVO) {
+        return tagMapper.judgeStar(starTagVO);
+    }
+
+    @Override
+    public int cancelStar(StarTagVO starTagVO) {
+        if (judgeStar(starTagVO) >= 1) {
+            tagMapper.delete(starTagVO);
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public List<HobbyPageVO> getTagByUserId(String userId, String urlUserId) {
+        List<HobbyPageVO> list = tagMapper.getTagByUserId(urlUserId);
+        if (userId.equals(urlUserId)) {
+            for (HobbyPageVO hobbyPageVO : list) {
+                hobbyPageVO.setIsStared(1);
+            }
+        } else {
+            for (HobbyPageVO hobbyPageVO : list) {
+                hobbyPageVO.setIsStared(judgeStar(new StarTagVO(userId, hobbyPageVO.getTagId())) >= 1 ? 1 : 0);
+            }
+        }
+        return list;
     }
 }

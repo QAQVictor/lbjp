@@ -123,5 +123,11 @@ public interface ActivityMapper {
      */
     List getUserEmails(String activityId);
 
+    /**
+     * 更新活动的 状态
+     * @param activityId
+     * @param state
+     * @return
+     */
     int updateActivityInvalided(@Param("activityId") String activityId, @Param("state") String state);
 }

@@ -172,7 +172,7 @@
 $(function () {
     $(".currentDay,.currentMonth").click(function () {
         var date = formateDate($(this).attr("data"));
-        console.log(date);
+        //console.log(date);
         getTodayActivity(date);
         $("#hideDiv").show();
         $("#todaySchedule").show();
@@ -210,7 +210,7 @@ function getTodayActivity(date) {
         data: "userId=" + localStorage.userId + "&date=" + date,
         success: function (data) {
             if (data.createActivityNum == 0) {
-                $("#mineActivity").append("<span class='hint' style='font-size: 16px;color: #999999;text-align: center;display: inline-block;width: 560px;height: 200px;line-height: 200px;'>这天您未发起过活动</span>");
+                $("#mineActivity").append("<span class='hint' style='font-size: 16px;color: #999999;text-align: center;display: inline-block;width: 560px;height: 170px;line-height: 200px;'>这天您未发起过活动</span>");
             } else {
                 $.each(data.createActivity, function (idx, item) {
                     var activityDetail = $("<div class='activityDetail'></div>");
@@ -229,6 +229,24 @@ function getTodayActivity(date) {
                         "</div>"
                     );
                     $("#mineActivity").append($(activityDetail));
+
+                    var operations = $("<div class='operations' id='" + item.activityId + "'></div>");
+                    var nowTimeStamp = Date.parse(new Date());
+                    if (Date.parse(new Date(item.startDate)) > nowTimeStamp) {
+                        operations.html(
+                            "<div class='notice' onclick='noticeAll()'>一键通知</div>" +
+                            "<div class='cancel' onclick='cancel()'>取消活动</div>"
+                        );
+                    } else if (Date.parse(new Date(item.endDate)) >= nowTimeStamp) {
+                        operations.html(
+                            "<div class='unable'>活动已开始</div>"
+                        );
+                    } else if (Date.parse(new Date(item.endDate)) < nowTimeStamp) {
+                        operations.html(
+                            "<div class='unable'>活动已结束</div>"
+                        )
+                    }
+                    $(activityDetail).after($(operations));
                 });
             }
             if (data.joinActivityNum == 0) {
@@ -244,12 +262,25 @@ function getTodayActivity(date) {
                         "<span>发起人：" + item.userName + "</span>" +
                         "<span>主题：" + item.theme + "</span>" +
                         "<span class='followerInfo'>具体参与者信息</span>" +
-                        "</div>" +
-                        "<div class='operations' id='" + item.activityId + "'>" +
-                        "<div class='cancel' onclick='breakUp()'>无法参加</div>" +
                         "</div>"
                     );
                     $("#othersActivity").append($(activityDetail));
+                    var operations = $("<div class='operations' id='" + item.activityId + "'></div>");
+                    var nowTimeStamp = Date.parse(new Date());
+                    if (Date.parse(new Date(item.startDate)) > nowTimeStamp) {
+                        operations.html(
+                            "<div class='cancel' onclick='breakUp()'>无法参加</div>"
+                        );
+                    } else if (Date.parse(new Date(item.endDate)) >= nowTimeStamp) {
+                        operations.html(
+                            "<div class='unable'>活动已开始</div>"
+                        );
+                    } else if (Date.parse(new Date(item.endDate)) < nowTimeStamp) {
+                        operations.html(
+                            "<div class='unable'>活动已结束</div>"
+                        )
+                    }
+                    $(activityDetail).find(".activityInfo").after($(operations));
                 });
             }
         }

@@ -9,6 +9,14 @@ public class FollowVO {
     private String followerId;
     private String starId;
 
+    public FollowVO(String followerId, String starId) {
+        this.followerId = followerId;
+        this.starId = starId;
+    }
+
+    public FollowVO() {
+    }
+
     public String getFollowerId() {
         return followerId;
     }
