@@ -26,11 +26,16 @@ $(function () {
 
         }
     });
+
     $("#mine1").click(function () {
         createAddActivityDiv();
     });
-
-    $("#goToHome").click(function () {
+    $("#mine2").click(function () {
+        localStorage.goTo = 4;
+        self.location = "/home";
+    });
+    $("#mine4").click(function () {
+        localStorage.goTo = 1;
         self.location = "/home";
     });
 

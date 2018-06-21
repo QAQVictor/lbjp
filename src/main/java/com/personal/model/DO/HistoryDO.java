@@ -2,23 +2,24 @@ package com.personal.model.DO;
 
 /**
  * @Author: 李亚卿
- * @Date: Created in 19:09 2018/6/18 0018
+ * @Date: Created in 00:21 2018/6/22 0022
  * @Description:
  */
-public class CreditDO {
+public class HistoryDO {
     private String userId;
+    private int tagId;
     private String activityId;
-    private String creditType;
+    private String starId;
     private String createDate;
+    private int type;//1,活动 2,收藏 3,关注
 
-    public CreditDO(String userId, String activityId, String creditType, String createDate) {
+    public HistoryDO(String userId, int tagId, String activityId, String starId, String createDate, int type) {
         this.userId = userId;
+        this.tagId = tagId;
         this.activityId = activityId;
-        this.creditType = creditType;
+        this.starId = starId;
         this.createDate = createDate;
-    }
-
-    public CreditDO() {
+        this.type = type;
     }
 
     public String getUserId() {
@@ -29,6 +30,14 @@ public class CreditDO {
         this.userId = userId;
     }
 
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
     public String getActivityId() {
         return activityId;
     }
@@ -37,12 +46,12 @@ public class CreditDO {
         this.activityId = activityId;
     }
 
-    public String getCreditType() {
-        return creditType;
+    public String getStarId() {
+        return starId;
     }
 
-    public void setCreditType(String creditType) {
-        this.creditType = creditType;
+    public void setStarId(String starId) {
+        this.starId = starId;
     }
 
     public String getCreateDate() {
@@ -51,5 +60,13 @@ public class CreditDO {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

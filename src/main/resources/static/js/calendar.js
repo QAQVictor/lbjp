@@ -222,10 +222,6 @@ function getTodayActivity(date) {
                         "<span>发起人：" + item.userName + "</span>" +
                         "<span>主题：" + item.theme + "</span>" +
                         "<span class='followerInfo'>具体参与者信息</span>" +
-                        "</div>" +
-                        "<div class='operations'  id='" + item.activityId + "'>" +
-                        "<div class='notice' onclick='noticeAll()'>一键通知</div>" +
-                        "<div class='cancel' onclick='cancel()'>取消活动</div>" +
                         "</div>"
                     );
                     $("#mineActivity").append($(activityDetail));
@@ -246,7 +242,12 @@ function getTodayActivity(date) {
                             "<div class='unable'>活动已结束</div>"
                         )
                     }
-                    $(activityDetail).after($(operations));
+                    if (item.invalided == "6") {
+                        operations.html(
+                            "<div class='unable'>活动已取消</div>"
+                        )
+                    }
+                    $(activityDetail).append($(operations));
                 });
             }
             if (data.joinActivityNum == 0) {
@@ -280,6 +281,15 @@ function getTodayActivity(date) {
                             "<div class='unable'>活动已结束</div>"
                         )
                     }
+                    if (item.invalided == "6") {
+                        operations.html(
+                            "<div class='unable'>活动已取消</div>"
+                        )
+                    } else if (item.invalided == "10") {
+                        operations.html(
+                            "<div class='unable'>已失约</div>"
+                        )
+                    }
                     $(activityDetail).find(".activityInfo").after($(operations));
                 });
             }
@@ -288,8 +298,7 @@ function getTodayActivity(date) {
 }
 
 function noticeAll() {
-    var activityId = $(this).parent().attr("id");
-    alert(activityId);
+    var activityId = $(".notice").parent().attr("id");
     $.ajax({
         url: "noticeAll",
         data: "activity=" + activityId,
@@ -323,18 +332,21 @@ function cancel() {
 }
 
 function breakUp() {
-    var activityId = $(this).parent().attr("id");
-    alert(activityId);
-    var confirm = confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）");
-    if (confirm == true) {
+    var activityId = $(".cancel").parent().attr("id");
+    if (confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）")) {
+        $(".cancel").removeAttr('onclick');
+        //3495-4094
         $.ajax({
             url: "breakUpActivity",
             data: "activityId=" + activityId + "&userId=" + localStorage.userId,
             success: function (data) {
-                if (data == "1") {
-
+                if (data.state == "0") {
+                    $(".cancel").css("background-color", "rgb(179,179,179)");
+                    $(".cancel").css("color", "rgb(255,255,255)");
+                    $(".cancel").css("border-color", "rgb(179,179,179)");
+                    $(".cancel").html("已取消");
                 } else {
-
+                    alert("取消失败，请及时和发起者联系。联系者邮箱：“" + data.creatorEmail + "”");
                 }
             }
         })

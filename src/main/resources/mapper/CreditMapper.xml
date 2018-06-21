@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.personal.dao.CreditMapper">
+    <resultMap id="CreditDOMap" type="com.personal.model.DO.CreditDO">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="credit_type" property="creditType" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="insert" parameterType="com.personal.model.DO.CreditDO">
         INSERT INTO credit_list (user_id,activity_id,credit_type,create_date)
         VALUES (#{userId,jdbcType=VARCHAR},#{activityId,jdbcType=VARCHAR},
         #{creditType,jdbcType=VARCHAR},#{createDate,jdbcType=VARCHAR})
     </insert>
 
-    <select id="get" resultType="com.personal.model.DO.CreditDO" parameterType="com.personal.model.DO.CreditDO">
+    <select id="get" resultMap="CreditDOMap" parameterType="com.personal.model.DO.CreditDO">
         SELECT * FROM credit_list
         WHERE user_id=#{userId,jdbcType=VARCHAR} AND activity_id=#{activityId,jdbcType=VARCHAR}
+        limit 1
     </select>
 
-    <select id="getCredit" resultType="java.lang.Integer" parameterType="java.lang.String">
+    <select id="getCreditNum" resultType="java.lang.Integer" parameterType="java.lang.String">
         SELECT COUNT(*) FROM credit_list
         WHERE user_id=#{userId,jdbcType=VARCHAR} AND credit_type=#{type,jdbcType=VARCHAR}
     </select>

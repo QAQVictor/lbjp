@@ -1,7 +1,5 @@
 package com.personal.service;
 
-import com.personal.model.DO.CreditDO;
-
 import java.util.Map;
 
 /**
@@ -23,6 +21,6 @@ public interface CreditService {
      *
      * @param credit
      */
-    void addCredit(CreditDO credit);
+    //void addCredit(CreditDO credit);
 
 }

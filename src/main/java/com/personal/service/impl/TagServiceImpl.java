@@ -1,10 +1,12 @@
 package com.personal.service.impl;
 
 import com.personal.dao.TagMapper;
+import com.personal.model.DO.HistoryDO;
 import com.personal.model.DO.TagDO;
 import com.personal.model.VO.HobbyPageVO;
 import com.personal.model.VO.StarTagVO;
 import com.personal.model.VO.TagVO;
+import com.personal.service.HistoryService;
 import com.personal.service.TagService;
 import com.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagMapper tagMapper;
+    private TagMapper tagMapper;
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     public boolean saveTag(TagDO tag) {
@@ -55,6 +59,11 @@ public class TagServiceImpl implements TagService {
     @Override
     public int starTag(StarTagVO starTagVO) {
         if (judgeStar(starTagVO) == 0) {
+            historyService.save(new HistoryDO(starTagVO.getUserId(),
+                    starTagVO.getTagId(),
+                    null,
+                    null,
+                    DateUtils.getNowDate(), 2));
             tagMapper.starTag(starTagVO);
             return 0;
         } else {
@@ -90,5 +99,10 @@ public class TagServiceImpl implements TagService {
             }
         }
         return list;
+    }
+
+    @Override
+    public int getTagNumByUserId(String userId) {
+        return tagMapper.getTagNumByUserId(userId);
     }
 }

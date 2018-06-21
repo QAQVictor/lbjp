@@ -77,4 +77,10 @@ public class TagController {
     public List getTagByUserId(String userId, String urlUserId) {
         return tagService.getTagByUserId(userId, urlUserId);
     }
+
+    @RequestMapping("/getTagNumByUserId")
+    @ResponseBody
+    public int getTagNumByUserId(String userId){
+        return tagService.getTagNumByUserId(userId);
+    }
 }

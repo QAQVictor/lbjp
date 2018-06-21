@@ -1,9 +1,12 @@
 package com.personal.service.impl;
 
 import com.personal.dao.FollowMapper;
+import com.personal.model.DO.HistoryDO;
 import com.personal.model.VO.FollowUserInfoVO;
 import com.personal.model.VO.FollowVO;
 import com.personal.service.FollowService;
+import com.personal.service.HistoryService;
+import com.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +24,19 @@ public class FollowServiceImpl implements FollowService {
 
     @Autowired
     private FollowMapper followMapper;
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     public int follow(FollowVO followVO) {
         if (judgeFollow(followVO) >= 1) {
             return 1;
         } else {
+            historyService.save(new HistoryDO(followVO.getFollowerId(),
+                    0,
+                    null,
+                    followVO.getStarId(),
+                    DateUtils.getNowDate(), 3));
             followMapper.insert(followVO);
             return 0;
         }

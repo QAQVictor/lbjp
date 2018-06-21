@@ -60,4 +60,10 @@
         RIGHT JOIN hobby ON (tags.tag_id=hobby.tag_id)
         WHERE user_id=#{userId,jdbcType=VARCHAR}
     </select>
+
+    <select id="getTagNumByUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM tags
+        WHERE creator=#{userId,jdbcType=VARCHAR}
+    </select>
 </mapper>

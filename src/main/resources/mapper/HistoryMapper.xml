@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.personal.dao.HistoryMapper">
+    <resultMap id="HistoryDOMap" type="com.personal.model.DO.HistoryDO">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
+        <result column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="star_id" property="starId" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.personal.model.DO.HistoryDO">
+        INSERT INTO history VALUES (
+        #{userId,jdbcType=VARCHAR},
+        #{tagId,jdbcType=INTEGER},
+        #{activityId,jdbcType=VARCHAR},
+        #{starId,jdbcType=VARCHAR},
+        #{createDate，jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER}
+        )
+    </insert>
+</mapper>

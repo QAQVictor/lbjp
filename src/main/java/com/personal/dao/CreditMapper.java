@@ -25,7 +25,7 @@ public interface CreditMapper {
      * @param activityId
      * @return
      */
-    int get(String userId, String activityId);
+    CreditDO get(@Param("userId") String userId, @Param("activityId") String activityId);
 
     /**
      * 获取某个用户的信用记录

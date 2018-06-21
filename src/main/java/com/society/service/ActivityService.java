@@ -86,7 +86,7 @@ public interface ActivityService {
      * @param activityId
      * @return
      */
-    int cancelActivity(String activityId);
+    Map<String,Object> cancelActivity(String activityId);
 
     /**
      * 无法参加（通知其他人自己无法参加）
@@ -103,6 +103,35 @@ public interface ActivityService {
      * @param activityId
      * @return
      */
-    int noticeAll(String activityId);
+    Map<String,Object> noticeAll(String activityId);
 
+    /**
+     * 获取用户创建的活动数目
+     *
+     * @param userId
+     * @return
+     */
+    int getCreateActivityNum(String userId);
+
+    /**
+     * 获取用户参与的活动
+     *
+     * @param userId
+     * @return
+     */
+    List<ActivityBaseVO> getJoinActivity(String userId);
+
+    /**
+     * 获取用户发起的活动
+     *
+     * @param userId
+     * @return
+     */
+    List<ActivityBaseVO> getCreateActivity(String userId);
+
+    /**
+     * 获取创建人邮箱
+     * @return
+     */
+    String getCreatorEmail(String activityId);
 }

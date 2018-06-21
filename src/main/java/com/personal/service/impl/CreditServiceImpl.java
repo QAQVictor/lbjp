@@ -1,7 +1,6 @@
 package com.personal.service.impl;
 
 import com.personal.dao.CreditMapper;
-import com.personal.model.DO.CreditDO;
 import com.personal.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +26,9 @@ public class CreditServiceImpl implements CreditService {
         map.put("cancelNum", creditMapper.getCreditNum(userId, "2"));
         return map;
     }
-
+/*
     @Override
-    public void addCredit(CreditDO credit) {
+    public void addCredit(CreditDO credit, UserDO user) {
         creditMapper.insert(credit);
-
-    }
+    }*/
 }

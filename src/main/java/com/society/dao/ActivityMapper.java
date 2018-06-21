@@ -125,9 +125,40 @@ public interface ActivityMapper {
 
     /**
      * 更新活动的 状态
+     *
      * @param activityId
      * @param state
      * @return
      */
     int updateActivityInvalided(@Param("activityId") String activityId, @Param("state") String state);
+
+    /**
+     * 获取用户创建的活动数目
+     *
+     * @param userId
+     * @return
+     */
+    int getCreateActivityNum(String userId);
+
+    /**
+     * 获取参与的活动
+     *
+     * @param userId
+     * @return
+     */
+    List<ActivityBaseVO> getJoinActivity(String userId);
+
+    /**
+     * 获取发起的活动
+     *
+     * @param userId
+     * @return
+     */
+    List<ActivityBaseVO> getCreateActivity(String userId);
+
+    /**
+     * @param activityId
+     * @return
+     */
+    String getCreatorEmail(String activityId);
 }

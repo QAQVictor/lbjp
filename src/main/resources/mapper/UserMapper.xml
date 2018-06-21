@@ -216,7 +216,7 @@
         WHERE user_id = #{userId,jdbcType=VARCHAR}
     </update>
 
-    <select id="updateCancelNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+    <select id="updateCancelNum" resultType="java.lang.Integer">
         UPDATE user SET cancel_num=(
             (
               SELECT temp.cancel_num
@@ -230,7 +230,7 @@
         WHERE user_id=#{userId,jdbcType=VARCHAR}
     </select>
 
-    <select id="updateBreakNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+    <select id="updateBreakNum" parameterType="java.lang.String">
         UPDATE user SET break_num=(
             (
               SELECT temp.break_num

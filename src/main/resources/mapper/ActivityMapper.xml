@@ -67,7 +67,7 @@
         LEFT JOIN user on activity.creator= user.user_id
         LEFT JOIN tags on activity.tag_id= tags.tag_id
         GROUP BY activity.activity_id
-        ORDER BY activity.create_date DESC
+        ORDER BY activity.entry_start_date
     </select>
 
     <select id="get" resultType="java.util.Map" parameterType="java.lang.String">
@@ -225,9 +225,11 @@
         WHERE  activity.activity_id IN(
           SELECT activity_id FROM entry_list WHERE user_id=#{userId,jdbcType=VARCHAR}
         )
+        AND activity.creator &lt;&gt;#{userId,jdbcType=VARCHAR}
         AND activity.start_date &gt;=#{date,jdbcType=VARCHAR}
         AND activity.end_date &lt;=#{date1,jdbcType=VARCHAR}
         GROUP BY activity.activity_id
+        ORDER BY activity.start_date
     </select>
 
     <select id="getCreateActivityByDay" resultMap="ScheduleActivityVOMap" parameterType="java.lang.String">
@@ -249,6 +251,7 @@
         AND activity.start_date &gt;=#{date,jdbcType=VARCHAR}
         AND activity.end_date &lt;=#{date1,jdbcType=VARCHAR}
         GROUP BY activity.activity_id
+        ORDER BY activity.start_date
     </select>
 
     <select id="judgeByDate" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -264,8 +267,11 @@
     <select id="getUserEmails" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT email
         FROM user
-        RIGHT JOIN entry_list ON(activity.activity_id=entry_list.activity_id)
+        RIGHT JOIN entry_list ON user.user_id=entry_list.user_id
         WHERE entry_list.activity_id=#{activityId,jdbcType=VARCHAR}
+        AND entry_list.user_id NOT IN(
+          SELECT user_id FROM credit_list WHERE activity_id=#{activityId,jdbcType=VARCHAR}
+        )
     </select>
 
     <select id="getCreator" parameterType="java.lang.String" resultType="java.lang.String">
@@ -276,4 +282,47 @@
         UPDATE activity SET invalided=#{state,jdbcType=VARCHAR}
         WHERE activity_id=#{activityId,jdbcType=VARCHAR}
     </update>
+
+    <select id="getCreateActivityNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM activity
+        WHERE creator=#{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getJoinActivity" resultMap="ActivityBaseVOMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment ON activity.activity_id= comment.activity_id
+        LEFT JOIN agree ON activity.activity_id= agree.activity_id
+        LEFT JOIN user ON activity.creator= user.user_id
+        LEFT JOIN tags ON activity.tag_id= tags.tag_id
+        RIGHT JOIN entry_list ON activity.activity_id=entry_list.activity_id
+        WHERE entry_list.user_id=#{userId,jdbcType=VARCHAR}
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+
+    <select id="getCreateActivity" resultMap="ActivityBaseVOMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.creator=#{userId,jdbcType=VARCHAR}
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+
+    <select id="getCreatorEmail" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT user.email
+        FROM user
+        RIGHT JOIN activity ON activity.creator=user.user_id
+        WHERE activity.activity_id=#{activityId,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

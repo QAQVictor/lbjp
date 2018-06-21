@@ -16,7 +16,7 @@ public class ScheduleActivityVO {
     private String endDate;
     private int plannedNum;
     private int actualNum;
-    private String invalided;
+    private String invalided;//10无法参加
 
     public String getActivityId() {
         return activityId;

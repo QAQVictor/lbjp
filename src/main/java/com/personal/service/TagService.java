@@ -69,4 +69,12 @@ public interface TagService {
      * @return
      */
     List<HobbyPageVO> getTagByUserId(String userId, String urlUserId);
+
+    /**
+     * 创建标签个数
+     *
+     * @param userId
+     * @return
+     */
+    int getTagNumByUserId(String userId);
 }

@@ -12,7 +12,7 @@ $(function () {
         judgeFollow(urlUserId);
     }
 
-    initUserHistoryActivity();
+    //initUserHistoryActivity();
 
     //编辑按钮点击事件
     $("#edit").click(function () {
@@ -25,76 +25,78 @@ $(function () {
         }
     });
 
-    //蓝色粗线条移动
-    $("#label ul li").first().css("border-bottom", "3px solid rgb(0, 170, 238)");
-    $("#label ul li").first().css("color", "rgb(0, 170, 238)");
-    $("#label ul li").first().css("font-weight", "bold");
     $("#label ul li").attr("data-isSelect", 0);
-    $("#label ul li").first().attr("data-isSelect", 1);
-    //$("#detail").load("/recently");
 
-    //标签点击事件
-    $("#label ul li").click(function () {
-        $(this).css("border-bottom", "3px solid rgb(0, 170, 238)");
-        $(this).css("color", "rgb(0, 170, 238)");
-        $(this).css("font-weight", "bold");
+    //通过各种方式进入home页面
+    switch (localStorage.goTo) {
+        case "6":
+            click6();
+            localStorage.goTo = 0;
+            break;
+        case "5":
+            click5(urlUserId, 1);
+            localStorage.goTo = 0;
+            break;
+        case "4":
+            click4(urlUserId);
+            localStorage.goTo = 0;
+            break;
+        case "3":
+            click3();
+            localStorage.goTo = 0;
+            break;
+        case "2":
+            click2();
+            localStorage.goTo = 0;
+            break;
+        case "1":
+            click1();
+            localStorage.goTo = 0;
+            break;
+        default:
+            click1();
+            localStorage.goTo = 0;
+            break;
+    }
 
-        $(this).siblings("li").css("border-bottom", "0px solid");
-        $(this).siblings("li").css("color", "rgb(0,0,0)");
-        $(this).siblings("li").css("font-weight", "normal");
-        $(this).siblings("li").attr("data-isSelect", 0);
-    });
-
-    //点击“日程”
-    $("#schedule").click(function () {
-        if ($(this).attr("data-isSelect") == 0) {
-            $("#detail").empty();
-            $("#detail").load("schedule.html");
-        }
-        $(this).attr("data-isSelect", 1);
-    });
-
-    //点击“最近”
+    //点击“最近”1
     $("#recently").click(function () {
-        if ($(this).attr("data-isSelect") == 0) {
-            $("#detail").empty();
-            $("#detail").load("/recently");
-        }
-        $(this).attr("data-isSelect", 1);
+        click1();
     });
-
-    //点击收藏标签
+    //点击“发起”2
+    $("#myActivity").click(function () {
+        click2();
+    });
+    //点击“参与”3
+    $("#joinedActivity").click(function () {
+        click3();
+    });
+    //点击收藏标签4
     $("#hobby").click(function () {
-        if ($(this).attr("data-isSelect") == 0) {
-            $("#detail").empty();
-            if (urlUserId == "" || urlUserId == undefined || urlUserId == null) {
-                initHobby(localStorage.userId);
-            } else {
-                initHobby(urlUserId);
-            }
-        }
-        $(this).attr("data-isSelect", 1);
+        click4(urlUserId);
+    });
+    //点击“关注”5
+    $("#follow").click(function () {
+        click5(urlUserId, 1);
+    });
+    //点击“日程”6
+    $("#schedule").click(function () {
+        click6();
     });
 
-    //点击“关注”
-    $("#follow").click(function () {
-        if ($(this).attr("data-isSelect") == 0) {
-            $("#detail").empty();
-            var select = $("<ul id='selectUl'></ul>");
-            select.html(
-                "<li id='followers'>关注者</li>" +
-                "<li id='stars'>关注了</li>"
-            );
-            $("#detail").append($(select));
-            getFollower(urlUserId);
-        }
-        $(this).attr("data-isSelect", 1);
+    //点击右边关注者
+    $("#follower").click(function () {
+        click5(urlUserId, 1);
     });
-    //点击关注者
+    //点击右边关注了
+    $("#star").click(function () {
+        click5(urlUserId, 2);
+    });
+    //点击左边关注者
     $("#detail").on("click", "#followers", function () {
         getFollower(urlUserId);
     });
-    //点击关注了
+    //点击左边关注了
     $("#detail").on("click", "#stars", function () {
         getStar(urlUserId);
     });
@@ -203,6 +205,9 @@ $(function () {
                         if ("" == urlUserId || undefined == urlUserId || null == urlUserId) {
                             if ($(followTemp).attr("data-isStar") == "1") {
                                 $(followTemp).parent().remove();
+                            } else {
+                                $(followTemp).css("background-color", "rgb(0, 170, 238)");
+                                $(followTemp).html("关注");
                             }
                         } else {
                             $(followTemp).css("background-color", "rgb(0, 170, 238)");
@@ -228,9 +233,90 @@ $(function () {
             })
         }
     });
-
-
 });
+
+//蓝色粗线条移动
+function drawLine(e) {
+    $(e).css("border-bottom", "3px solid rgb(0, 170, 238)");
+    $(e).css("color", "rgb(0, 170, 238)");
+    $(e).css("font-weight", "bold");
+
+    $(e).siblings("li").css("border-bottom", "0px solid");
+    $(e).siblings("li").css("color", "rgb(0,0,0)");
+    $(e).siblings("li").css("font-weight", "normal");
+    $(e).siblings("li").attr("data-isSelect", 0);
+}
+
+function click1() {
+    if ($("#recently").attr("data-isSelect") == 0) {
+        $("#detail").empty();
+        drawLine($("#recently"));
+        localStorage.recently = 1;
+        $("#detail").load("/recently");
+
+    }
+    $("#recently").attr("data-isSelect", 1);
+}
+
+function click2() {
+    if ($("#myActivity").attr("data-isSelect") == 0) {
+        $("#detail").empty();
+        drawLine($("#myActivity"));
+        localStorage.recently = 2;
+        $("#detail").load("/recently");
+
+    }
+    $("#myActivity").attr("data-isSelect", 1);
+}
+
+function click3() {
+    if ($("#joinedActivity").attr("data-isSelect") == 0) {
+        $("#detail").empty();
+        drawLine($("#joinedActivity"));
+        localStorage.recently = 3;
+        $("#detail").load("/recently");
+
+    }
+    $("#joinedActivity").attr("data-isSelect", 1);
+}
+
+function click4(urlUserId) {
+    if ($("#hobby").attr("data-isSelect") == 0) {
+        $("#detail").empty();
+        drawLine($("#hobby"));
+        if (urlUserId == "" || urlUserId == undefined || urlUserId == null) {
+            initHobby(localStorage.userId);
+        } else {
+            initHobby(urlUserId);
+        }
+    }
+    $("#hobby").attr("data-isSelect", 1);
+}
+
+function click5(urlUserId, type) {
+    $("#detail").empty();
+    drawLine($("#follow"));
+    var select = $("<ul id='selectUl'></ul>");
+    select.html(
+        "<li id='followers'>关注者</li>" +
+        "<li id='stars'>关注了</li>"
+    );
+    $("#detail").append($(select));
+    if (type == 1) {
+        getFollower(urlUserId);
+    } else {
+        getStar(urlUserId);
+    }
+}
+
+function click6() {
+    if ($("#schedule").attr("data-isSelect") == 0) {
+        $("#detail").empty();
+        drawLine($("#schedule"));
+        $("#detail").load("/schedule");
+    }
+    $("#schedule").attr("data-isSelect", 1);
+}
 
 //获取文件对象的url
 function getObjectURL(file) {
@@ -247,6 +333,7 @@ function getObjectURL(file) {
 
 //初始化页面的用户信息
 function initUserInfo(userId) {
+    //基本个人信息初始化
     $.ajax({
         url: "/initUserInfo?userId=" + userId,
         success: function (data) {
@@ -256,10 +343,38 @@ function initUserInfo(userId) {
             $("#school").html(userInfo.school);
             $("#remark").html(userInfo.remark);
             $("#imgUserId").val(userId);
-
-            $("#achievement")
         }
     });
+    //关注人数初始化
+    $.ajax({
+        url: "getFollowNum?userId=" + userId,
+        success: function (data) {
+            $("#star").html(data.starNum);
+            $("#follower").html(data.followerNum);
+        }
+    });
+    //成就初始化
+    $.ajax({
+        url: "getCreateActivityNum?userId=" + userId,
+        success: function (data) {
+            $("#achievement").find("span").eq(1).html("发起活动 <p style='color: rgb(0, 170, 238);font-weight: bold;display: inline;'>" + data + "</p> 次");
+        }
+    });
+    $.ajax({
+        url: "getTagNumByUserId?userId=" + userId,
+        success: function (data) {
+            $("#achievement").find("span").eq(2).html("创建标签 <p style='color: rgb(0, 170, 238);font-weight: bold;display: inline;'>" + data + "</p> 个");
+        }
+    })
+
+    //信用记录初始化
+    $.ajax({
+        url: "getCreditNum?userId=" + userId,
+        success: function (data) {
+            $("#cancelNum").find("span").eq(1).find("span").eq(0).html(data.cancelNum);
+            $("#breakNum").find("span").eq(1).find("span").eq(0).html(data.breakNum);
+        }
+    })
 }
 
 //初始化该用户的历史记录
@@ -292,6 +407,7 @@ function initJoinActivity() {
     })
 }
 
+//获取关注者
 function getFollower(urlUserId) {
     $("#followers").css("color", "rgb(0, 170, 238)");
     $("#stars").css("color", "rgb(178, 178, 178)");
@@ -302,6 +418,7 @@ function getFollower(urlUserId) {
     }
 }
 
+//获取关注人
 function getStar(urlUserId) {
     $("#followers").css("color", "rgb(178, 178, 178)");
     $("#stars").css("color", "rgb(0, 170, 238)");
@@ -331,7 +448,7 @@ function initFollow(followType, urlUserId) {
                     $.each(data, function (idx, item) {
                         var user = $("<div class='userDiv'></div>");
                         user.html(
-                            "<div class='headImg' data-img='" + item.headImgPath + "'></div>" +
+                            "<img class='headImg' src='../" + item.headImgPath + "'/>" +
                             "<span class='userName'>" + item.userName + "</span>" +
                             "<span class='remark'>" + item.remark + "</span>" +
                             "<div class='follow' data-id='" + item.userId + "' data-isFollow='" + item.isFollow + "' data-isStar='1'></div>"
@@ -339,15 +456,12 @@ function initFollow(followType, urlUserId) {
                         $(users).append($(user));
                     });
                     $("#detail").append($(users));
-                    /*$.each($("#detail .users .userDiv .headImg"), function (idx, item) {
-                        $(item).css("style", "background-image:url('../" + $(item).attr("data-img") + "');");
-                    });*/
                     $.each($("#detail .users .userDiv .follow"), function (idx, item) {
                         if ($(item).attr("data-isFollow") == "1") {
                             $(this).css("background-color", "rgb(179, 179, 179)");
                             $(this).html("取消关注");
                         } else {
-                            $(this).css("background-isFollow", "rgb(0, 170, 238)");
+                            $(this).css("background-color", "rgb(0, 170, 238)");
                             $(this).html("关注");
                         }
                     });
@@ -369,7 +483,7 @@ function initFollow(followType, urlUserId) {
                     $.each(data, function (idx, item) {
                         var user = $("<div class='userDiv'></div>");
                         user.html(
-                            "<div class='headImg'></div>" +
+                            "<img class='headImg' src='../" + item.headImgPath + "'/>" +
                             "<span class='userName'>" + item.userName + "</span>" +
                             "<span class='remark'>" + item.remark + "</span>" +
                             "<div class='follow' data-id='" + item.userId + "' data-isFollow='" + item.isFollow + "' data-isStar='0'></div>"

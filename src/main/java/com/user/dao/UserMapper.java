@@ -49,7 +49,7 @@ public interface UserMapper {
      *
      * @param user
      */
-    int update(UserDO user);
+    void update(UserDO user);
 
     /**
      * 更新呢失约次数（+1）
@@ -57,7 +57,7 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    int updateBreakNum(String userId);
+    void updateBreakNum(String userId);
 
     /**
      * 更新呢取消次数（+1）
@@ -65,5 +65,5 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    int updateCancelNum(String userId);
+    void updateCancelNum(String userId);
 }

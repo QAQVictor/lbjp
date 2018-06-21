@@ -6,8 +6,6 @@ import com.society.model.VO.ScheduleActivityVO;
 import com.society.service.ActivityService;
 import com.user.model.DO.UserDO;
 import com.user.service.UserService;
-import com.util.DateUtils;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,12 +93,13 @@ public class ActivityController {
      * @param activityId
      */
     @RequestMapping("/join")
-    public int join(String userId, String activityId) {
+    @ResponseBody
+    public String join(String userId, String activityId) {
        /* UserDO user = (UserDO) request.getSession().getAttribute("user");
         if (!user.getUserId().equals(userId)) {
             return;
         }*/
-        return activityService.join(userId, activityId);
+        return String.valueOf(activityService.join(userId, activityId));
     }
 
     /**
@@ -130,20 +129,23 @@ public class ActivityController {
 
     @RequestMapping("noticeAll")
     @ResponseBody
-    public String noticeAll(String activityId) {
-        return String.valueOf(activityService.noticeAll(activityId));
+    public Map<String, Object> noticeAll(String activityId) {
+        return activityService.noticeAll(activityId);
     }
 
     @RequestMapping("cancelActivity")
     @ResponseBody
-    public String cancelActivity(String activityId) {
-        return null;
+    public Map<String, Object> cancelActivity(String activityId) {
+        return activityService.cancelActivity(activityId);
     }
 
     @RequestMapping("breakUpActivity")
     @ResponseBody
-    public String breakUpActivity(String activityId, String userId) {
-        return null;
+    public Map<String, Object> breakUpActivity(String activityId, String userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("state", String.valueOf(activityService.breakUpActivity(userId, activityId)));
+        map.put("creatorEmail", activityService.getCreatorEmail(activityId));
+        return map;
     }
 
     @RequestMapping("getComment")
@@ -160,21 +162,25 @@ public class ActivityController {
 
     @RequestMapping("getCreateActivityNum")
     @ResponseBody
-    public String getCreateActivityNum(String userId) {
-        return null;
+    public int getCreateActivityNum(String userId) {
+        return activityService.getCreateActivityNum(userId);
     }
 
     @RequestMapping("getJoinActivity")
     @ResponseBody
-    public Map getJoinActivity(String userId) {
+    public Map<String, Object> getJoinActivity(String userId) {
+        System.out.println(userId);
         Map<String, Object> map = new HashMap<>();
+        map.put("joinActivityList", activityService.getJoinActivity(userId));
         return map;
     }
 
     @RequestMapping("getCreateActivity")
     @ResponseBody
-    public Map getCreateActivity(String userId) {
+    public Map<String, Object> getCreateActivity(String userId) {
+        System.out.println(userId);
         Map<String, Object> map = new HashMap<>();
+        map.put("createActivityList", activityService.getCreateActivity(userId));
         return map;
     }
 }

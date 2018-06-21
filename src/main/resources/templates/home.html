@@ -24,7 +24,7 @@
     </div>
     <div id="personal">
         <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
-        <img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>
+        <!--<img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>-->
         <img class="personalCenter" id="goToHome" th:src="@{~/img/icon/user.ico}"/>
     </div>
 </div>
@@ -48,7 +48,7 @@
             <ul>
                 <li id="recently">最近</li>
                 <li id="myActivity">发起</li>
-                <li is="joinedActivity">参与</li>
+                <li id="joinedActivity">参与</li>
                 <li id="hobby">收藏</li>
                 <li id="follow">关注</li>
                 <li id="schedule">日程</li>
@@ -58,28 +58,28 @@
     </div>
     <div id="otherInfo">
         <div id="followList">
-            <div id="following">
-                <span class="infoTitle">关注了</span>
-                <span class="info followNum" id="star"></span>
-            </div>
             <div id="followed">
                 <span class="infoTitle">关注者</span>
                 <span class="info followNum" id="follower"></span>
             </div>
+            <div id="following">
+                <span class="infoTitle">关注了</span>
+                <span class="info followNum" id="star"></span>
+            </div>
         </div>
         <div id="achievement">
             <span class="infoTitle">成就</span>
-            <!--<span class="info">发起活动 5 次</span>
-            <span class="info">创建标签 3 个</span>-->
+            <span class="info"></span>
+            <span class="info"></span>
         </div>
         <div id="credit">
             <div id="cancelNum">
                 <span class="infoTitle">取消活动</span>
-                <span class="info"><span style="color: rgb(255,0,0)">0</span>/10</span>
+                <span class="info"><span style="color: rgb(255,0,0)"></span>/10</span>
             </div>
             <div id="breakNum">
                 <span class="infoTitle">无法参加</span>
-                <span class="info"><span style="color: rgb(255,0,0)">2</span>/30</span>
+                <span class="info"><span style="color: rgb(255,0,0)"></span>/30</span>
             </div>
         </div>
     </div>

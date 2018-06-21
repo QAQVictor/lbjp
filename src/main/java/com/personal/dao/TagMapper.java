@@ -68,4 +68,12 @@ public interface TagMapper {
      * @return
      */
     List<HobbyPageVO> getTagByUserId(String userId);
+
+    /**
+     * 用户创建的标签数量
+     *
+     * @param userId
+     * @return
+     */
+    int getTagNumByUserId(String userId);
 }
