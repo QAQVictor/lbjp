@@ -3,6 +3,7 @@ package com.personal.service.impl;
 import com.personal.dao.HistoryMapper;
 import com.personal.model.DO.HistoryDO;
 import com.personal.service.HistoryService;
+import com.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void save(HistoryDO history) {
-        historyMapper.insert(history);
+        if (historyMapper.select(history) == null) {
+            historyMapper.insert(history);
+        } else {
+            historyMapper.update(history);
+        }
     }
 }

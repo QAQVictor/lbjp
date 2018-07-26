@@ -40,7 +40,7 @@ $(function () {
     } else {
         $("#entryButton").css("background-color", "rgb(179,179,179)");
         $("#entryButton").html("未登录");
-        $("#entryButton").unbind();
+        $("#entryButton").unbind("click");
     }
 
     $.ajax({
@@ -62,6 +62,7 @@ $(function () {
     //获取活动详情
     $.ajax({
         url: "activityDetailInfo?activityId=" + getQueryString("activityId"),
+        data: "&userId=" + localStorage.userId,
         dataType: "json",
         success: function (data) {
             $("#tags .tag").html(data.tagName);
@@ -71,8 +72,8 @@ $(function () {
             $("#activityDate").html("活动时间（" + new Date(data.startDate).toLocaleString() +
                 " — " + new Date(data.endDate).toLocaleString() + "）");
             $("#detail p").html(data.content);
-            $(".operations .comments").html(data.commentNum + " 条评论");
-            $(".operations .nice").html(data.agreeNum + " 个赞");
+/*            $(".operations .comments").html(data.commentNum + " 条评论");
+            $(".operations .nice").html(data.agreeNum + " 个赞");*/
 
             $("#entry span").eq(1).html(data.actualNum + "/" + data.plannedNum);
             $("#hot span").eq(1).html(data.hot);

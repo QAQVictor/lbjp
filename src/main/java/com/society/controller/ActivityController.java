@@ -42,11 +42,16 @@ public class ActivityController {
      */
     @RequestMapping("/getIndexActivity")
     @ResponseBody
-    public Map<String, Object> getIndexActivity(HttpServletRequest request) {
+    public Map<String, Object> getIndexActivity(HttpServletRequest request, String userId) {
         UserDO user = (UserDO) request.getSession().getAttribute("user");
         Map<String, Object> map = new HashMap<>();
         //map.put("tagList", );
-        map.put("activityList", activityService.getAllActivity());
+        if (userId == null || "".equals(userId)) {
+            map.put("activityList", activityService.getAllActivity());
+        } else {
+            map.put("activityList", activityService.getIndexActivity(userId));
+        }
+
         return map;
     }
 
@@ -76,8 +81,8 @@ public class ActivityController {
      */
     @RequestMapping("/activityDetailInfo")
     @ResponseBody
-    public Map<String, Object> activityDetailInfo(String activityId) {
-        return activityService.getActivity(activityId);
+    public Map<String, Object> activityDetailInfo(String activityId, String userId) {
+        return activityService.getActivity(activityId, userId);
     }
 
     @RequestMapping("/index")
@@ -136,6 +141,7 @@ public class ActivityController {
     @RequestMapping("cancelActivity")
     @ResponseBody
     public Map<String, Object> cancelActivity(String activityId) {
+        System.out.println(activityId);
         return activityService.cancelActivity(activityId);
     }
 
@@ -181,6 +187,15 @@ public class ActivityController {
         System.out.println(userId);
         Map<String, Object> map = new HashMap<>();
         map.put("createActivityList", activityService.getCreateActivity(userId));
+        return map;
+    }
+
+    @RequestMapping("getHistoryActivity")
+    @ResponseBody
+    public Map<String, Object> getHistoryActivity(String userId) {
+        System.out.println(userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("historyActivityList", activityService.getHistoryActivity(userId));
         return map;
     }
 }

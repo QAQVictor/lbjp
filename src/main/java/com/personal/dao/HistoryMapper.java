@@ -16,4 +16,15 @@ public interface HistoryMapper {
      * @param history
      */
     void insert(HistoryDO history);
+
+    /**
+     * @param history
+     */
+    void update(HistoryDO history);
+
+    /**
+     * @param history
+     * @return
+     */
+    HistoryDO select(HistoryDO history);
 }

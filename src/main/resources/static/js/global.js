@@ -4,9 +4,15 @@ $(function () {
 
     if ("" == userId) {
         $("#personal").hide();
+        $("#goToRegister").click(function () {
+            self.location = "/registerPage";
+        });
+        $("#goToLogin").click(function () {
+            self.location = "/loginPage";
+        });
+        $("#loginDiv").attr("style", "position: absolute;top:20px;right:200px;");
     } else {
-        $("#goToRegister").hide();
-        $("#goToLogin").hide();
+        $("#loginDiv").hide();
     }
 
     $("#logo").click(function () {
@@ -22,5 +28,10 @@ $(function () {
     $("#personal").find("img").eq(1).click(function () {
         localStorage.goTo = 1;
         self.location = "/home";
+    })
+
+    $("#logout").click(function () {
+        localStorage.userId = "";
+        self.location = "/logout";
     })
 });

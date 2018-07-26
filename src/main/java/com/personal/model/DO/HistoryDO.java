@@ -22,6 +22,10 @@ public class HistoryDO {
         this.type = type;
     }
 
+    public HistoryDO() {
+
+    }
+
     public String getUserId() {
         return userId;
     }

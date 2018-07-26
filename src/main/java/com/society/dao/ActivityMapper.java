@@ -140,13 +140,15 @@ public interface ActivityMapper {
      */
     int getCreateActivityNum(String userId);
 
+    int getJoinActivityNum(String userId);
+
     /**
      * 获取参与的活动
      *
      * @param userId
      * @return
      */
-    List<ActivityBaseVO> getJoinActivity(String userId);
+    List<ActivityBaseVO> getJoinActivity(@Param("userId") String userId);
 
     /**
      * 获取发起的活动
@@ -154,11 +156,23 @@ public interface ActivityMapper {
      * @param userId
      * @return
      */
-    List<ActivityBaseVO> getCreateActivity(String userId);
+    List<ActivityBaseVO> getCreateActivity(@Param("userId") String userId);
+
+    List<ActivityBaseVO> getHistoryActivity(@Param("userId") String userId);
 
     /**
      * @param activityId
      * @return
      */
     String getCreatorEmail(String activityId);
+
+    List<ActivityBaseVO> getActivityByStar(String userId);
+
+    List<ActivityBaseVO> getActivityByHobby(String userId);
+
+    List<ActivityBaseVO> getActivityByHistory(String userId);
+
+    List<ActivityBaseVO> getActivityByEntry(String userId);
+
+    List<ActivityBaseVO> getActivityBySchool(String userId);
 }

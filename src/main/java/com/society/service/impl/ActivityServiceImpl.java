@@ -2,6 +2,9 @@ package com.society.service.impl;
 
 import com.personal.dao.CreditMapper;
 import com.personal.model.DO.CreditDO;
+import com.personal.model.DO.HistoryDO;
+import com.personal.service.CreditService;
+import com.personal.service.HistoryService;
 import com.society.dao.ActivityMapper;
 import com.society.model.DO.ActivityDO;
 import com.society.model.VO.ActivityBaseVO;
@@ -15,6 +18,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +38,9 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
-    private CreditMapper creditMapper;
+    private CreditService creditService;
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     public List<ActivityBaseVO> getAllActivity() {
@@ -58,9 +64,49 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Map getActivity(String activityId) {
-
+    public Map<String, Object> getActivity(String activityId, String userId) {
+        historyService.save(new HistoryDO(userId,
+                0,
+                activityId,
+                null,
+                DateUtils.getNowDate(), 1));
         return activityMapper.get(activityId);
+    }
+
+    @Override
+    public List<ActivityBaseVO> getIndexActivity(String userId) {
+        List<ActivityBaseVO> listByStar = activityMapper.getActivityByStar(userId);
+        List<ActivityBaseVO> listByHobby = activityMapper.getActivityByHobby(userId);
+        List<ActivityBaseVO> listByHistory = activityMapper.getActivityByHistory(userId);
+        List<ActivityBaseVO> listByEntry = activityMapper.getActivityByEntry(userId);
+        List<ActivityBaseVO> listBySchool = activityMapper.getActivityBySchool(userId);
+        hepingArray(listByStar, listByHobby);
+        hepingArray(listByStar, listByHistory);
+        hepingArray(listByStar, listByEntry);
+        hepingArray(listByStar, listBySchool);
+       /* listByStar.addAll(listByHobby);
+        listByStar.addAll(listByHistory);
+        listByStar.addAll(listByEntry);
+        listByStar.addAll(listBySchool);*/
+        return listByStar;
+    }
+
+    public void hepingArray(List<ActivityBaseVO> list1, List<ActivityBaseVO> list2) {
+
+        for (ActivityBaseVO activityBaseVO1 : list2) {
+            int flag = 0;
+            for (ActivityBaseVO activityBaseVO2 : list1) {
+                if (!activityBaseVO1.getActivityId().equals(activityBaseVO2.getActivityId())) {
+                    flag++;
+                } else {
+                    break;
+                }
+            }
+            if (flag == list1.size()) {
+                list1.add(activityBaseVO1);
+            }
+        }
+        //return list1;
     }
 
     @Override
@@ -93,16 +139,16 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-
     public List<ScheduleActivityVO> getJoinActivityByDay(String userId, String date) {
         List<ScheduleActivityVO> list = activityMapper.getJoinActivityByDay(userId, date, date + " 23:59:59");
         for (ScheduleActivityVO activity : list) {
             int state = updateActivityInvalided(activity);
             if (state == 0) {
-                if (creditMapper.get(userId, activity.getActivityId()) != null) {
+                if (creditService.get(new CreditDO(userId, activity.getActivityId(), null, null)) != null) {
                     activity.setInvalided("10");
                 }
             }
+            activity.setActualNum(activityMapper.getActualNum(activity.getActivityId()));
         }
         return list;
     }
@@ -112,6 +158,7 @@ public class ActivityServiceImpl implements ActivityService {
         List<ScheduleActivityVO> list = activityMapper.getCreateActivityByDay(userId, date, date + " 23:59:59");
         for (ScheduleActivityVO activity : list) {
             updateActivityInvalided(activity);
+            activity.setActualNum(activityMapper.getActualNum(activity.getActivityId()));
         }
         return list;
     }
@@ -121,33 +168,34 @@ public class ActivityServiceImpl implements ActivityService {
         Map<String, Object> map = new HashMap<>();
         String userId = activityMapper.getCreator(activityId);
         userMapper.updateCancelNum(userId);
-        creditMapper.insert(new CreditDO(userId, activityId, "2", DateUtils.getNowDate()));
+        creditService.addCredit(new CreditDO(userId, activityId, "2", DateUtils.getNowDate()));
 
         List<String> userEmailList = activityMapper.getUserEmails(activityId);
         userEmailList.remove(activityMapper.getCreatorEmail(activityId));
         ActivityDO activity = activityMapper.getById(activityId);
+        activity.setInvalided("6");
         activityMapper.updateActivityInvalided(activityId, "6");
 
         String content = "活动“" + activity.getTheme() +
                 "(" + activity.getStartDate().substring(5, 10) +
                 "——" + activity.getEndDate().substring(5, 10) + ")”已经由发起者取消，抱歉给您带来不便。";
         map.put("userEmailList", userEmailList);
-        map.put("state", sendEmail(userEmailList, content, 1));
+        map.put("state", String.valueOf(sendEmail(userEmailList, content, 1)));
         return map;
     }
 
     @Override
     public int breakUpActivity(String userId, String activityId) {
         userMapper.updateBreakNum(userId);
-        creditMapper.insert(new CreditDO(userId, activityId, "1", DateUtils.getNowDate()));
+        creditService.addCredit(new CreditDO(userId, activityId, "1", DateUtils.getNowDate()));
         List<String> userEmailList = activityMapper.getUserEmails(activityId);
         ActivityDO activity = activityMapper.getById(activityId);
         UserDO user = userMapper.getById(userId);
         String content = "您报名的活动“" + activity.getTheme() +
                 "(" + activity.getStartDate().substring(5, 10) +
                 "——" + activity.getEndDate().substring(5, 10) + ")”中，用户“" + user.getUserName() + "”由于个人原因无法参加，抱歉给您带来不便。";
-        //return sendEmail(userEmailList, content, 2);
-        return 0;
+        return sendEmail(userEmailList, content, 2);
+        //return 0;
     }
 
     @Override
@@ -160,7 +208,7 @@ public class ActivityServiceImpl implements ActivityService {
                 "(" + activity.getStartDate().substring(5, 10) +
                 "——" + activity.getEndDate().substring(5, 10) + ")”，发起者提示您提前准备，按时集合。";
         map.put("userEmailList", userEmailList);
-        map.put("state", sendEmail(userEmailList, content, 1));
+        map.put("state", sendEmail(userEmailList, content, 3));
         return map;
     }
 
@@ -179,13 +227,13 @@ public class ActivityServiceImpl implements ActivityService {
                 //设置邮件主题
                 switch (type) {
                     case 1:
-                        simpleMailMessage.setSubject("发起人提醒您按时参加");
+                        simpleMailMessage.setSubject("活动取消");
                         break;
                     case 2:
                         simpleMailMessage.setSubject("某用户无法参加");
                         break;
                     case 3:
-                        simpleMailMessage.setSubject("活动取消");
+                        simpleMailMessage.setSubject("发起人提醒您按时参加");
                         break;
                 }
                 //设置邮件内容
@@ -234,14 +282,22 @@ public class ActivityServiceImpl implements ActivityService {
             activityMapper.updateActivityInvalided(activity.getActivityId(), "7");
             activity.setInvalided("7");
             return 7;
-        } else if (!"6".equals(activity.getInvalided()) && creditMapper.get(activity.getUserId(), activity.getActivityId()) != null) {
+        } else if (!"6".equals(activity.getInvalided()) &&
+                creditService.get(new CreditDO(activity.getUserId(),
+                        activity.getActivityId(),
+                        null,
+                        null)) != null) {
             //活动被取消
             activityMapper.updateActivityInvalided(activity.getActivityId(), "6");
             activity.setInvalided("6");
             return 6;
         } else {
-            activity.setInvalided("0");
-            return 0;
+            if (activity.getInvalided() != "0")
+                return Integer.parseInt(activity.getInvalided());
+            else {
+                activity.setInvalided("0");
+                return 0;
+            }
         }
     }
 
@@ -258,6 +314,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivityBaseVO> getCreateActivity(String userId) {
         return activityMapper.getCreateActivity(userId);
+    }
+
+    @Override
+    public List<ActivityBaseVO> getHistoryActivity(String userId) {
+        return activityMapper.getHistoryActivity(userId);
     }
 
     @Override

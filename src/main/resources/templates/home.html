@@ -17,21 +17,25 @@
         <span id="discovery">发现</span>
     </div>-->
     <div id="searchDiv">
-        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
-        <img id="search" th:src="@{~/img/icon/search.ico}"/>
-        <!--<span id="goToRegister">注册</span>或
-        <sapn id="goToLogin">登录</sapn>-->
+        <!--<input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+        <img id="search" th:src="@{~/img/icon/search.ico}"/>-->
+        <div id="loginDiv">
+            <span id="goToRegister">注册</span>或
+            <sapn id="goToLogin">登录</sapn>
+        </div>
     </div>
     <div id="personal">
         <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
         <!--<img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>-->
         <img class="personalCenter" id="goToHome" th:src="@{~/img/icon/user.ico}"/>
+        <img class="personalCenter" id="logout" th:src="@{~/img/icon/logout.ico}"/>
     </div>
 </div>
 <div id="main">
     <div id="personalInfo">
         <div id="headImg"></div>
-        <form action="/updateUserHeadImg" method="post" enctype="multipart/form-data" name="imgForm" id="imgForm"
+        <form action="/updateUserHeadImg" method="post" enctype="multipart/form-data" name="imgForm"
+              id="imgForm"
               hidden="hidden">
             <input type="file" accept="image/*" id="imgInput" class="form-control" name="imgInput"/>
             <input type="text" name="userId" id="imgUserId"/>
@@ -75,11 +79,11 @@
         <div id="credit">
             <div id="cancelNum">
                 <span class="infoTitle">取消活动</span>
-                <span class="info"><span style="color: rgb(255,0,0)"></span>/10</span>
+                <span class="info"><span style="color: rgb(255,0,0)"></span></span>
             </div>
             <div id="breakNum">
                 <span class="infoTitle">无法参加</span>
-                <span class="info"><span style="color: rgb(255,0,0)"></span>/30</span>
+                <span class="info"><span style="color: rgb(255,0,0)"></span></span>
             </div>
         </div>
     </div>
@@ -98,31 +102,3 @@
 </div>
 </body>
 </html>
-<!--
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>21:30-22:00</span>
-                    <span>燕山大学第一体育场</span>
-                    <span>报名/最大：10/15</span>
-                    <span>男：女=7：3</span>
-                    <span>夜跑计划</span>
-                    <span class=".followerInfo">其他参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="cancel">无法参加</div>
-                </div>
-            </div>
-            <div class="activityDetail">
-                <div class="activityInfo">
-                    <span>13:00-17:00</span>
-                    <span>燕山大学第一体育场</span>
-                    <span>报名/最大：10/15</span>
-                    <span>男：女=5：5</span>
-                    <span>趣味运动会</span>
-                    <span class="followerInfo">具体参与者信息</span>
-                </div>
-                <div class="operations">
-                    <div class="notice">一键通知</div>
-                    <div class="cancel">取消活动</div>
-                </div>
-            </div>-->

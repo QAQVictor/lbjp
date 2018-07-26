@@ -6,7 +6,7 @@
         <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
         <result column="activity_id" property="activityId" jdbcType="VARCHAR"/>
         <result column="star_id" property="starId" jdbcType="VARCHAR"/>
-        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
     </resultMap>
     <insert id="insert" parameterType="com.personal.model.DO.HistoryDO">
@@ -15,8 +15,41 @@
         #{tagId,jdbcType=INTEGER},
         #{activityId,jdbcType=VARCHAR},
         #{starId,jdbcType=VARCHAR},
-        #{createDate，jdbcType=VARCHAR},
+        #{createDate,jdbcType=VARCHAR},
         #{type,jdbcType=INTEGER}
         )
     </insert>
+
+    <update id="update" parameterType="com.personal.model.DO.HistoryDO">
+        UPDATE history
+        SET create_date=#{createDate}
+        WHERE user_id=#{userId,jdbcType=VARCHAR}
+        <if test="tagId != null">
+            AND tag_id=#{tagId,jdbcType=VARCHAR}
+        </if>
+        <if test="activityId != null">
+            AND activity_id=#{activityId,jdbcType=VARCHAR}
+        </if>
+        <if test="starId != null">
+            AND star_id=#{starId,jdbcType=VARCHAR}
+        </if>
+        AND type=#{type}
+
+    </update>
+
+    <select id="select" parameterType="com.personal.model.DO.HistoryDO" resultMap="HistoryDOMap">
+        SELECT * FROM history
+        <where>
+            <if test="type == 1">
+                activity_id=#{activityId,jdbcType=VARCHAR}
+            </if>
+            <if test="type == 2">
+                tag_id=#{tagId,jdbcType=INTEGER}
+            </if>
+            <if test="type == 3">
+                star_id=#{starId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        AND user_id=#{userId,jdbcType=VARCHAR}
+    </select>
 </mapper>

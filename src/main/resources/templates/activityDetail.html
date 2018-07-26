@@ -16,15 +16,18 @@
         <span id="discovery">发现</span>
     </div>-->
     <div id="searchDiv">
-        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
-        <img id="search" th:src="@{~/img/icon/search.ico}"/>
-        <!--<span id="goToRegister">注册</span>或
-        <sapn id="goToLogin">登录</sapn>-->
+        <!--<input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+        <img id="search" th:src="@{~/img/icon/search.ico}"/>-->
+        <div id="loginDiv">
+        <span id="goToRegister">注册</span>或
+        <sapn id="goToLogin">登录</sapn>
+        </div>
     </div>
     <div id="personal">
         <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
         <!--<img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>-->
         <img class="personalCenter" th:src="@{~/img/icon/user.ico}"/>
+        <img class="personalCenter" id="logout" th:src="@{~/img/icon/logout.ico}"/>
     </div>
 </div>
 <div id="main">

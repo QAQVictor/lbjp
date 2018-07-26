@@ -81,7 +81,7 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().setAttribute("user", null);
-        return "/index";
+        return "redirect:index";
     }
 
     /**

@@ -201,7 +201,11 @@
     </select>
 
     <select id="getActualNum" resultType="java.lang.Integer" parameterType="java.lang.String">
-        SELECT COUNT(*) FROM activity
+        SELECT COUNT(*)-
+                (select count(*) from credit_list
+                            where activity_id=#{activityId,jdbcType=VARCHAR}
+                            and credit_type="1")
+        FROM activity
         LEFT JOIN entry_list ON activity.activity_id=entry_list.activity_id
         WHERE activity.activity_id=#{activityId,jdbcType=VARCHAR}
         GROUP BY activity.activity_id
@@ -209,49 +213,53 @@
 
     <select id="getJoinActivityByDay" resultMap="ScheduleActivityVOMap" parameterType="java.lang.String">
         SELECT
-               activity.activity_id,
-               activity.start_date,
-               activity.end_date,
-               activity.theme,
-               activity.planned_num,
-               activity.tag_id,tag_name,
-               activity.creator,user_name,
-               activity.invalided,
-               COUNT(entry_list.user_id) actual_num
-        FROM activity
-        LEFT JOIN tags ON (activity.tag_id=tags.tag_id)
-        LEFT JOIN user ON (activity.creator=user.user_id)
-        LEFT JOIN entry_list ON activity.activity_id=entry_list.activity_id
-        WHERE  activity.activity_id IN(
-          SELECT activity_id FROM entry_list WHERE user_id=#{userId,jdbcType=VARCHAR}
+        t1.*,
+        t4.tag_name,
+        t5.user_name
+        FROM
+        (
+        SELECT
+        activity_id,start_date,end_date,theme,planned_num,invalided,tag_id,creator
+        FROM
+        activity
+        WHERE
+        activity_id IN (
+        SELECT
+        activity_id
+        FROM
+        entry_list
+        WHERE
+        user_id = #{userId,jdbcType=VARCHAR}
         )
-        AND activity.creator &lt;&gt;#{userId,jdbcType=VARCHAR}
-        AND activity.start_date &gt;=#{date,jdbcType=VARCHAR}
-        AND activity.end_date &lt;=#{date1,jdbcType=VARCHAR}
-        GROUP BY activity.activity_id
-        ORDER BY activity.start_date
+        AND creator &lt;&gt; #{userId,jdbcType=VARCHAR}
+        AND DATE_FORMAT(start_date,'%Y-%m-%d') = DATE_FORMAT(#{date,jdbcType=VARCHAR},'%Y-%m-%d')
+		AND DATE_FORMAT(end_date,'%Y-%m-%d') = DATE_FORMAT(#{date1,jdbcType=VARCHAR},'%Y-%m-%d')
+        ) t1
+        INNER JOIN (SELECT * FROM tags) t4 ON t1.tag_id = t4.tag_id
+        INNER JOIN (SELECT * FROM user) t5 ON t1.creator = t5.user_id
+        ORDER BY
+        t1.start_date
     </select>
 
     <select id="getCreateActivityByDay" resultMap="ScheduleActivityVOMap" parameterType="java.lang.String">
         SELECT
-               activity.activity_id,
-               activity.start_date,
-               activity.end_date,
-               activity.theme,
-               activity.planned_num,
-               activity.tag_id,tag_name,
-               activity.creator,user_name,
-               activity.invalided,
-               COUNT(entry_list.user_id) actual_num
-        FROM activity
-        LEFT JOIN tags ON (activity.tag_id=tags.tag_id)
-        LEFT JOIN user ON (activity.creator=user.user_id)
-        LEFT JOIN entry_list ON activity.activity_id=entry_list.activity_id
-        WHERE  activity.creator=#{userId,jdbcType=VARCHAR}
-        AND activity.start_date &gt;=#{date,jdbcType=VARCHAR}
-        AND activity.end_date &lt;=#{date1,jdbcType=VARCHAR}
-        GROUP BY activity.activity_id
-        ORDER BY activity.start_date
+        t1.*,
+        t4.tag_name,
+        t5.user_name
+        FROM
+        (
+        SELECT
+        activity_id,start_date,end_date,theme,planned_num,invalided,tag_id,creator
+        FROM
+        activity
+        WHERE creator=#{userId,jdbcType=VARCHAR}
+        AND DATE_FORMAT(start_date,'%Y-%m-%d') = DATE_FORMAT(#{date,jdbcType=VARCHAR},'%Y-%m-%d')
+		AND DATE_FORMAT(end_date,'%Y-%m-%d') = DATE_FORMAT(#{date1,jdbcType=VARCHAR},'%Y-%m-%d')
+        ) t1
+        INNER JOIN (SELECT * FROM tags) t4 ON t1.tag_id = t4.tag_id
+        INNER JOIN (SELECT * FROM user) t5 ON t1.creator = t5.user_id
+        ORDER BY
+        t1.start_date
     </select>
 
     <select id="judgeByDate" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -275,7 +283,7 @@
     </select>
 
     <select id="getCreator" parameterType="java.lang.String" resultType="java.lang.String">
-        SELECT creator FROM activiy WHERE activity_id=#{activityId,jdbcType=VARCHAR}
+        SELECT creator FROM activity WHERE activity_id=#{activityId,jdbcType=VARCHAR}
     </select>
 
     <update id="updateActivityInvalided" parameterType="java.lang.String">
@@ -288,7 +296,9 @@
         FROM activity
         WHERE creator=#{userId,jdbcType=VARCHAR}
     </select>
-
+    <select id="getJoinActivityNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM entry_list WHERE user_id=#{userId,jdbcType=VARCHAR}
+    </select>
     <select id="getJoinActivity" resultMap="ActivityBaseVOMap" parameterType="java.lang.String">
         SELECT
         <include refid="Activity_Base_Info_List"/>
@@ -298,7 +308,7 @@
         LEFT JOIN agree ON activity.activity_id= agree.activity_id
         LEFT JOIN user ON activity.creator= user.user_id
         LEFT JOIN tags ON activity.tag_id= tags.tag_id
-        RIGHT JOIN entry_list ON activity.activity_id=entry_list.activity_id
+        INNER JOIN entry_list ON activity.activity_id=entry_list.activity_id
         WHERE entry_list.user_id=#{userId,jdbcType=VARCHAR}
         GROUP BY activity.activity_id
         ORDER BY activity.entry_start_date
@@ -318,6 +328,21 @@
         ORDER BY activity.entry_start_date
     </select>
 
+    <select id="getHistoryActivity" resultMap="ActivityBaseVOMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        INNER JOIN history on activity.activity_id=history.activity_id
+        WHERE history.user_id=#{userId,jdbcType=VARCHAR}
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+
     <select id="getCreatorEmail" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT user.email
         FROM user
@@ -325,4 +350,91 @@
         WHERE activity.activity_id=#{activityId,jdbcType=VARCHAR}
     </select>
 
+    <select id="getActivityByStar" parameterType="java.lang.String" resultMap="ActivityBaseVOMap">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.activity_id IN(
+        select distinct activity_id from entry_list where user_id in(
+        select distinct star_id from follow where follower_id=#{userId,jdbcType=VARCHAR}
+        )
+        )
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+    <select id="getActivityByHobby" parameterType="java.lang.String" resultMap="ActivityBaseVOMap">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.tag_id IN(
+        select distinct tag_id from hobby where user_id=#{userId,jdbcType=VARCHAR}
+        )
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+    <select id="getActivityByHistory" parameterType="java.lang.String" resultMap="ActivityBaseVOMap">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.tag_id IN (
+        select distinct tag_id from activity where activity_id in(
+        select distinct activity_id from history where user_id=#{userId,jdbcType=VARCHAR}
+        and datediff(DATE_FORMAT(now(),'%Y-%m-%d'),DATE_FORMAT(create_date,'%Y-%m-%d'))&lt;=7
+        )
+        )
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+    <select id="getActivityByEntry" parameterType="java.lang.String" resultMap="ActivityBaseVOMap">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.tag_id IN (
+        select distinct tag_id from activity where activity_id in(
+        select distinct activity_id from entry_list where user_id=#{userId,jdbcType=VARCHAR}
+        and datediff(DATE_FORMAT(now(),'%Y-%m-%d'),DATE_FORMAT(create_date,'%Y-%m-%d'))&lt;=7
+        )
+        )
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
+    <select id="getActivityBySchool" parameterType="java.lang.String" resultMap="ActivityBaseVOMap">
+        SELECT
+        <include refid="Activity_Base_Info_List"/>
+        FROM
+        activity
+        LEFT JOIN comment on activity.activity_id= comment.activity_id
+        LEFT JOIN agree on activity.activity_id= agree.activity_id
+        LEFT JOIN user on activity.creator= user.user_id
+        LEFT JOIN tags on activity.tag_id= tags.tag_id
+        WHERE activity.activity_id IN(
+        select distinct activity_id from activity WHERE creator IN(
+        select distinct user_id from user where school=(
+        select school from user where user_id=#{userId,jdbcType=VARCHAR}
+        ) and school !='' and school is not null and user_id !=#{userId,jdbcType=VARCHAR}
+        )
+        )
+        GROUP BY activity.activity_id
+        ORDER BY activity.entry_start_date
+    </select>
 </mapper>

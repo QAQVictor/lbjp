@@ -20,9 +20,23 @@ $(function () {
     if (type == 1) {
         //最近浏览
         $.ajax({
-            url: "",
-            success: function () {
-
+            url: "getHistoryActivity",
+            data:"userId="+userId,
+            success: function (data) {
+                $.each(data.historyActivityList, function (idx, item) {
+                    var activity = $("<div class='activity' id='" + item.activityId + "'></div>");
+                    activity.html(
+                        "<div class='infoDiv' id='" + item.creator + "' >" +
+                        "<img class='userHeadImg' style='width: 30px;height: 30px;' src='" + item.headImgPath + "'/>" +
+                        "<span class='userName'>" + item.userName + "</span>" +
+                        "<span class='userRemark'>" + item.remark + "</span>" +
+                        "<span class='tag'>" + item.tagName + "</span>" +
+                        "</div>" +
+                        "<span class='title'>" + item.theme + "</span>" +
+                        "<p class='content'>" + item.content + "</p>"
+                    );
+                    $("#detail").append($(activity));
+                });
             }
         })
     } else if (type == 2) {
@@ -30,7 +44,6 @@ $(function () {
         $.ajax({
             url: "getCreateActivity",
             data: "userId=" + userId,
-            //dataType: "json",
             success: function (data) {
                 //alert(typeof data.createActivityList);
                 //createActivity(data.createActivityList);
@@ -44,13 +57,7 @@ $(function () {
                         "<span class='tag'>" + item.tagName + "</span>" +
                         "</div>" +
                         "<span class='title'>" + item.theme + "</span>" +
-                        "<p class='content'>" + item.content + "</p>" +
-                        "<div class='operations'>" +
-                        "<div><img src='/img/icon/comments.ico'/><span class='comments'>" + item.commentNum + "条评论</span></div>" +
-                        "<div><img src='/img/icon/thumb.ico'/><span class='nice'>" + item.agreeNum + "个赞</span></div>" +
-                        "<div><img src='/img/icon/star0.ico'/><span class='star'>收藏</span></div>" +
-                        "<div><img src='/img/icon/pay.ico'/><span class='admire'>赞赏</span></div>" +
-                        "</div>"
+                        "<p class='content'>" + item.content + "</p>"
                     );
                     $("#detail").append($(activity));
                 });
@@ -84,13 +91,7 @@ function createActivity(list) {
             "<span class='tag'>" + item.tagName + "</span>" +
             "</div>" +
             "<span class='title'>" + item.theme + "</span>" +
-            "<p class='content'>" + item.content + "</p>" +
-            "<div class='operations'>" +
-            "<div><img src='/img/icon/comments.ico'/><span class='comments'>" + item.commentNum + "条评论</span></div>" +
-            "<div><img src='/img/icon/thumb.ico'/><span class='nice'>" + item.agreeNum + "个赞</span></div>" +
-            "<div><img src='/img/icon/star0.ico'/><span class='star'>收藏</span></div>" +
-            "<div><img src='/img/icon/pay.ico'/><span class='admire'>赞赏</span></div>" +
-            "</div>"
+            "<p class='content'>" + item.content + "</p>"
         );
         $("#detail").append($(activity));
     });

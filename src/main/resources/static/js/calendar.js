@@ -230,8 +230,8 @@ function getTodayActivity(date) {
                     var nowTimeStamp = Date.parse(new Date());
                     if (Date.parse(new Date(item.startDate)) > nowTimeStamp) {
                         operations.html(
-                            "<div class='notice' onclick='noticeAll()'>一键通知</div>" +
-                            "<div class='cancel' onclick='cancel()'>取消活动</div>"
+                            "<div class='notice' onclick='noticeAll(this)'>一键通知</div>" +
+                            "<div class='cancel' onclick='cancel(this)'>取消活动</div>"
                         );
                     } else if (Date.parse(new Date(item.endDate)) >= nowTimeStamp) {
                         operations.html(
@@ -270,7 +270,7 @@ function getTodayActivity(date) {
                     var nowTimeStamp = Date.parse(new Date());
                     if (Date.parse(new Date(item.startDate)) > nowTimeStamp) {
                         operations.html(
-                            "<div class='cancel' onclick='breakUp()'>无法参加</div>"
+                            "<div class='cancel' onclick='breakUp(this)'>无法参加</div>"
                         );
                     } else if (Date.parse(new Date(item.endDate)) >= nowTimeStamp) {
                         operations.html(
@@ -301,10 +301,11 @@ function noticeAll() {
     var activityId = $(".notice").parent().attr("id");
     $.ajax({
         url: "noticeAll",
-        data: "activity=" + activityId,
+        data: "activityId=" + activityId,
         success: function (data) {
-            if (data == "1") {
-
+            alert(data);
+            if (data == 0) {
+                alert("邮件已发送");
             } else {
 
             }
@@ -312,17 +313,24 @@ function noticeAll() {
     })
 }
 
-function cancel() {
-    var activityId = $(this).parent().attr("id");
-    alert(activityId);
-    var confirm = confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）");
-    if (confirm == true) {
+function cancel(thisElement) {
+    //var activityId = $("#mineActivity .cancel").parent().attr("id");
+    //alert($(thisElement).html());
+    var activityId = $(thisElement).parent().attr("id");
+    //return;
+    //alert(activityId);
+    if (confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）")) {
+        $(thisElement).removeAttr('onclick');
         $.ajax({
             url: "cancelActivity",
-            data: "",
+            data: "activityId=" + activityId,
             success: function (data) {
-                if (data == "1") {
-
+                if (data.state == "0") {
+                    $(thisElement).css("background-color", "rgb(179,179,179)");
+                    $(thisElement).css("color", "rgb(255,255,255)");
+                    $(thisElement).css("border-color", "rgb(179,179,179)");
+                    $(thisElement).html("已取消");
+                    $(thisElement).siblings("div .notice").remove();
                 } else {
 
                 }
@@ -331,20 +339,22 @@ function cancel() {
     }
 }
 
-function breakUp() {
-    var activityId = $(".cancel").parent().attr("id");
-    if (confirm("您确定取消此次活动吗？（取消活动的记录会记录在个人主页，会影响您的信用记录。）")) {
-        $(".cancel").removeAttr('onclick');
+function breakUp(thisElement) {
+    var activityId = $(thisElement).parent().attr("id");
+    //alert($(thisElement).html());
+    //return;
+    if (confirm("您确定无法参加此次活动吗？（此次记录会记录在个人主页，会影响您的信用记录。）")) {
+        $(thisElement).removeAttr('onclick');
         //3495-4094
         $.ajax({
             url: "breakUpActivity",
             data: "activityId=" + activityId + "&userId=" + localStorage.userId,
             success: function (data) {
                 if (data.state == "0") {
-                    $(".cancel").css("background-color", "rgb(179,179,179)");
-                    $(".cancel").css("color", "rgb(255,255,255)");
-                    $(".cancel").css("border-color", "rgb(179,179,179)");
-                    $(".cancel").html("已取消");
+                    $(thisElement).css("background-color", "rgb(179,179,179)");
+                    $(thisElement).css("color", "rgb(255,255,255)");
+                    $(thisElement).css("border-color", "rgb(179,179,179)");
+                    $(thisElement).html("已取消");
                 } else {
                     alert("取消失败，请及时和发起者联系。联系者邮箱：“" + data.creatorEmail + "”");
                 }

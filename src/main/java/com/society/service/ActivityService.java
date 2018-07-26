@@ -22,6 +22,8 @@ public interface ActivityService {
      */
     List<ActivityBaseVO> getAllActivity();
 
+    List<ActivityBaseVO> getIndexActivity(String userId);
+
     /**
      * 保存活动
      *
@@ -35,7 +37,7 @@ public interface ActivityService {
      * @param activityId
      * @return
      */
-    Map getActivity(String activityId);
+    Map<String, Object> getActivity(String activityId, String userId);
 
     /**
      * 报名,成功向前端传0，过期向前端传1，未开始传2，人数已满传3,已经报名传4,该时间段已有其他安排传5
@@ -86,7 +88,7 @@ public interface ActivityService {
      * @param activityId
      * @return
      */
-    Map<String,Object> cancelActivity(String activityId);
+    Map<String, Object> cancelActivity(String activityId);
 
     /**
      * 无法参加（通知其他人自己无法参加）
@@ -103,7 +105,7 @@ public interface ActivityService {
      * @param activityId
      * @return
      */
-    Map<String,Object> noticeAll(String activityId);
+    Map<String, Object> noticeAll(String activityId);
 
     /**
      * 获取用户创建的活动数目
@@ -129,8 +131,11 @@ public interface ActivityService {
      */
     List<ActivityBaseVO> getCreateActivity(String userId);
 
+    List<ActivityBaseVO> getHistoryActivity(String userId);
+
     /**
      * 获取创建人邮箱
+     *
      * @return
      */
     String getCreatorEmail(String activityId);

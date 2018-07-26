@@ -16,15 +16,18 @@
         <span id="discovery">发现</span>
     </div>-->
     <div id="searchDiv">
-        <input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
-        <img id="search" th:src="@{~/img/icon/search.ico}"/>
-        <!--<span id="goToRegister">注册</span>或
-        <sapn id="goToLogin">登录</sapn>-->
+        <!--<input id="searchInput" name="searchInput" type="text" placeholder="输入搜索内容"/>
+        <img id="search" th:src="@{~/img/icon/search.ico}"/>-->
+        <div id="loginDiv">
+        <span id="goToRegister">注册</span>或
+        <sapn id="goToLogin">登录</sapn>
+        </div>
     </div>
     <div id="personal">
         <img class="personalCenter" th:src="@{~/img/icon/schedule.ico}"/>
         <!--<img class="personalCenter" th:src="@{~/img/icon/letter.ico}"/>-->
         <img class="personalCenter" id="goToHome" th:src="@{~/img/icon/user.ico}"/>
+        <img class="personalCenter" id="logout" th:src="@{~/img/icon/logout.ico}"/>
     </div>
 </div>
 
@@ -51,16 +54,16 @@
     <ul id="mine">
         <li id="mine1">
             <div id="mine_1" class="iconDiv"></div>
-            <span>我要发帖</span>
+            <span>我要发起</span>
         </li>
         <li id="mine2">
             <div id="mine_2" class="iconDiv"></div>
             <span>我的收藏</span>
         </li>
-        <li id="mine3">
+    <!--    <li id="mine3">
             <div id="mine_3" class="iconDiv"></div>
             <span>我的赞赏</span>
-        </li>
+        </li>-->
         <li id="mine4">
             <div id="mine_4" class="iconDiv"></div>
             <span>最近查看</span>
@@ -69,41 +72,3 @@
 </div>
 </body>
 </html>
-<!--<div id="newActivity" hidden="hidden">
-    <img id="close" th:src="@{~/img/icon/close.ico}"/>
-    <h3 style="text-align: center">发帖</h3>
-    <span style="text-align: center;display: block;font-size: 12px;color: rgb(178,178,178);">发起一次活动，和未来的朋友一起结伴出行吧！</span>
-    <form id="addActivityForm">
-        <ul id="activityInfo">
-            <li id="newTitle">
-                <input type="text" id="activityTitle" placeholder="活动标题" name="theme"/>
-            </li>
-            <li id="newTag">
-                <input type="text" id="tag" placeholder="活动所属标签" name="tagName"/>
-                &lt;!&ndash; <select type="text" id="tag" placeholder="活动所属标签" name="tagSelect"/>&ndash;&gt;
-            </li>
-            <li id="newTime">
-                <span>活动起止时间</span>
-                <input type="date" placeholder="开始时间" name="startDate"/>
-                <input type="date" placeholder="结束时间" name="endDate"/>
-            </li>
-            <li id="newEntryTime">
-                <span>报名起止时间</span>
-                <input type="date" placeholder="开始时间" name="entryStartDate"/>
-                <input type="date" placeholder="结束时间" name="entryEndDate"/>
-            </li>
-            <li id="newNum">
-                <span>人数</span>
-                <input type="number" placeholder="人数限制" name="plannedNum"/>
-            </li>
-            <li id="newContent">
-                <span>具体活动内容</span>
-                <textarea id="content" cols="100" rows="6" hard="hard" name="content"
-                          placeholder="输入具体的活动内容"></textarea>
-            </li>
-            <li>
-                <input type="submit" value="发起" id="addActivity"/>
-            </li>
-        </ul>
-    </form>
-</div>-->

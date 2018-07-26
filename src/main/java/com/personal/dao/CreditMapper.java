@@ -35,4 +35,6 @@ public interface CreditMapper {
      * @return
      */
     int getCreditNum(@Param("userId") String userId, @Param("type") String type);
+
+
 }

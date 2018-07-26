@@ -233,6 +233,8 @@ $(function () {
             })
         }
     });
+
+
 });
 
 //蓝色粗线条移动
@@ -372,37 +374,9 @@ function initUserInfo(userId) {
         url: "getCreditNum?userId=" + userId,
         success: function (data) {
             $("#cancelNum").find("span").eq(1).find("span").eq(0).html(data.cancelNum);
+            $("#cancelNum").find("span").eq(1).append("/" + data.createNum);
             $("#breakNum").find("span").eq(1).find("span").eq(0).html(data.breakNum);
-        }
-    })
-}
-
-//初始化该用户的历史记录
-function initUserHistoryActivity() {
-
-}
-
-function initHistory() {
-
-}
-
-//初始化该用户发起的活动
-function initCreateActivity() {
-    $.ajax({
-        url: "getCreateActivity?userId=" + localStorage.userId,
-        success: function (data) {
-
-        }
-    })
-}
-
-//初始化该用户参与的活动
-function initJoinActivity() {
-    $.ajax({
-        url: "getJoinActivity?userId=" + localStorage.userId,
-        success: function (data) {
-            var activity = $("<div class='activity'></div>");
-            activity.html("<div></div>");
+            $("#breakNum").find("span").eq(1).append("/" + data.entryNum);
         }
     })
 }

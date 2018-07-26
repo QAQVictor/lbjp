@@ -5,7 +5,7 @@
         <id column="tag_id" property="tagId" jdbcType="INTEGER"/>
         <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
         <result column="creator" property="creator" jdbcType="VARCHAR"/>
-        <result column="create_date" property="tagName" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <resultMap id="TagBaseMap" type="com.personal.model.VO.TagVO">
