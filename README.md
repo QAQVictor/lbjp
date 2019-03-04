@@ -1,5 +1,5 @@
-# lbjpdemo  <div align="center">
-<img src="https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg" width="300" height="300" alt="拉帮结派"></img>
+# lbjpdemo  <div align="right">
+<img src="https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg" width="200" height="200" alt="拉帮结派"></img>
 </div>
  ## 毕设“拉帮结派”
  ### 2018-7-26
