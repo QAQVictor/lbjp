@@ -1,6 +1,8 @@
 # lbjpdemo
  ## 毕设“拉帮结派”
- ![Image text](https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg)
+<div align="center">
+<img src="https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg" width="300" height="300" alt="拉帮结派"></img>
+</div>
  ### 2018-7-26
  #### 毕业了，把最后的代码提上去
  > 毕业一个月了，突然想起来忘了提交最后的代码，大学再见！
