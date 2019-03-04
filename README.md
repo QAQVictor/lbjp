@@ -1,8 +1,7 @@
-<div align="right">
-<img src="https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg" width="200" height="200" alt="拉帮结派" style="float:right;"></img>
+<div style="float:right;">
+<img src="https://github.com/QAQVictor/lbjpdemo/blob/master/src/main/resources/static/%E6%8B%89%E5%B8%AE%E7%BB%93%E6%B4%BE.jpeg" width="100" height="100" alt="拉帮结派"></img>
 </div>
 
-# lbjpdemo  
  ## 毕设“拉帮结派”
  ### 2018-7-26
  #### 毕业了，把最后的代码提上去
